@@ -1,0 +1,43 @@
+:root {
+    --parimary-color: linear-gradient(45deg, #af7a26 0%, #af7a26 100%) !important;
+    --secondary-color: linear-gradient(45deg, #af7a26 0%, #af7a26 100%) !important;
+    --thirdary-color: #af7a26 !important;
+    --text-white: #fff !important;
+}
+
+#header.navbar-inverse .navbar-inner,
+.blueclr,
+.table th {
+    background: var(--parimary-color) !important;
+}
+
+#sidebar > ul > li > a:hover,
+#sidebar > ul > li:hover > a,
+.headd,
+.btn-danger,
+#sidebar > ul > li > ul.sub > li.active > a,
+#sidebar > ul > li > ul.sub > li > a:hover,
+#header .navbar-inner .nav .dropdown-toggle:hover,
+.navbar-inner .nav .dropdown.open .dropdown-toggle {
+    background: linear-gradient(45deg, #af7a26 0%, #af7a26 100%) !important;
+}
+
+.small-box.bg-greena,
+.gradientclr {
+    background-image: var(--secondary-color) !important;
+}
+
+.small-box.bg-sds,
+.small-box.bg-aquas4,
+.small-box.bg-aqua,
+.widget-title {
+    background: var(--secondary-color) !important;
+}
+
+.table-advance thead tr th {
+    color: var(--text-white) !important;
+}
+
+#header .navbar-inner .nav .dropdown-toggle:hover, .navbar-inner .nav .dropdown.open .dropdown-toggle, .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+    background-color: var(--thirdary-color) !important;
+}

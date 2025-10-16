@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Monthlyincome : System.Web.UI.Page
+{
+    DataTable dt = new DataTable();
+    DAL Objdal = new DAL();
+    string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        try
+        {
+
+            if (Session["Status"].ToString() == "OK")
+            {
+
+            }
+            else
+            {
+                Response.Redirect("logout.aspx");
+            }
+
+            if (!Page.IsPostBack)
+            {
+                Fill_Grid();
+            }
+        }
+        catch (Exception ex)
+        {
+            string path = HttpContext.Current.Request.Url.AbsoluteUri;
+            string text = path + ":  " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss:fff ") + Environment.NewLine;
+            Objdal.WriteToFile(text + ex.Message);
+            Response.Write("Try later.");
+            Response.Write(ex.Message);
+            Response.End();
+        }
+    }
+
+    private void Fill_Grid()
+    {
+        try
+        {
+            DataSet Ds = new DataSet();
+            string str = "";
+            str = Objdal.Isostart + "SELECT CAST(ROW_NUMBER() OVER(ORDER BY Idno, Sessid DESC) AS VARCHAR) AS SNo, " +
+                  "Sessid, PayoutDate AS [Payout Date], " +
+                  "EverestIncome, BinaryIncome, SpillIncome, MagicBinary, SLIIncome, NetIncomeAct AS [Gross Income Act], " +
+                  "NetIncome AS [Gross Income], TdsAmount AS [TDS Amount], AdminCharge AS [Admin Charge], CouponsAmt AS [Repurchase Deduction], " +
+                  "Deduction AS [Total Deduction], PrevBal AS [Previous Balance], chqAmt AS [Net Income], ClsBal AS [Carry Forward Balance], " +
+                  "ClubIncome, Wdeduct AS [Re Topup Deduction] " +
+                  "FROM " + Objdal.dBName + "..V#Monthlyincome " +
+                  "WHERE Formno='" + Session["Formno"].ToString() + "' AND Onwebsite='Y' " +
+                  "ORDER BY SNo DESC" + Objdal.IsoEnd;
+            
+            dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
+            Session["DirectIncome"] = dt;
+            if (dt.Rows.Count > 0)
+            {
+                RptDirects.DataSource = dt;
+                RptDirects.DataBind();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+}
+
