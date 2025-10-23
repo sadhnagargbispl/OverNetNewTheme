@@ -30,20 +30,7 @@
             width: 358px;
         }
     </style>
-    <script type="text/javascript">
-        function FnVillageChange(val) {
-
-            if (val == "381264") {
-
-                document.getElementById("divVillage").style.display = "block";
-
-            }
-            else {
-                document.getElementById("divVillage").style.display = "none";
-            }
-
-        }
-    </script>
+    
     
     <script>
         function openPopup(element) {

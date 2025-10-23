@@ -8,7 +8,7 @@
                 <%--  <h3 class="page-title">Change Withdrawal Password   </h3>--%>
                 <ul class="breadcrumb">
                     <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-                    <li><a href="#">Epin Detail</a><span class="divider-last">&nbsp;</span></li>
+                    <li><a href="#">Send Pin Detail</a><span class="divider-last">&nbsp;</span></li>
                 </ul>
             </div>
         </div>
@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="widget">
                                 <div class="widget-title">
-                                    <h4><i class="icon-credit-card"></i>Epin Detail</h4>
+                                    <h4><i class="icon-credit-card"></i>Send Pin Detail</h4>
                                     <span class="tools">
                                         <a href="javascript:;" class="icon-chevron-down"></a>
                                     </span>

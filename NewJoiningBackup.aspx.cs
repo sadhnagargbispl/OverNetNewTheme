@@ -1466,8 +1466,8 @@ public partial class NewJoiningBackup : System.Web.UI.Page
         //Fill_State();
 
         DataTable dtMaster = new DataTable();
-        string strQuery = "Select StateCode,StateName from M_StateDivMaster Where ActiveStatus = 'Y' And RowStatus =  'Y' and Statename='" + ddlStatename.SelectedItem.Text + "' ";
-        dtMaster = SqlHelper.ExecuteDataset(constr, CommandType.Text, strQuery).Tables[0];
+        string strQuery = ObjDAL.Isostart + "Select StateCode,StateName from " + ObjDAL.dBName + "..M_StateDivMaster Where ActiveStatus = 'Y' And RowStatus =  'Y' and Statename='" + ddlStatename.SelectedItem.Text + "' " + ObjDAL.IsoEnd;
+        dtMaster = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQuery).Tables[0];
 
         ddlStatename.DataSource = dtMaster;
         ddlStatename.DataValueField = "STATECODE";

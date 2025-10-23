@@ -406,9 +406,9 @@ public partial class KycbankDetail : System.Web.UI.Page
                         int i = obj.SaveData(q1);
                         if (i > 0)
                         {
-                            q1 = "SELECT MAX(BankCode) AS BankCode FROM M_BankMaster WHERE ActiveStatus = 'Y' AND RowStatus = 'Y'";
+                            q1 = ObjDal.Isostart + "SELECT MAX(BankCode) AS BankCode FROM " + ObjDal.dBName + "..M_BankMaster WHERE ActiveStatus = 'Y' AND RowStatus = 'Y'" + ObjDal.IsoEnd;
                             DataTable dt_ = new DataTable();
-                            dt_ = obj.GetData(q1);
+                            dt_ = SqlHelper.ExecuteDataset(constr1, CommandType.Text, q1).Tables[0];
                             if (dt_.Rows.Count > 0)
                             {
                                 dblBank = Convert.ToInt32(dt_.Rows[0]["BankCode"]);

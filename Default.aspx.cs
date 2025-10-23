@@ -20,14 +20,14 @@ public partial class Default : System.Web.UI.Page
     SqlCommand Cmm = new SqlCommand();
     int i;
     SqlDataReader dr;
-    
+
     DAL ObjDal = new DAL();
     DataTable Dt = new DataTable();
     ModuleFunction objModuleFun;
     string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
-    
+
     {
         //Session["Status"] = "";
         try
@@ -201,7 +201,7 @@ public partial class Default : System.Web.UI.Page
             if (uid.Length > 0 && Pwd.Length > 0)
             {
                 string scrname;
-                
+
                 SqlDataReader Dr;
 
                 string strSql = ObjDal.Isostart + " Exec sp_Login_New '" + ClearInject((uid == "" ? ClearInject(Txtuid.Value) : ClearInject(uid))) + "',";
@@ -337,7 +337,7 @@ public partial class Default : System.Web.UI.Page
         {
             if (uid.Length > 0 && Pwd.Length > 0)
             {
-                string Str = " Select * from M_FranchiseMaster where userid='" + uid + "' and passw='" + Pwd + "' ";
+                string Str = ObjDal.Isostart + " Select * from " + ObjDal.dBName + "..M_FranchiseMaster where userid='" + uid + "' and passw='" + Pwd + "' " + ObjDal.IsoEnd;
                 Dt = SqlHelper.ExecuteDataset(constr, CommandType.Text, Str).Tables[0];
                 if (Dt.Rows.Count > 0)
                 {
@@ -423,7 +423,7 @@ public partial class Default : System.Web.UI.Page
             bool result = false;
             DataTable dt = new DataTable();
             DataSet Ds = new DataSet();
-            string Str = ObjDal.Isostart + " Select TotalIncome from "+ ObjDal.dBName +"..IncomeSummary Where Formno = '" + Formno + "' " + ObjDal.IsoEnd;
+            string Str = ObjDal.Isostart + " Select TotalIncome from " + ObjDal.dBName + "..IncomeSummary Where Formno = '" + Formno + "' " + ObjDal.IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, Str);
             dt = Ds.Tables[0];
             if (Convert.ToInt32(dt.Rows[0]["TotalIncome"]) >= 2300)

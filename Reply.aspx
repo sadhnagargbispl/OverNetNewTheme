@@ -243,7 +243,6 @@ jQuery(document).ready(function($) {
     <!-- BEGIN CONTAINER -->
     <div id="container" class="row-fluid blueclr">
         <!-- BEGIN SIDEBAR -->
-        <!--#include file="inc_sidemenu.html"-->
         <!-- END SIDEBAR -->
         <form name="aspnetForm" method="post" action="#" id="aspnetForm" runat="server">
 

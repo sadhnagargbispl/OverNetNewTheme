@@ -61,12 +61,12 @@ public partial class Reply : System.Web.UI.Page
         try
         {
             CIdQS = Request.QueryString["CId"];
-            string sql = "Select M.IDNo,M.MemName,ISNULL(Replace(CONVERT(varchar,M.RecTimeStamp,106),' ','-'),'') as CDate,";
+            string sql = objDAL.Isostart + "Select M.IDNo,M.MemName,ISNULL(Replace(CONVERT(varchar,M.RecTimeStamp,106),' ','-'),'') as CDate,";
             sql += "M.CType,M.Complaint ,ISNULL(S.Solution,'') as Solution,ISNULL(Replace(CONVERT(varchar,S.RecTimeStamp,106),' ','-'),'') as SDate FROM";
             sql += "(Select b.MemFirstName +' '+ b.MemLastName as MemName,a.*";
             sql += " FROM " + objDAL.dBName + "..M_ComplaintMaster as a," + objDAL.dBName + "..M_MemberMaster as b";
             sql += " WHERE a.IDNo=b.IDNo AND a.CID='" + CIdQS + "') as M LEFT JOIN " + objDAL.dBName + "..M_SolutionMaster as S";
-               sql += " ON M.CID=S.CID";
+               sql += " ON M.CID=S.CID" + objDAL.IsoEnd;
             Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql).Tables[0];
             if (Dt.Rows.Count > 0)
             {

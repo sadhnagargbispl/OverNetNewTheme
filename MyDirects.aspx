@@ -9,7 +9,7 @@
                 <%--  <h3 class="page-title">Change Withdrawal Password   </h3>--%>
                 <ul class="breadcrumb">
                     <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-                    <li><a href="#">Level Wise Report</a><span class="divider-last">&nbsp;</span></li>
+                    <li><a href="#">Level Wise Direct Report</a><span class="divider-last">&nbsp;</span></li>
                 </ul>
             </div>
         </div>
@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="widget">
                                 <div class="widget-title">
-                                    <h4><i class="icon-credit-card"></i>Level Wise Report</h4>
+                                    <h4><i class="icon-credit-card"></i>Level Wise Direct Report</h4>
                                     <span class="tools">
                                         <a href="javascript:;" class="icon-chevron-down"></a>
                                     </span>
@@ -88,7 +88,8 @@
                                             </div>
 
                                         </div>
-                                                   <br /><br />
+                                        <br />
+                                        <br />
                                         <div class="sda-content-3">
                                             <table id="table" class="table table-bordered table-striped">
                                                 <tbody>
@@ -134,29 +135,83 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <br /><br />
-                                        <div id="DivSideA" runat="server">
-                                            <asp:UpdatePanel ID="UpdatePanel7" runat="server">
-                                                <ContentTemplate>
-                                                    <div style="overflow: scroll;">
-                                                        <asp:Label ID="Label1" runat="server" Text="Total Records"></asp:Label>
-                                                        <asp:Label ID="lbltotal" runat="server"></asp:Label>
-                                                        <asp:GridView ID="RptDirects" runat="server" AutoGenerateColumns="true" CssClass="table table-bordered table-striped"
-                                                            AllowPaging="true" PageSize="10" OnPageIndexChanging="RptDirects_PageIndexChanging">
-                                                            <Columns>
-                                                                <asp:TemplateField HeaderText="SNo">
-                                                                    <ItemTemplate>
-                                                                        <%#Container.DataItemIndex + 1%>
-                                                                    </ItemTemplate>
-                                                                </asp:TemplateField>
-                                                            </Columns>
-                                                        </asp:GridView>
-                                                    </div>
-                                                </ContentTemplate>
-                                                <Triggers>
-                                                    <asp:AsyncPostBackTrigger ControlID="BtnSubmit" EventName="Click" />
-                                                </Triggers>
-                                            </asp:UpdatePanel>
+                                        <br />
+                                        <br />
+                                        <div id="DivSideA" runat="server" class="sda-content-3">
+                                            <asp:Label ID="Label1" runat="server" Text="Total Records"></asp:Label>
+                                            <asp:Label ID="lbltotal" runat="server"></asp:Label>
+                                            <div class="table-responsive" style="overflow: scroll;">
+                                                <table id="customers2" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>SNo
+                                                            </th>
+                                                            <th>Level
+                                                            </th>
+                                                            <th>ID No
+                                                            </th>
+                                                            <th>Member Name
+                                                            </th>
+                                                            <th>Sponsor ID
+                                                            </th>
+                                                            <th>Sponsor Name
+                                                            </th>
+                                                            <th>BV
+                                                            </th>
+                                                            <th>Package Name
+                                                            </th>
+                                                            <th>Active Status
+                                                            </th>
+                                                            <th>Activation Date
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <asp:Repeater ID="RptDirects" runat="server">
+                                                            <ItemTemplate>
+                                                                <tr>
+                                                                    <td>
+                                                                        <asp:Label ID="lblRowNumber" Text='<%# Container.ItemIndex + 1 %>' runat="server" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <%#Eval("MLevel")%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%#Eval("IDNo")%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%#Eval("MemName")%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%#Eval("SponsorId")%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%#Eval("MemberName")%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%#Eval("BV")%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%#Eval("PackageName")%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%#Eval("Status")%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%#Eval("UpgradeDate") %>
+                                                                    </td>
+                                                                </tr>
+                                                            </ItemTemplate>
+                                                        </asp:Repeater>
+                                                    </tbody>
+                                                </table>
+                                                <!-- Paging buttons: Table ke bahar hi add karein -->
+                                                <div style="margin-top: 10px; text-align: center;">
+                                                    <asp:Button ID="btnPrevious" runat="server" Text="Previous" OnClick="btnPrevious_Click" />
+                                                    <asp:Label ID="lblPageInfo" runat="server" Text=""></asp:Label>
+                                                    <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

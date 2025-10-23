@@ -15,7 +15,6 @@ public partial class welcome : System.Web.UI.Page
 {
     private DAL ObjDal = new DAL();
     private string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
-    private string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -92,70 +91,11 @@ public partial class welcome : System.Web.UI.Page
             throw new Exception(ex.Message);
         }
     }
-    private void SendHtmlFormattedEmail(string recepientEmail, string subject, string body)
+   protected void BtnNewJoin_ServerClick(object sender, EventArgs e)
     {
         try
         {
-            MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress(Session["CompMail"].ToString());
-            mailMessage.Subject = subject;
-            mailMessage.Body = body;
-            mailMessage.IsBodyHtml = true;
-            mailMessage.To.Add(new MailAddress(recepientEmail));
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = Session["MailHost"].ToString();
-            System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
-            NetworkCred.UserName = Session["CompMail"].ToString();
-            NetworkCred.Password = Session["MailPass"].ToString();
-            smtp.UseDefaultCredentials = true;
-            smtp.Credentials = NetworkCred;
-            smtp.Send(mailMessage);
-        }
-        catch (Exception ex)
-        {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "alertMessage", "alert('" + ex.Message + "')", true);
-        }
-    }
-
-    private string PopulateBody(string IdNo, string Email, string MemberName, string Password, string EPassword, string Panno, string PlacementId, string PlacementName, string ReceiptNo, string ApplicationNo, string Address, string City, string District, string Statename, string kitName, string Kitamount, string Mobileno, string Doj)
-    {
-        try
-        {
-            string body = string.Empty;
-            StreamReader reader = new StreamReader(Server.MapPath("~/welcome.htm"));
-            body = reader.ReadToEnd();
-            body = body.Replace("{CompName}", Session["CompName"].ToString());
-            body = body.Replace("{Idno}", IdNo);
-            body = body.Replace("{Name}", MemberName);
-            body = body.Replace("{Address}", Address);
-            body = body.Replace(" {City}", City);
-            body = body.Replace(" {District}", District);
-            body = body.Replace(" {State}", Statename);
-            body = body.Replace(" {Mobile}", Mobileno);
-            body = body.Replace("{DOJ}", Doj);
-            body = body.Replace("{PlacementId}", PlacementId);
-            body = body.Replace("{PlacementName}", PlacementName);
-            body = body.Replace(" {KitName}", kitName);
-            body = body.Replace(" {KitAmount}", Kitamount);
-            body = body.Replace(" {Application}", ApplicationNo);
-            body = body.Replace(" {Receipt}", ReceiptNo);
-            body = body.Replace(" {Email}", Email);
-            body = body.Replace(" {Panno}", Panno);
-            body = body.Replace("{Passw}", Password);
-            body = body.Replace("{EPassw}", EPassword);
-            return body;
-        }
-        catch (Exception ex)
-        {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "alertMessage", "alert('" + ex.Message + "')", true);
-            return null;
-        }
-    }
-    protected void BtnNewJoin_ServerClick(object sender, EventArgs e)
-    {
-        try
-        {
-            Response.Redirect("NewJoining1.aspx");
+            Response.Redirect("NewJoiningBackup.aspx");
         }
         catch(Exception ex)
         {

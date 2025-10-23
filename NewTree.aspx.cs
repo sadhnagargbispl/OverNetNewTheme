@@ -77,9 +77,9 @@ public partial class NewTree : System.Web.UI.Page
             //// conn.Close()
             ////return FormNo;
             DataTable dt = new DataTable();
-            string strSql = "Select FormNo From M_MemberMaster Where IDNo='" + Convert.ToString (IDNo) + "'";
+            string strSql = obj.Isostart + "Select FormNo From " + obj.dBName + "..M_MemberMaster Where IDNo='" + Convert.ToString (IDNo) + "'" + obj.IsoEnd;
             DataSet ds = new DataSet();
-            ds = SqlHelper.ExecuteDataset(constr, CommandType.Text, strSql);
+            ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = ds.Tables[0];
             if (dt.Rows.Count> 0)
             {
@@ -211,18 +211,18 @@ public partial class NewTree : System.Web.UI.Page
             //strQuery = " Select FormnoDwn FROM M_MemTreeRelation WHERE  FormNoDwn=" + Request["DownLineFormNo"] + " AND  FormNo=" + Session["FORMNO"];
             if (Request["DownLineFormNo"] == null)
             {
-                strQuery = " Select FormnoDwn FROM M_MemTreeRelation WHERE FormNo=" + Session["FORMNO"];
+                strQuery = obj.Isostart + " Select FormnoDwn FROM " + obj.dBName + "..M_MemTreeRelation WHERE FormNo=" + Session["FORMNO"] + obj.IsoEnd;
 
             }
             else
             {
-                strQuery = " Select FormnoDwn FROM M_MemTreeRelation WHERE  FormNoDwn=" + Request["DownLineFormNo"] + " AND  FormNo=" + Session["FORMNO"];
+                strQuery = obj.Isostart + " Select FormnoDwn FROM " + obj.dBName + "..M_MemTreeRelation WHERE  FormNoDwn=" + Request["DownLineFormNo"] + " AND  FormNo=" + Session["FORMNO"] + obj.IsoEnd;
             }
 
            
             DataTable dt;
             dt = new DataTable();
-            dt = obj.GetData(strQuery);
+            dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQuery).Tables[0];
 
             if (dt.Rows.Count <= 0)
                 //CheckDownLineMemberTree = false;
@@ -249,6 +249,7 @@ public partial class NewTree : System.Web.UI.Page
 
             // conn = New SqlConnection(Application("Connect"))
             // conn.Open()
+
             Comm = new SqlCommand(strQuery, conn);
             Comm.CommandTimeout = 100000000;
             Adp1 = new SqlDataAdapter(Comm);

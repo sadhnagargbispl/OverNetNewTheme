@@ -1,1 +1,0 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ProccessApi.aspx.cs" Inherits="ProccessApi" %>

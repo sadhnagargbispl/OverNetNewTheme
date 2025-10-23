@@ -64,8 +64,8 @@ public partial class ComplainSolution : System.Web.UI.Page
             //{
             //    ds = (DataSet)Session["DtFillDetail"];
             //}
-            string str = 
-    " Select M.IDNo, M.CID, Cast(M.CID as varchar) as VCId, M.MemName, " +
+            string str =
+   ObjDal.Isostart + " Select M.IDNo, M.CID, Cast(M.CID as varchar) as VCId, M.MemName, " +
     "ISNULL(REPLACE(CONVERT(varchar, M.RecTimeStamp, 106), ' ', '-'), '') as CDate, " +
     "M.CType, M.Complaint, ISNULL(S.Solution, '') as Solution, " +
     "ISNULL(REPLACE(CONVERT(varchar, S.RecTimeStamp, 106), ' ', '-'), '') as SDate, " +
@@ -75,7 +75,7 @@ public partial class ComplainSolution : System.Web.UI.Page
     "FROM " + ObjDal.dBName + "..M_ComplaintMaster as a, " +
     ObjDal.dBName + "..M_MemberMaster as b WHERE a.IDNo = b.IDNo AND a.IDNo = '" +
     Session["IDNo"] + "') as M LEFT JOIN " + ObjDal.dBName + "..M_SolutionMaster as S " +
-    "ON M.CID = S.CID WHERE 1 = 1 ORDER BY M.RecTimeStamp DESC" ;
+    "ON M.CID = S.CID WHERE 1 = 1 ORDER BY M.RecTimeStamp DESC" + ObjDal.IsoEnd;
             ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str);
             dt = new DataTable();
             dt = ds.Tables[0];

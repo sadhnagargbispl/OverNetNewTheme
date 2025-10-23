@@ -392,9 +392,8 @@ public partial class Pancard : System.Web.UI.Page
             bool result = false;
             DataTable dt12 = new DataTable();
             DataSet ds12 = new DataSet();
-            string str12 = "SELECT COUNT(panno) AS cnt FROM KycVerify AS a, m_membermaster AS b WHERE a.formno = b.formno AND Panno <> '' AND Ispanverified<>'R' AND panno = @panno";
-
-            string connectionString = constr;
+            string str12 = ObjDal.Isostart + "SELECT COUNT(panno) AS cnt FROM " + ObjDal.dBName + "..KycVerify AS a, " + ObjDal.dBName + "..m_membermaster AS b WHERE a.formno = b.formno AND Panno <> '' AND Ispanverified<>'R' AND panno = @panno" + ObjDal.IsoEnd;
+            string connectionString = constr1;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlDataAdapter da = new SqlDataAdapter(str12, conn);

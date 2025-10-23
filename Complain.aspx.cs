@@ -144,11 +144,11 @@ public partial class Complain : System.Web.UI.Page
         try
         {
             DataTable Dt = new DataTable();
-            string sql = "select top 1 ToUserEmail, CId,GroupName from " + ObjDal.dBName + "..M_ComplaintTypeMaster as a," +
+            string sql = ObjDal.Isostart + "select top 1 ToUserEmail, CId,GroupName from " + ObjDal.dBName + "..M_ComplaintTypeMaster as a," +
                 "" + ObjDal.dBName + "..M_ComplaintMaster as b," + ObjDal.dBName + "..M_UserMaster as c," + ObjDal.dBName + "..M_UserGroupMaster as d " +
                          "where a.CtypeId=b.CtypeId and c.UserId=a.UserId and c.GroupId=d.GroupId and d.ActiveStatus='Y' " +
                          "and d.RowStatus='Y' and  c.ActiveStatus='Y' and c.RowStatus='Y' and a.RowStatus='Y' and a.ActiveStatus='Y' " +
-                         "and a.CtypeId='" + Convert.ToInt32(CmbCmplntType.SelectedValue) + "' order by CId Desc";
+                         "and a.CtypeId='" + Convert.ToInt32(CmbCmplntType.SelectedValue) + "' order by CId Desc" + ObjDal.IsoEnd;
             Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql).Tables[0];
             string userEmail = "";
             if (Dt.Rows.Count > 0)
@@ -256,7 +256,7 @@ public partial class Complain : System.Web.UI.Page
                 {
 
                     DataTable Dt = new DataTable();
-                    string sql = "select Top 1 Cid  from " + ObjDal.dBName + "..M_ComplaintMaster where Idno = '" + TxtDirectSeller.Text.Trim() + "' and CTypeId = '" + Convert.ToInt32(CmbCmplntType.SelectedValue) + "'";
+                    string sql = ObjDal.Isostart + "select Top 1 Cid  from " + ObjDal.dBName + "..M_ComplaintMaster where Idno = '" + TxtDirectSeller.Text.Trim() + "' and CTypeId = '" + Convert.ToInt32(CmbCmplntType.SelectedValue) + "'" + ObjDal.IsoEnd;
                     Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql).Tables[0];
                     if (Dt.Rows.Count > 0)
                     {

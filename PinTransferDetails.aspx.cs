@@ -71,7 +71,7 @@ public partial class PinTransferDetails : System.Web.UI.Page
         try
         {
             // Construct the SQL to call your stored procedure
-            string sql = IsoStart + "Exec sp_GetKit '" + Session["IDNO"] + "'" + IsoEnd;
+            string sql = IsoStart + "Select KitID,KitName From (Select 0 As KitID,'-- ALL --' As KitName Union Select KitID,KitName+' ('+cast(KitAmount As Varchar)+')'  as KitName From " + ObjDal.dBName + "..M_KitMaster Where ActiveStatus='Y' and RowStatus='Y' and OnWebsite='Y') as temp Order By Kitid " + IsoEnd;
 
             // Execute the query using SqlHelper (from Microsoft.ApplicationBlocks.Data)
             DataSet ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql);
@@ -106,7 +106,7 @@ public partial class PinTransferDetails : System.Web.UI.Page
             DataSet ds = SqlHelper.ExecuteDataset(constr1, "sp_GetEpinDetail", prms);
 
             // Store full dataset in session
-            Session["pindetails"] = ds.Tables[0];
+            Session["pindetailspindetails"] = ds.Tables[0];
 
             // Get total record count from second table
             int recordCount = Convert.ToInt32(ds.Tables[1].Rows[0]["RecordCount"]);
@@ -152,7 +152,7 @@ public partial class PinTransferDetails : System.Web.UI.Page
     }
     protected void btnNext_Click(object sender, EventArgs e)
     {
-        DataTable dtFull = Session["epinData"] as DataTable;
+        DataTable dtFull = Session["pindetailspindetails"] as DataTable;
         if (dtFull != null && (CurrentPage + 1) * PageSize < dtFull.Rows.Count)
         {
             CurrentPage += 1;

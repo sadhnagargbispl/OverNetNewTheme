@@ -40,7 +40,7 @@
                                             <asp:Label ID="lblErrorMessage" runat="server" Text="" CssClass="error-message"></asp:Label>
                                         </div>
                                         <div id="DivSideA" runat="server">
-                                            <div class="table-responsive">
+                                            <div class="table-responsive" style="overflow: scroll;">
                                                 <table id="customers2" class="table datatable">
                                                     <thead>
                                                         <tr>

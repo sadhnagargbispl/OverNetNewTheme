@@ -12,6 +12,22 @@ public partial class Monthlyincome : System.Web.UI.Page
     DataTable dt = new DataTable();
     DAL Objdal = new DAL();
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
+    private int CurrentPage
+    {
+        get
+        {
+            if (ViewState["CurrentPage"] != null)
+                return Convert.ToInt32(ViewState["CurrentPage"]);
+            else
+                return 0;
+        }
+        set
+        {
+            ViewState["CurrentPage"] = value;
+        }
+    }
+
+    private const int PageSize = 20; // You can change page size
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -41,34 +57,66 @@ public partial class Monthlyincome : System.Web.UI.Page
             Response.End();
         }
     }
-
     private void Fill_Grid()
     {
         try
         {
             DataSet Ds = new DataSet();
             string str = "";
-            str = Objdal.Isostart + "SELECT CAST(ROW_NUMBER() OVER(ORDER BY Idno, Sessid DESC) AS VARCHAR) AS SNo, " +
+            str = Objdal.Isostart + "SELECT CAST(ROW_NUMBER() OVER(ORDER BY Sessid DESC) AS VARCHAR) AS SNo, " +
                   "Sessid, PayoutDate AS [Payout Date], " +
                   "EverestIncome, BinaryIncome, SpillIncome, MagicBinary, SLIIncome, NetIncomeAct AS [Gross Income Act], " +
                   "NetIncome AS [Gross Income], TdsAmount AS [TDS Amount], AdminCharge AS [Admin Charge], CouponsAmt AS [Repurchase Deduction], " +
                   "Deduction AS [Total Deduction], PrevBal AS [Previous Balance], chqAmt AS [Net Income], ClsBal AS [Carry Forward Balance], " +
                   "ClubIncome, Wdeduct AS [Re Topup Deduction] " +
                   "FROM " + Objdal.dBName + "..V#Monthlyincome " +
-                  "WHERE Formno='" + Session["Formno"].ToString() + "' AND Onwebsite='Y' " +
-                  "ORDER BY SNo DESC" + Objdal.IsoEnd;
+                  "WHERE Formno='" + Session["Formno"].ToString() + "' AND Onwebsite='Y' " + Objdal.IsoEnd;
             
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             Session["DirectIncome"] = dt;
-            if (dt.Rows.Count > 0)
+            DataTable dtFull = dt;
+            int startRow = CurrentPage * PageSize;
+            int endRow = Math.Min(startRow + PageSize, dtFull.Rows.Count);
+            DataTable dtPage = dtFull.Clone();
+
+            for (int i = startRow; i < endRow; i++)
             {
-                RptDirects.DataSource = dt;
-                RptDirects.DataBind();
+                dtPage.ImportRow(dtFull.Rows[i]);
             }
+
+            // Bind paged data to repeater
+            RptDirects.DataSource = dtPage;
+            RptDirects.DataBind();
+
+            // Update page info label
+            int totalPages = (int)Math.Ceiling((double)dtFull.Rows.Count / PageSize);
+            lblPageInfo.Text = "Page " + (CurrentPage + 1) + " of " + totalPages;
+            //if (dt.Rows.Count > 0)
+            //{
+            //    RptDirects.DataSource = dt;
+            //    RptDirects.DataBind();
+            //}
         }
         catch (Exception ex)
         {
             throw new Exception(ex.Message);
+        }
+    }
+    protected void btnPrevious_Click(object sender, EventArgs e)
+    {
+        if (CurrentPage > 0)
+        {
+            CurrentPage -= 1;
+            Fill_Grid();
+        }
+    }
+    protected void btnNext_Click(object sender, EventArgs e)
+    {
+        DataTable dtFull = Session["epinData"] as DataTable;
+        if (dtFull != null && (CurrentPage + 1) * PageSize < dtFull.Rows.Count)
+        {
+            CurrentPage += 1;
+            Fill_Grid();
         }
     }
 

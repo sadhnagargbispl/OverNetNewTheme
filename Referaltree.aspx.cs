@@ -33,9 +33,9 @@ public partial class Referaltree : System.Web.UI.Page
             {
                 if (Session["Status"] != null && Session["Status"].ToString() == "OK")
                 {
-                
+
                     ValidateTree();
-                   
+
                 }
                 else
                 {
@@ -124,7 +124,7 @@ public partial class Referaltree : System.Web.UI.Page
             throw new Exception(ex.Message);
         }
     }
-    
+
 
     private void GenerateTree(string strQuery)
     {
@@ -176,12 +176,12 @@ public partial class Referaltree : System.Web.UI.Page
             //tmpDS1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, IsoStart + " select top(1)slab from " + Obj.dBName + "..MstLevelIncome where formno= '" + FormNo + "' order by sessid desc " + IsoEnd);
             if (tmpDS.Tables[0].Rows.Count > 0)
             {
-                
+
                 DataRow row = tmpDS.Tables[0].Rows[0];
                 idStatus = row["idstatus"].ToString();
                 MemberName = row["IdNo"].ToString();
                 NodeName = row["Idno"].ToString() + "(" + row["MemFirstName"].ToString() + ")";
-                strImageFile = "img/" + row["JoinColor"].ToString();
+                strImageFile = row["JoinColor"].ToString();
                 Doj = row["Doj"].ToString();
                 LeftBV = Convert.ToDouble(row["Direct"]);
                 RightBV = Convert.ToDouble(row["Indirect"]);
@@ -214,7 +214,7 @@ public partial class Referaltree : System.Web.UI.Page
             int LoopValue = 0;
             string FolderFile = "";
 
-            
+
             foreach (DataRow dr in ds1.Tables[0].Rows)
             {
                 //ParentId = Convert.ToInt32(dr["RefFormno"]);
@@ -238,7 +238,7 @@ public partial class Referaltree : System.Web.UI.Page
                 UpgradeDate = dr["UpgradeDate"].ToString();
                 DirctLeftActive = dr["ActiveDirect"].ToString();
                 DirectRightActive = dr["ActiveInDirect"].ToString();
-               // Mobile = dr["mobl"].ToString();
+                // Mobile = dr["mobl"].ToString();
                 //Isblock = dr["Isblock"].ToString();
 
                 LoopValue++;
@@ -252,8 +252,8 @@ public partial class Referaltree : System.Web.UI.Page
                 }
                 else
                 {
-                    strImageFile = "img/" + dr["JoinColor"];
-                   
+                    strImageFile = dr["JoinColor"].ToString();
+
                 }
 
                 myRunTimeString += " mytree.add(" + FormNo + "," + ParentId + ",'" + Category + "','" + Doj + "','" + UpgradeDate + "','" + MemberName + "','" + NodeName + "','" + UpLiner + "','" + Sponsor + "',";

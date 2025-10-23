@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="widget">
                                 <div class="widget-title">
-                                    <h4><i class="icon-credit-card"></i>New Everest Income Detail</h4>
+                                    <h4><i class="icon-credit-card"></i>Daily Income Detail</h4>
                                     <span class="tools">
                                         <a href="javascript:;" class="icon-chevron-down"></a>
                                     </span>
@@ -134,6 +134,11 @@
                                                                 </asp:Repeater>
                                                             </tbody>
                                                         </table>
+                                                        <div style="margin-top: 10px; text-align: center;">
+                                                            <asp:Button ID="btnPrevious" runat="server" Text="Previous" OnClick="btnPrevious_Click" CssClass="btn btn-primary" />
+                                                            <asp:Label ID="lblPageInfo" runat="server" Text=""></asp:Label>
+                                                            <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="btn btn-primary" />
+                                                        </div>
                                                     </div>
                                                 </ContentTemplate>
                                                 <Triggers>

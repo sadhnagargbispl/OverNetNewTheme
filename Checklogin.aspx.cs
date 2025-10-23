@@ -25,6 +25,7 @@ using System.Web.Script.Serialization;
 public partial class Checklogin : System.Web.UI.Page
 {
     private SqlConnection Conn;
+    private SqlConnection Connselect;
     private SqlCommand Comm;
     private DataTable Dt;
     private SqlDataAdapter Ad;
@@ -34,19 +35,22 @@ public partial class Checklogin : System.Web.UI.Page
     private string _Company = "";
     private clsGeneral objGen = new clsGeneral();
     private DAL objAccess;
+    private DAL ObjDal = new DAL();
     private string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
     private string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     protected void Page_Load(object sender, System.EventArgs e)
     {
         try
         {
+            SqlConnection Connselect = new SqlConnection(constr1.ToString())
             using (SqlConnection Conn = new SqlConnection(constr.ToString()))
             {
                 Conn.Open();
+                Connselect.Open();
                 string sRequestData = HttpContext.Current.Request.Url.ToString();
                 string _Company = Session["CompName"].ToString();
 
-                if (Request["token"] == "darabUnMar5489pidlAytvgjgjghewUF4875brlE8a4i5n61046bar" || Request["CompId"] == "1017")
+                if (Request["token"] == "abUnMar5489pidlAewUF4875brlE8a4i5n6" || Request["CompId"] == "1017")
                 {
                     try
                     {
@@ -178,9 +182,9 @@ public partial class Checklogin : System.Web.UI.Page
             string strqry = "";
             _Output = "{\"data\":[";
 
-            string SqlStr = "Exec ProcCheckInfonewUpdate '" +
+            string SqlStr = ObjDal.Isostart + "Exec ProcCheckInfonewUpdate '" +
                             Request["Username"].Replace("%25", "%").Replace("%23", "#").Replace("%26", "&").Replace("%22", "'").Replace("%40", "@") + "',";
-            SqlStr += "'" + Request["Password"].Replace("%25", "%").Replace("%23", "#").Replace("%26", "&").Replace("%22", "'").Replace("%40", "@") + "'";
+            SqlStr += "'" + Request["Password"].Replace("%25", "%").Replace("%23", "#").Replace("%26", "&").Replace("%22", "'").Replace("%40", "@") + "'" + ObjDal.IsoEnd;
 
             DataTable Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, SqlStr).Tables[0];
             string Res = "";
@@ -243,12 +247,12 @@ public partial class Checklogin : System.Web.UI.Page
             string info = Base64Decode(Request["reqno"]);
             string[] separators = new[] { "/", "=", "&", ":" };
             string[] sa = info.Split(separators, StringSplitOptions.None);
-            string str = "Select formno,amount,Acttype,fromidno,Narration FROM OnlinetransactionW WHERE OrderId='" + TxnData + "' ";
+            string str = ObjDal.Isostart + "Select formno,amount,Acttype,fromidno,Narration FROM " + ObjDal.dBName + "..OnlinetransactionW WHERE OrderId='" + TxnData + "' " + ObjDal.IsoEnd;
             //Comm = new SqlCommand(str, Conn);
             //SqlDataReader Dr = Comm.ExecuteReader();
             DataSet ds = new DataSet();
             DataTable Dt = new DataTable();
-            Dt = SqlHelper.ExecuteDataset(constr, CommandType.Text, str).Tables[0];
+            Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             //if (Dr.Read)
             if (Dt.Rows.Count > 0)
             {
@@ -330,8 +334,8 @@ public partial class Checklogin : System.Web.UI.Page
 
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
-            string str = "Select * from VoucherType Where AcType = '" + WalletType + "'";
-            ds = SqlHelper.ExecuteDataset(constr, CommandType.Text, str);
+            string str = ObjDal.Isostart + "Select * from " + ObjDal.dBName + "..VoucherType Where AcType = '" + WalletType + "'" + ObjDal.IsoEnd;
+            ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str);
             dt = ds.Tables[0];
             if ((dt.Rows.Count > 0))
                 RtrVal = dt.Rows[0]["WalletName"].ToString();
@@ -352,11 +356,11 @@ public partial class Checklogin : System.Web.UI.Page
         {
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
-            string str = "Select balance From dbo.ufnGetBalance('" + FormNo + "','" + WalletType + "')";
-            ds = SqlHelper.ExecuteDataset(constr, CommandType.Text, str);
+            string str = ObjDal.Isostart + "Select balance From dbo.ufnGetBalance('" + FormNo + "','" + WalletType + "')" + ObjDal.IsoEnd;
+            ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str);
             dt = ds.Tables[0];
             if ((dt.Rows.Count > 0))
-                RtrVal = Convert.ToDouble(dt.Rows[0]["Balance"]) * 85;
+                RtrVal = Convert.ToDouble(dt.Rows[0]["Balance"]);
 
 
         }
@@ -410,7 +414,7 @@ public partial class Checklogin : System.Web.UI.Page
                 if (TData.Length == 3)
                 {
                     TxnID = TData[0].Trim();
-                    Bv = Convert.ToDouble(TData[1]) / 85;
+                    Bv = Convert.ToDouble(TData[1]);
                     finalBv = Convert.ToDouble(TData[1]);
                     Remarks = TData[2].Trim();
                 }
@@ -438,16 +442,16 @@ public partial class Checklogin : System.Web.UI.Page
                     if (finalBv > 0)
                     {
                         string sessn = "", Coinrate = "", RPrate = "";
-                        string q = @"SELECT SUM(sessid) AS sessid, SUM(coinrate) AS coinrate, SUM(RpRate) AS RPrate
-                                 FROM (
-                                     SELECT ISNULL(MAX(Sessid), CONVERT(VARCHAR, GETDATE(), 112)) AS Sessid, 0 AS CoinRate, 0 AS Rprate 
-                                     FROM D_Sessnmaster 
-                                     UNION ALL 
-                                     SELECT 0 AS Sessid, CoinRate, Rprate 
-                                     FROM M_CoinMaster 
-                                     WHERE activeStatus = 'Y'
-                                 ) AS a";
-                        DataTable DtQ = SqlHelper.ExecuteDataset(constr.ToString(), CommandType.Text, q).Tables[0];
+                        string q = ObjDal.Isostart + "SELECT SUM(sessid) AS sessid, SUM(coinrate) AS coinrate, SUM(RpRate) AS RPrate" +
+                                "FROM (" +
+                                     "SELECT ISNULL(MAX(Sessid), CONVERT(VARCHAR, GETDATE(), 112)) AS Sessid, 0 AS CoinRate, 0 AS Rprate" +
+                                     "FROM " + ObjDal.dBName + "..D_Sessnmaster" +
+                                     "UNION ALL" +
+                                     "SELECT 0 AS Sessid, CoinRate, Rprate" +
+                                     "FROM M_CoinMaster" +
+                                     "WHERE activeStatus = 'Y'" +
+                                 ") AS a" + ObjDal.IsoEnd;
+                        DataTable DtQ = SqlHelper.ExecuteDataset(constr1, CommandType.Text, q).Tables[0];
                         if (DtQ.Rows.Count > 0)
                         {
                             sessn = DtQ.Rows[0]["Sessid"].ToString();
@@ -455,8 +459,8 @@ public partial class Checklogin : System.Web.UI.Page
                             RPrate = DtQ.Rows[0]["RpRate"].ToString();
                         }
 
-                        string sql = "SELECT * FROM TrnVoucher WHERE refno = '" + TxnID + "'";
-                        DataTable dt = SqlHelper.ExecuteDataset(constr.ToString(), CommandType.Text, sql).Tables[0];
+                        string sql = ObjDal.Isostart + "SELECT * FROM " + ObjDal.dBName + "..TrnVoucher WHERE refno = '" + TxnID + "'" + ObjDal.IsoEnd;
+                        DataTable dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql).Tables[0];
                         if (dt.Rows.Count > 0)
                         {
                             Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"deductamount\":\"0\",\"deductamountusdt\":\"0\",\"voucherno\":\"0\",\"msg\": \"Already Deducted Amount\",\"wallettype\": \"" + WalletType + "\"}");
@@ -472,15 +476,15 @@ public partial class Checklogin : System.Web.UI.Page
                             int i = SqlHelper.ExecuteNonQuery(Conn, CommandType.Text, str);
                             if (i > 0)
                             {
-                                string s = "SELECT TOP 1 VoucherNo AS VoucherNo, Amount FROM TrnVoucher WHERE Drto = '" + FormNo + "' AND Actype = '" + WalletType + "' AND RefNo = '" + TxnID + "' ORDER BY Voucherid DESC";
-                                DataTable dt_ = SqlHelper.ExecuteDataset(constr.ToString(), CommandType.Text, s).Tables[0];
+                                string s = ObjDal.Isostart + "SELECT TOP 1 VoucherNo AS VoucherNo, Amount FROM " + ObjDal.dBName + "..TrnVoucher WHERE Drto = '" + FormNo + "' AND Actype = '" + WalletType + "' AND RefNo = '" + TxnID + "' ORDER BY Voucherid DESC" + ObjDal.IsoEnd;
+                                DataTable dt_ = SqlHelper.ExecuteDataset(constr1, CommandType.Text, s).Tables[0];
                                 if (dt_.Rows.Count > 0)
                                 {
                                     VoucherNo = dt_.Rows[0]["VoucherNo"].ToString();
                                     amount = Convert.ToDouble(dt_.Rows[0]["Amount"]);
                                 }
 
-                                string OutPut_ = "{\"loginid\": \"" + Uname + "\",\"response\":\"OK\",\"deductamount\":\"" + (Bv * 85) + "\",\"deductamountusdt\":\"" + amount + "\",\"voucherno\":\"" + VoucherNo + "\",\"msg\": \"success\",\"wallettype\": \"" + WalletType + "\"}";
+                                string OutPut_ = "{\"loginid\": \"" + Uname + "\",\"response\":\"OK\",\"deductamount\":\"" + (Bv) + "\",\"deductamountusdt\":\"" + amount + "\",\"voucherno\":\"" + VoucherNo + "\",\"msg\": \"success\",\"wallettype\": \"" + WalletType + "\"}";
                                 Response.Write(OutPut_);
                             }
                             else
@@ -547,8 +551,8 @@ public partial class Checklogin : System.Web.UI.Page
                 if (TData.Length == 3)
                 {
                     TxnID = TData[0].Trim();
-                    finalamount = Convert.ToDouble(TData[1]) / 85;
-                    Bv = Math.Round(Convert.ToDouble(TData[1]) / 85, 8);
+                    finalamount = Convert.ToDouble(TData[1]);
+                    Bv = Math.Round(Convert.ToDouble(TData[1]), 8);
                     Remarks = TData[2].Trim();
                 }
                 else
@@ -557,19 +561,19 @@ public partial class Checklogin : System.Web.UI.Page
                     return;
                 }
 
-                string str123 = "Select Isnull(SUM(Debit),0) As Debit ,  Isnull(SUM(credit),0) As Credit,isnull(sum(CoinRate),0) as CoinRate, isnull(sum(Rprate),0) as RPrate ,"
+                string str123 = ObjDal.Isostart + "Select Isnull(SUM(Debit),0) As Debit ,  Isnull(SUM(credit),0) As Credit,isnull(sum(CoinRate),0) as CoinRate, isnull(sum(Rprate),0) as RPrate ,"
                     + " Case when '" + WalletType + "'='S'  then isnull(" + Bv.ToString() + ",0) "
                     + " when '" + WalletType + "'='M' then isnull(" + Bv.ToString() + ",0)"
                     + " else isnull(sum(" + Bv.ToString() + "),0) end as amount  from ( "
-                    + " Select Amount As Debit, 0 As credit,0 as coinrate,0 as RPrate  from  TrnVoucher "
+                    + " Select Amount As Debit, 0 As credit,0 as coinrate,0 as RPrate  from  " + ObjDal.dBName + "..TrnVoucher "
                     + "  Where Drto =  '" + FormNo + "' And RefNo = '" + TxnID + "' And VType = 'D' And AcType = '" + WalletType + "'"
                     + " union All "
-                    + " Select 0 As Debit, Amount  As credit,0 as coinrate,0 as RPrate  from  TrnVoucher "
+                    + " Select 0 As Debit, Amount  As credit,0 as coinrate,0 as RPrate  from  " + ObjDal.dBName + "..TrnVoucher "
                     + " Where Crto =  '" + FormNo + "' And RefNo = '" + TxnID + "' And VType = 'C' And AcType = '" + WalletType + "'"
-                    + " Union all select 0 as Debit,0 as Credit,isnull(CoinRate,0) ,isnull(Rprate,0)  from M_CoinMaster where activeStatus='Y')As a";
+                    + " Union all select 0 as Debit,0 as Credit,isnull(CoinRate,0) ,isnull(Rprate,0)  from " + ObjDal.dBName + "..M_CoinMaster where activeStatus='Y')As a" + ObjDal.IsoEnd;
 
                 DataTable dt123 = new DataTable();
-                using (DataSet ds123 = SqlHelper.ExecuteDataset(constr.ToString(), CommandType.Text, str123))
+                using (DataSet ds123 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str123))
                 {
                     dt123 = ds123.Tables[0];
                 }
@@ -597,14 +601,14 @@ public partial class Checklogin : System.Web.UI.Page
 
                 if (LoginSuccess == 2)
                 {
-                    if (Conn.State == ConnectionState.Closed)
-                        Conn.Open();
+                    if (Connselect.State == ConnectionState.Closed)
+                        Connselect.Open();
 
                     if (Bv > 0)
                     {
                         string sessn = "";
-                        string q = "select Isnull(Max(Sessid),Convert(Varchar,Getdate(),112)) as Sessid from D_Sessnmaster ";
-                        using (SqlCommand Comm = new SqlCommand(q, Conn))
+                        string q = ObjDal.Isostart + "select Isnull(Max(Sessid),Convert(Varchar,Getdate(),112)) as Sessid from " + ObjDal.dBName + "..D_Sessnmaster " + ObjDal.IsoEnd;
+                        using (SqlCommand Comm = new SqlCommand(q, Connselect))
                         {
                             using (SqlDataReader Dr = Comm.ExecuteReader())
                             {
@@ -624,9 +628,9 @@ public partial class Checklogin : System.Web.UI.Page
                             Comm.ExecuteNonQuery();
                         }
 
-                        string s = "select Max(VoucherNo) as VoucherNo from TrnVoucher ";
+                        string s = ObjDal.Isostart + "select Max(VoucherNo) as VoucherNo from " + ObjDal.dBName + "..TrnVoucher " + ObjDal.IsoEnd;
                         string voucherNo = "";
-                        using (SqlCommand Comm = new SqlCommand(s, Conn))
+                        using (SqlCommand Comm = new SqlCommand(s, Connselect))
                         {
                             using (SqlDataReader Dr = Comm.ExecuteReader())
                             {
@@ -636,8 +640,9 @@ public partial class Checklogin : System.Web.UI.Page
                                 }
                             }
                         }
-
-                        Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"OK\",\"refundamount\":\"" + (finalamount * 85).ToString() + "\",\"refundamountusdt\":\"" + amount.ToString() + "\",\"voucherno\":\"" + voucherNo + "\",\"msg\": \"success\",\"wallettype\": \"" + WalletType + "\"}");
+                        Connselect.Close();
+                        Conn.Close();
+                        Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"OK\",\"refundamount\":\"" + (finalamount).ToString() + "\",\"refundamountusdt\":\"" + amount.ToString() + "\",\"voucherno\":\"" + voucherNo + "\",\"msg\": \"success\",\"wallettype\": \"" + WalletType + "\"}");
                     }
                     else
                     {
@@ -655,282 +660,6 @@ public partial class Checklogin : System.Web.UI.Page
             Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"refundamount\":\"0\",\"refundamountusdt\":\"0\",\"voucherno\":\"0\",\"msg\": \"Failed\",\"wallettype\": \"" + WalletType + "\"}");
         }
     }
-    //private void DeductWalletAmount(string WalletType) // 29Aug16,NJ
-    //{
-    //    string VoucherNo = "";
-    //    string Uname = Request["Username"];
-    //    string Pwd = Request["Password"];
-    //    string TxnData = Request["TxnData"];
-    //    try
-    //    {
-    //        var LoginSuccess = 0;
-    //        int FormNo = 0;
-    //        Conn = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
-    //        if (Conn.State == ConnectionState.Closed)
-    //            Conn.Open();
-    //        FormNo = GetFormNo(Uname, Pwd);
-    //        string WalletName = GetWalletName(WalletType);
-    //        if (FormNo > 0)
-    //            LoginSuccess = 1;
-    //        else
-    //        {
-    //            Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"deductamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Invalid User\",\"wallettype\": \"" + WalletType + "\"}");
-    //            return;
-    //        }
-    //        //string[] TData = TxnData.Split(";");
-    //        string[] separators1 = new[] { ";" };
-    //        string[] TData = TxnData.Split(separators1, StringSplitOptions.None);
-    //        string TxnID, Remarks;
-    //        double Bv;
-    //        if (TData.Length == 3)
-    //        {
-    //            TxnID = Convert.ToString(TData[0]);
-    //            Bv = Convert.ToDouble(TData[1]);
-    //            Remarks = Convert.ToString(TData[2]);
-    //        }
-    //        else
-    //        {
-    //            Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"deductamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Insufficient Data\",\"wallettype\": \"" + WalletType + "\"}");
-    //            return;
-    //        }
-    //        double AvailBal = Convert.ToDouble(GetBalance(Convert.ToString(FormNo), WalletType));
-    //        if (AvailBal < Bv & LoginSuccess == 1)
-    //        {
-    //            Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"deductamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Available Balance is " + AvailBal + "\",\"wallettype\": \"" + WalletType + "\"}");
-    //            return;
-    //        }
-    //        else
-    //            LoginSuccess = 2;
-    //        if (LoginSuccess == 2)
-    //        {
-    //            if (Conn.State == ConnectionState.Closed)
-    //                Conn.Open();
-    //            if (Bv > 0)
-    //            {
-    //                DataSet ds = new DataSet();
-    //                DataTable dt1 = new DataTable();
-    //                string sessn = "";
-    //                string q = "select Isnull(Max(Sessid),Convert(Varchar,Getdate(),112)) as Sessid from D_Sessnmaster ";
-    //                ds = SqlHelper.ExecuteDataset(constr, CommandType.Text, q);
-    //                dt1 = ds.Tables[0];
-    //                if ((dt1.Rows.Count > 0))
-    //                {
-    //                    //Comm = new SqlCommand(q, Conn);
-    //                    //SqlDataReader Dr = Comm.ExecuteReader();
-    //                    //if (Dr.Read)
-    //                    //sessn = Dr("SessId");
-    //                    sessn = dt1.Rows[0]["SessId"].ToString();
-    //                }
-    //                //Dr.Close();
-    //                DAL objdal = new DAL();
-    //                objdal = new DAL();
-    //                string sql = " select * from TrnVoucher where refno='" + TxnID + "' ";
-    //                DataTable dt = new DataTable();
-    //                //dt = objdal.GetData(sql);
-    //                ds = SqlHelper.ExecuteDataset(constr, CommandType.Text, sql);
-    //                dt = ds.Tables[0];
-    //                if ((dt.Rows.Count > 0))
-    //                    Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\"," + "\"deductamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Already Deducted Amount\"," + "\"wallettype\": \"" + WalletType + "\"}");
-    //                else
-    //                {
-    //                    str = "INSERT TrnVoucher (VoucherNo,VoucherDate,DrTo,CrTo,Amount,Narration,RefNo,Actype,VType ,sessid,WSessID) ";
-    //                    str += " Select ISNULL(MAX(VoucherNo)+1,1001),Cast(Convert(varchar,Getdate(),106) as DateTime),'" + FormNo + "','0',";
-    //                    str += "'" + Bv + "','" + WalletName + "  Used by " + Remarks + " against order no." + TxnID + "',";
-    //                    str += " '" + TxnID + "','" + WalletType + "','D', convert(varchar,cast(cast(getdate() as varchar) as datetime),112),";
-    //                    str += "'" + Session["CurrentSessn"] + "' FROM TrnVoucher";
-    //                    Comm = new SqlCommand(str, Conn);
-    //                    Comm.ExecuteNonQuery();
-    //                    //DataTable dt3 = new DataTable();
-    //                    DataTable dt4 = new DataTable();
-    //                    //DataSet ds1 = new DataSet();
-    //                    //ds1 = SqlHelper.ExecuteDataset(constr, CommandType.Text, str);
-    //                    //dt3 = ds1.Tables[0];
-    //                    //if (dt3.Rows.Count > 0)
-    //                    //{ 
-    //                    string s = "select Max(VoucherNo)as VoucherNo from TrnVoucher ";
-    //                    ds = SqlHelper.ExecuteDataset(constr, CommandType.Text, s);
-    //                    dt4 = ds.Tables[0];
-    //                    //Comm = new SqlCommand(s, Conn);
-    //                    //Dr = Comm.ExecuteReader();
-    //                    //if (Dr.Read)
-    //                    if (dt4.Rows.Count > 0)
-    //                    {
-    //                        VoucherNo = dt4.Rows[0]["VoucherNo"].ToString();
-    //                    }
-    //                    //}
-    //                    //Dr.Close();
-    //                    Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"OK\",\"deductamount\":\"" + Bv + "\",\"voucherno\":\"" + VoucherNo + "\",\"msg\": \"success\",\"wallettype\": \"" + WalletType + "\"}");
-    //                }
-    //            }
-    //            else
-    //                Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"deductamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Failed\",\"wallettype\": \"" + WalletType + "\"}");
-    //        }
-    //        else
-    //            Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"deductamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Login failed\",\"wallettype\": \"" + WalletType + "\"}");
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"deductamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Failed\",\"wallettype\": \"" + WalletType + "\"}");
-    //    }
-    //}
-    //private void RefundWalletAmount(string WalletType) // 29Aug16,NJ
-    //{
-    //    string VoucherNo = "";
-    //    string Uname = Request["Username"];
-    //    string Pwd = Request["Password"];
-    //    string TxnData = Request["TxnData"];
-    //    try
-    //    {
-    //        var LoginSuccess = 0;
-    //        int FormNo = 0;
-    //        Conn = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
-    //        if (Conn.State == ConnectionState.Closed)
-    //            Conn.Open();
-    //        FormNo = GetFormNo_1(Uname);
-    //        string WalletName = GetWalletName(WalletType);
-    //        if (FormNo > 0)
-    //            LoginSuccess = 1;
-    //        else
-    //        {
-    //            Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"refundamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Invalid User\",\"wallettype\": \"" + WalletType + "\"}");
-    //            return;
-    //        }
-
-    //        //string[] TData = TxnData.Split(";");
-    //        string[] separators1 = new[] { ";" };
-    //        string[] TData = TxnData.Split(separators1, StringSplitOptions.None);
-    //        string TxnID, Remarks;
-    //        double Bv;
-    //        if (TData.Length == 3)
-    //        {
-    //            TxnID = Convert.ToString(TData[0]);
-    //            Bv = Convert.ToDouble(TData[1]);
-    //            Remarks = Convert.ToString(TData[2]);
-    //        }
-    //        else
-    //        {
-    //            Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"refundamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Amount Not Refunded\",\"wallettype\": \"" + WalletType + "\"}");
-    //            return;
-    //        }
-    //        string str123 = "Select Isnull(SUM(Debit),0) As Debit ,  Isnull(SUM(credit),0) As Credit from ( ";
-    //        str123 += " Select Amount As Debit, 0 As credit  from  TrnVoucher ";
-    //        str123 += "  Where Drto =  '" + FormNo + "' And RefNo = '" + TxnID + "' And VType = 'D' And AcType = '" + WalletType + "'";
-    //        str123 += " union All ";
-    //        str123 += " Select 0 As Debit, Amount  As credit  from  TrnVoucher ";
-    //        str123 += " Where Crto =  '" + FormNo + "' And RefNo = '" + TxnID + "' And VType = 'C' And AcType = '" + WalletType + "'";
-    //        str123 += " ) As RR ";
-    //        DataTable dt123 = new DataTable();
-    //        DataSet ds123 = new DataSet();
-    //        ds123 = SqlHelper.ExecuteDataset(constr, CommandType.Text, str123);
-    //        dt123 = ds123.Tables[0];
-    //        if ((Convert.ToInt32(dt123.Rows[0]["Debit"]) > 0))
-    //        {
-    //            if ((Convert.ToInt32(dt123.Rows[0]["Debit"]) < Convert.ToInt32(dt123.Rows[0]["credit"]) + Convert.ToInt32(Bv)))
-    //            {
-    //                Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"refundamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Amount grather then Debit Anount.\",\"wallettype\": \"" + WalletType + "\"}");
-    //                return;
-    //            }
-    //        }
-    //        else
-    //        {
-    //            Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"refundamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Order Number Not Exists.\",\"wallettype\": \"" + WalletType + "\"}");
-    //            return;
-    //        }
-    //        LoginSuccess = 2;
-    //        if (LoginSuccess == 2)
-    //        {
-    //            if (Conn.State == ConnectionState.Closed)
-    //                Conn.Open();
-    //            if (Bv > 0)
-    //            {
-    //                string sessn = "";
-    //                DataSet ds5 = new DataSet();
-    //                DataTable dt5 = new DataTable();
-    //                string q = "select Isnull(Max(Sessid),Convert(Varchar,Getdate(),112)) as Sessid from D_Sessnmaster ";
-    //                //Comm = new SqlCommand(q, Conn);
-    //                //SqlDataReader Dr = Comm.ExecuteReader();
-    //                //if (Dr.Read)
-    //                ds5 = SqlHelper.ExecuteDataset(constr, CommandType.Text, q);
-    //                dt5 = ds5.Tables[0];
-    //                if (dt5.Rows.Count > 0)
-    //                {
-    //                    sessn = dt5.Rows[0]["SessId"].ToString();
-    //                }
-    //                //Dr.Close();
-    //                DAL objdal = new DAL();
-    //                objdal = new DAL();
-    //                DataSet ds6 = new DataSet();
-    //                string sql = " select * from TrnVoucher where refno='" + TxnID + "' ";
-    //                DataTable dt = new DataTable();
-    //                ds6 = SqlHelper.ExecuteDataset(constr, CommandType.Text, sql);
-    //                //dt = objdal.GetData(sql);
-    //                dt = ds6.Tables[0];
-    //                // If dt.Rows.Count > 0 Then
-
-    //                // Dim BoolResult As Boolean = False
-    //                // Dim dt1 As DataTable
-    //                // Dim Sqlstr1 As String = ""
-    //                // Dim TotalPV As Decimal = 0
-    //                // Dim LblTotalBv1 As String = "0"
-    //                // Dim totalAmount As Integer = 100000
-    //                // Sqlstr1 = "select sum(Amount) as Amount from TrnVoucher where refno='" & TxnID & "'"
-    //                // dt1 = objdal.GetData(Sqlstr1)
-    //                // If dt1.Rows.Count > 0 Then
-    //                // TotalPV = Val(dt1.Rows(0)("Amount")) + Val(Bv)
-    //                // If TotalPV <= totalAmount Then
-    //                // Msg = "OK"
-    //                // Else
-    //                // Msg = "Maximum Id Activation/Upgrade Amount On " & totalAmount & " "
-    //                // End If
-    //                // Else
-    //                // TotalPV = Val(txtAmount.Text)
-    //                // If TotalPV <= totalAmount Then
-    //                // Msg = "OK"
-    //                // Else
-    //                // Msg = "Maximum Id Activation/Upgrade Amount On " & totalAmount & " "
-    //                // End If
-    //                // End If
-
-    //                // Response.Write("{""loginid"": """ & Uname & """,""response"":""FAILED""," & _
-    //                // """refundamount"":""0"",""voucherno"":""0"",""msg"": ""Already Refunded Amount""," & _
-    //                // """wallettype"": """ & WalletType & """}")
-    //                // Else
-    //                str = "INSERT TrnVoucher (VoucherNo,VoucherDate,DrTo,CrTo,Amount,Narration,RefNo   ,Actype,VType ,sessid,WSessID) ";
-    //                str += " Select ISNULL(MAX(VoucherNo)+1,1001),Cast(Convert(varchar,Getdate(),106) as DateTime),'0','" + FormNo + "','" + Bv + "',";
-    //                str += "'" + WalletName + "  Credited " + Remarks + " against tanscation no." + TxnID + "','" + TxnID + "','" + WalletType + "','C',";
-    //                str += "convert(varchar,cast(cast(getdate() as varchar) as datetime),112),'" + Session["CurrentSessn"] + "' FROM TrnVoucher";
-    //                //DataSet ds7 = new DataSet();
-    //                //DataTable dt7 = new DataTable();
-    //                //ds7 = SqlHelper.ExecuteDataset(constr, CommandType.Text, str);
-    //                //dt7 = ds7.Tables[0];
-    //                Comm = new SqlCommand(str, Conn);
-    //                Comm.ExecuteNonQuery();
-    //                string s = "select Max(VoucherNo)as VoucherNo from TrnVoucher ";
-    //                //Comm = new SqlCommand(s, Conn);
-    //                //Dr = Comm.ExecuteReader();
-    //                //if (Dr.Read)
-    //                DataSet ds8 = new DataSet();
-    //                DataTable dt8 = new DataTable();
-    //                ds8 = SqlHelper.ExecuteDataset(constr, CommandType.Text, s);
-    //                dt8 = ds8.Tables[0];
-    //                if (dt8.Rows.Count > 0)
-    //                {
-    //                    VoucherNo = dt8.Rows[0]["VoucherNo"].ToString();
-    //                }
-    //                //Dr.Close();
-    //                Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"OK\",\"refundamount\":\"" + Bv + "\",\"voucherno\":\"" + VoucherNo + "\",\"msg\": \"success\",\"wallettype\": \"" + WalletType + "\"}");
-    //            }
-    //            else
-    //                Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"refundamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Failed\",\"wallettype\": \"" + WalletType + "\"}");
-    //        }
-    //        else
-    //            Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"refundamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Login failed\",\"wallettype\": \"" + WalletType + "\"}");
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"FAILED\",\"refundamount\":\"0\",\"voucherno\":\"0\",\"msg\": \"Failed\",\"wallettype\": \"" + WalletType + "\"}");
-    //    }
-    //}
     private void ConfirmVoucher(string VoucherRequest, string VoucherResponse, string WalletType)
     {
         try
@@ -1044,14 +773,14 @@ public partial class Checklogin : System.Web.UI.Page
                 string rwallet = "";
                 string ismovie = "N";
                 using (SqlCommand Comm = new SqlCommand(
-                    "Exec ProcCheckInfo '" +
+                    ObjDal.Isostart + "Exec ProcCheckInfo '" +
                     Request["Username"] + "','" +
                     Request["Password"]
                         .Replace("%25", "%")
                         .Replace("%23", "#")
                         .Replace("%26", "&")
                         .Replace("%22", "'")
-                        .Replace("%40", "@") + "'", Conn))
+                        .Replace("%40", "@") + "'"+ ObjDal.IsoEnd, Connselect))
                 {
                     using (SqlDataReader Dr = Comm.ExecuteReader())
                     {
@@ -1098,8 +827,8 @@ public partial class Checklogin : System.Web.UI.Page
                 if (Conn.State == ConnectionState.Closed)
                     Conn.Open();
 
-                string str = "Select * FROM M_MemberMaster WHERE IDNo='" + Uname + "'";
-                using (SqlCommand Comm = new SqlCommand(str, Conn))
+                string str = ObjDal.Isostart + "Select * FROM " + ObjDal.dBName + "..M_MemberMaster WHERE IDNo='" + Uname + "'" + ObjDal.IsoEnd;
+                using (SqlCommand Comm = new SqlCommand(str, Connselect))
                 {
                     using (SqlDataReader Dr = Comm.ExecuteReader())
                     {
@@ -1179,8 +908,8 @@ public partial class Checklogin : System.Web.UI.Page
                 if (Conn.State == ConnectionState.Closed)
                     Conn.Open();
 
-                string str = "Select * FROM M_MemberMaster WHERE IDNo='" + Uname + "'";
-                using (SqlCommand Comm = new SqlCommand(str, Conn))
+                string str = ObjDal.Isostart + "Select * FROM " + ObjDal.dBName + "..M_MemberMaster WHERE IDNo='" + Uname + "'" + ObjDal.IsoEnd;
+                using (SqlCommand Comm = new SqlCommand(str, Connselect))
                 {
                     using (SqlDataReader Dr = Comm.ExecuteReader())
                     {
@@ -1243,174 +972,7 @@ public partial class Checklogin : System.Web.UI.Page
             Response.Write("{\"loginid\": \"" + Request["Username"] + "\",\"msg\": \"Failed.\"}");
         }
     }
-    //private void AddBV() // Through recharge API; 16Apr16,NJ
-    //{
-    //    objAccess = new DAL();
-    //    //string Uname = Replace(Replace(Replace(Request["Username"], "'", ""), "=", ""), ";", "");
-    //    //string Pwd = Replace(Replace(Replace(Request["Password"], "'", ""), "=", ""), ";", "");
-    //    //string TxnData = Replace(Replace(Request["TxnData"], "'", ""), "=", "");
-    //    string Uname = Request["Username"];
-    //    string Pwd = Request["Password"];
-    //    string TxnData = Request["TxnData"];
-    //    try
-    //    {
-    //        var LoginSuccess = 0;
-    //        int FormNo = 0;
-    //        Conn = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
-    //        if (Conn.State == ConnectionState.Closed)
-    //            Conn.Open();
-    //        DataSet ds = new DataSet();
-    //        DataTable dt = new DataTable();
-
-    //        // 'Dim str As String = "Select * FROM M_MemberMaster WHERE IDNo='" & Uname & "' AND EPassw='" & Pwd & "'"
-    //        string str = "Select * FROM M_MemberMaster WHERE IDNo='" + Uname + "'";
-    //        ds = SqlHelper.ExecuteDataset(constr, CommandType.Text, str);
-    //        dt = ds.Tables[0];
-    //        //Comm = new SqlCommand(str, Conn);
-    //        //SqlDataReader Dr = Comm.ExecuteReader();
-    //        //if (Dr.Read)
-    //        if (dt.Rows.Count > 0)
-    //        {
-    //            LoginSuccess = 1;
-    //            FormNo = Convert.ToInt32(dt.Rows[0]["FormNo"]);
-    //        }
-    //        //Dr.Close();
-    //        //string[] TData = TxnData.Split(";");
-
-    //        string[] separators1 = new[] { ";" };
-    //        string[] TData = TxnData.Split(separators1, StringSplitOptions.None);
-    //        string TxnID, Remarks;
-    //        double Bv;
-    //        if (TData.Length == 3)
-    //        {
-    //            TxnID = Convert.ToString(TData[0]);
-    //            Bv = Convert.ToDouble(TData[1]);
-    //            Remarks = Convert.ToString(TData[2]);
-    //        }
-    //        else
-    //        {
-    //            Response.Write("{\"loginid\": \"" + Uname + "\",\"msg\": \"Insufficient Data.\"}");
-    //            return;
-    //        }
-
-    //        if (LoginSuccess == 1)
-    //        {
-    //            var strCheck = "Exec Sp_TrnAddBV '" + TxnID + "','" + Bv + "','CR'";
-    //            DataTable dtCheck = new DataTable();
-    //            dtCheck = objAccess.GetData(strCheck);
-    //            if ((Convert.ToInt32(dtCheck.Rows[0]["ID"]) > 0))
-    //            {
-    //                if (Conn.State == ConnectionState.Closed)
-    //                    Conn.Open();
-
-
-    //                str = "INSERT RepurchIncome (SessID,FormNo,BillNo,BillDate,RepurchIncome,Imported,BillType,SoldBy,Msessid,Remarks,DSessID) VALUES (" + Session["CurrentSessn"] + ",'" + FormNo + "','" + TxnID + "',Cast(Convert(varchar,Getdate(),106) as DateTime),'" + Bv + "','N','R','WR','" + Session["MonthSessn"] + "','" + Remarks + TxnID + "',Convert(Varchar,Getdate(),112))";
-    //                Comm = new SqlCommand(str, Conn);
-    //                Comm.ExecuteNonQuery();
-    //                Response.Write("{\"loginid\": \"" + Uname + "\",\"msg\": \"success\"}");
-    //            }
-    //            else
-    //                Response.Write("{\"loginid\": \"" + Uname + "\",\"msg\": \"Order No. Already Exists\"}");
-    //        }
-    //        else
-    //            Response.Write("{\"loginid\": \"" + Uname + "\",\"msg\": \"Login failed.\"}");
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Response.Write("{\"loginid\": \"" + Uname + "\",\"msg\": \"Failed.\"}");
-    //    }
-    //}
-    //private void DrBV() // Through recharge API; 16Apr16,NJ
-    //{
-    //    objAccess = new DAL();
-    //    //string Uname = Replace(Replace(Replace(Request["Username"], "'", ""), "=", ""), ";", "");
-    //    //string Pwd = Replace(Replace(Replace(Request["Password"], "'", ""), "=", ""), ";", "");
-    //    //string TxnData = Replace(Replace(Request["TxnData"], "'", ""), "=", "");
-
-    //    string Uname = Request["Username"];
-    //    string Pwd = Request["Password"];
-    //    string TxnData = Request["TxnData"];
-    //    try
-    //    {
-    //        var LoginSuccess = 0;
-    //        int FormNo = 0;
-    //        Conn = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
-    //        if (Conn.State == ConnectionState.Closed)
-    //            Conn.Open();
-    //        DataSet ds = new DataSet();
-    //        DataTable dt = new DataTable();
-    //        // 'Dim str As String = "Select * FROM M_MemberMaster WHERE IDNo='" & Uname & "' AND EPassw='" & Pwd & "'"
-    //        string str = "Select * FROM M_MemberMaster WHERE IDNo='" + Uname + "'";
-    //        ds = SqlHelper.ExecuteDataset(constr, CommandType.Text, str);
-    //        dt = ds.Tables[0];
-    //        //Comm = new SqlCommand(str, Conn);
-    //        //SqlDataReader Dr = Comm.ExecuteReader();
-    //        //if (Dr.Read)
-    //        if (dt.Rows.Count > 0)
-    //        {
-    //            LoginSuccess = 1;
-    //            FormNo = Convert.ToInt32(dt.Rows[0]["FormNo"]);
-    //        }
-    //        //Dr.Close();
-    //        //string[] TData = TxnData.Split(";");
-    //        string[] separators1 = new[] { ";" };
-    //        string[] TData = TxnData.Split(separators1, StringSplitOptions.None);
-    //        string TxnID, Remarks;
-    //        double Bv;
-    //        if (TData.Length == 3)
-    //        {
-    //            TxnID = Convert.ToString(TData[0]);
-    //            Bv = Convert.ToDouble(TData[1]);
-    //            Remarks = Convert.ToString(TData[2]);
-    //        }
-    //        else
-    //        {
-    //            Response.Write("{\"loginid\": \"" + Uname + "\",\"msg\": \"Insufficient Data.\"}");
-    //            return;
-    //        }
-
-    //        if (LoginSuccess == 1)
-    //        {
-    //            //var strCheck = "select bv  from TrnAddBV where Billno='" + TxnID + "'";
-    //            var strCheck = "select Sum(RepurchIncome) as RepurchIncome  from RepurchIncome where Billno='" + TxnID + "'";
-
-    //            DataTable dtCheck = new DataTable();
-    //            dtCheck = objAccess.GetData(strCheck);
-    //            //if ((Convert.ToInt32(dtCheck.Rows[0]["BV"]) >= Bv))
-    //            if ((Convert.ToInt32(dtCheck.Rows[0]["RepurchIncome"]) >= Bv))
-    //            {
-    //                if (Conn.State == ConnectionState.Closed)
-    //                    Conn.Open();
-    //                //DataSet ds1 = new DataSet();
-    //                //DataTable dt1 = new DataTable();
-    //                str = "INSERT RepurchIncome (SessID,FormNo,BillNo,BillDate,RepurchIncome,Imported,BillType,SoldBy,Msessid,Remarks,DSessID) VALUES (" + Session["CurrentSessn"] + ",'" + FormNo + "','" + TxnID + "',Cast(Convert(varchar,Getdate(),106) as DateTime),'" + Convert.ToDouble(Bv - Bv * 2) + "','N','R','WR','" + Session["MonthSessn"] + "','" + Remarks + TxnID + "',Convert(Varchar,Getdate(),112))";
-    //                //ds1 = SqlHelper.ExecuteDataset(constr, CommandType.Text, str);
-    //                //dt1 = ds1.Tables[0];
-    //                Comm = new SqlCommand(str, Conn);
-    //                int y = Comm.ExecuteNonQuery();
-    //                if ((y > 0))
-    //                //if (dt1.Rows.Count > 0)
-    //                {
-    //                    Response.Write("{\"loginid\": \"" + Uname + "\",\"msg\": \"success\"}");
-    //                }
-    //                else
-    //                {
-    //                    Response.Write("{\"loginid\": \"" + Uname + "\",\"msg\": \"Failed\"}");
-    //                }
-    //            }
-    //            else
-    //                Response.Write("{\"loginid\": \"" + Uname + "\",\"msg\": \"Order No. Against Invalid Amount.\"}");
-    //        }
-    //        else
-    //        {
-    //            Response.Write("{\"loginid\": \"" + Uname + "\",\"msg\": \"Login failed.\"}");
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Response.Write("{\"loginid\": \"" + Uname + "\",\"msg\": \"Failed.\"}");
-    //    }
-    //}
+    
     private int GetFormNo(string Uname, string Pwd)
     {
         //Conn = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
@@ -1418,7 +980,7 @@ public partial class Checklogin : System.Web.UI.Page
         //    Conn.Open();
         DataSet ds = new DataSet();
         DataTable dt = new DataTable();
-        string str = "Select * FROM M_MemberMaster WHERE IDNo='" + Uname + "' AND Passw='" + Pwd + "'";
+        string str = ObjDal.Isostart + "Select * FROM " + ObjDal.dBName + "..M_MemberMaster WHERE IDNo='" + Uname + "' AND Passw='" + Pwd + "'" + ObjDal.IsoEnd;
         ds = SqlHelper.ExecuteDataset(constr, CommandType.Text, str);
         dt = ds.Tables[0];
         //Comm = new SqlCommand(str, Conn);

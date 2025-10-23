@@ -770,8 +770,8 @@ public partial class iddetail : System.Web.UI.Page
             bool result = false;
             DataTable dt12 = new DataTable();
             DataSet ds12 = new DataSet();
-            string str12 = "SELECT COUNT(IdProofNo) AS cnt FROM KycVerify AS a, m_membermaster AS b WHERE a.formno = b.formno AND IdProofNo <> '' AND IsAddrssverified<>'R' AND IdProofNo = @IdProofNo";
-            string connectionString = constr;
+            string str12 = ObjDal.Isostart + "SELECT COUNT(IdProofNo) AS cnt FROM " + ObjDal.dBName + "..KycVerify AS a," + ObjDal.dBName + "..m_membermaster AS b WHERE a.formno = b.formno AND IdProofNo <> '' AND IsAddrssverified<>'R' AND IdProofNo = @IdProofNo" + ObjDal.IsoEnd;
+            string connectionString = constr1;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlDataAdapter da = new SqlDataAdapter(str12, conn);

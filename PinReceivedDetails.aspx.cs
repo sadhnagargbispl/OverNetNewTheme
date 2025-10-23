@@ -71,7 +71,7 @@ public partial class PinReceivedDetails : System.Web.UI.Page
         try
         {
             // Construct the SQL to call your stored procedure
-            string sql = IsoStart + "Exec sp_GetKit '" + Session["IDNO"] + "'" + IsoEnd;
+            string sql = IsoStart + "Exec sp_GetKitDetails" + IsoEnd;
 
             // Execute the query using SqlHelper (from Microsoft.ApplicationBlocks.Data)
             DataSet ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql);
@@ -152,7 +152,7 @@ public partial class PinReceivedDetails : System.Web.UI.Page
     }
     protected void btnNext_Click(object sender, EventArgs e)
     {
-        DataTable dtFull = Session["epinData"] as DataTable;
+        DataTable dtFull = Session["pindetails"] as DataTable;
         if (dtFull != null && (CurrentPage + 1) * PageSize < dtFull.Rows.Count)
         {
             CurrentPage += 1;

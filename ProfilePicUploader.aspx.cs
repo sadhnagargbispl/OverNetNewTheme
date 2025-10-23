@@ -39,10 +39,10 @@ public partial class ProfilePicUploader : System.Web.UI.Page
     }
     private void LoadImages()
     {
-        cls_DataAccess DbConnect = new cls_DataAccess(constr.ToString());
+        cls_DataAccess DbConnect = new cls_DataAccess(constr1.ToString());
         DbConnect.OpenConnection();
 
-        using (SqlCommand cmd = new SqlCommand("SELECT IDNo, MemFirstName AS MemName, ProfilePic FROM M_MemberMaster WHERE Formno = @Formno", DbConnect.cnnObject))
+        using (SqlCommand cmd = new SqlCommand(Obj.Isostart + "SELECT IDNo, MemFirstName AS MemName, ProfilePic FROM " + Obj.dBName + "..M_MemberMaster WHERE Formno = @Formno" + Obj.IsoEnd, DbConnect.cnnObject))
         {
             cmd.Parameters.AddWithValue("@Formno", Session["Formno"] != null ? Session["Formno"].ToString() : string.Empty);
 

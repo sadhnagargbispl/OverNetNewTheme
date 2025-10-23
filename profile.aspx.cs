@@ -373,8 +373,7 @@ public partial class profile : System.Web.UI.Page
 
             if (Session["OTP_"] != null && Session["OTP_"].ToString() == transPassw)
             {
-                string query = "SELECT TOP 1 * FROM " + Obj.dBName + "..AdminLogin AS a WHERE EmailID = '" + Session["EMail"].ToString().Trim() + "' AND emailotp = '" + transPassw + "' AND ForType = 'Profile' ORDER BY AID DESC";
-
+                string query = Obj.Isostart + "SELECT TOP 1 * FROM " + Obj.dBName + "..AdminLogin AS a WHERE EmailID = '" + Session["EMail"].ToString().Trim() + "' AND emailotp = '" + transPassw + "' AND ForType = 'Profile' ORDER BY AID DESC" + Obj.IsoEnd;
                 dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, query).Tables[0];
 
                 if (dt1.Rows.Count > 0)

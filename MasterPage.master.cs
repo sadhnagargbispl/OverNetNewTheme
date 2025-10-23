@@ -36,7 +36,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 
                 if (Session["Status"] != null && Session["Status"].ToString() == "OK")
                 {
-                    LoadTeam();
+                    //LoadTeam();
                     string Strrank = objDal.Isostart + "select  idno,memfirstname + MemLastName as memname,replace(convert(varchar,upgradedate,106),' ','-') as DOA,ActiveStatus,isblock from " + objDal.dBName + "..m_membermaster where formno = '" + Session["Formno"].ToString() + "'" + objDal.IsoEnd;
                     Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, Strrank).Tables[0];
                     if (Dt.Rows.Count > 0)
@@ -66,28 +66,28 @@ public partial class MasterPage : System.Web.UI.MasterPage
             ScriptManager.RegisterStartupScript(this, this.GetType(), "alertMessage", "alert('" + ex.Message + "')", true);
         }
     }
-    private void LoadTeam()
-    {
-        try
-        {
-            DataSet Ds = new DataSet();
-            string strquery = string.Empty;
-            strquery += " Exec sp_LoadTeamNewUpdate '" + Session["FormNo"].ToString() + "' ";
-            Ds = SqlHelper.ExecuteDataset(ConfigurationManager.ConnectionStrings["constr1"].ConnectionString, CommandType.Text, strquery);
-            Session["LoadTeam"] = Ds;
+    //private void LoadTeam()
+    //{
+    //    try
+    //    {
+    //        DataSet Ds = new DataSet();
+    //        string strquery = string.Empty;
+    //        strquery += " Exec sp_LoadTeamNewUpdate '" + Session["FormNo"].ToString() + "' ";
+    //        Ds = SqlHelper.ExecuteDataset(ConfigurationManager.ConnectionStrings["constr1"].ConnectionString, CommandType.Text, strquery);
+    //        Session["LoadTeam"] = Ds;
 
-            if (Ds.Tables[5].Rows.Count > 0)
-            {
-                gvBalance.DataSource = Ds.Tables[5];
-                gvBalance.DataBind();
-            }
+    //        if (Ds.Tables[5].Rows.Count > 0)
+    //        {
+    //            gvBalance.DataSource = Ds.Tables[5];
+    //            gvBalance.DataBind();
+    //        }
 
-        }
-        catch (Exception ex)
-        {
-        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //    }
 
-    }
+    //}
     private string Encryptdata(string Data)
     {
 
