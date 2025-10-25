@@ -42,7 +42,7 @@ public partial class Checklogin : System.Web.UI.Page
     {
         try
         {
-            SqlConnection Connselect = new SqlConnection(constr1.ToString())
+            SqlConnection Connselect = new SqlConnection(constr1.ToString());
             using (SqlConnection Conn = new SqlConnection(constr.ToString()))
             {
                 Conn.Open();
