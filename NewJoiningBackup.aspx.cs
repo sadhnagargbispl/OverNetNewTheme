@@ -843,8 +843,7 @@ public partial class NewJoiningBackup : System.Web.UI.Page
 
             DataTable dt = new DataTable();
             DataSet Ds = new DataSet();
-            string strSql = IsoStart + " Select FormNo,MemFirstName + ' ' + MemLastName as MemName from " + ObjDAL.dBName +
-                            "..M_MemberMaster where IDNo='" + txtUplinerId.Text + "'" + IsoEnd;
+            string strSql = IsoStart + " Select FormNo,MemFirstName + ' ' + MemLastName as MemName from " + ObjDAL.dBName + "..M_MemberMaster where IDNo='" + txtUplinerId.Text + "'" + IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = Ds.Tables[0];
 
@@ -882,8 +881,7 @@ public partial class NewJoiningBackup : System.Web.UI.Page
 
             DataTable dt = new DataTable();
             DataSet Ds = new DataSet();
-            string strSql = IsoStart + "Select FormNo,MemFirstName + ' ' + MemLastName as MemName,ActiveStatus from " +
-                            ObjDAL.dBName + "..M_MemberMaster where IDNo='" + txtRefralId.Text + "' and IsBlock='N' " + IsoEnd;
+            string strSql = IsoStart + "Select FormNo,MemFirstName + ' ' + MemLastName as MemName,ActiveStatus from " + ObjDAL.dBName + "..M_MemberMaster where IDNo='" + txtRefralId.Text + "' and IsBlock='N' " + IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = Ds.Tables[0];
 

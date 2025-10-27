@@ -147,38 +147,5 @@ public partial class ChangeTransPass : System.Web.UI.Page
         }
     }
 
-    private void sendSMS()
-    {
-        dbConnect.OpenConnection();
-        if (Session["MobileNo"] != null && Session["MobileNo"].ToString().Length >= 10)
-
-        {
-            WebClient client = new WebClient();
-            string baseurl;
-            Stream data;
-            string sms = "Dear " + Session["MemName"] +
-                        " Your Password has been Successfully changed" +
-                        ",New Password is : '" + pass1.Text + "'";
-
-            try
-            {
-                baseurl = "http://www.unicel.in/SendSMS/sendmsg.php?uname=" + Session["SmsId"] +
-                                    " &pass=" + Session["SmsPass"] +
-                                    "&send=" + Session["ClientId"] +
-                                    "&dest=" + Session["MobileNo"] +
-                                    "&msg=" + sms + "";
-                data = client.OpenRead(baseurl);
-                StreamReader reader = new StreamReader(data);
-                string s = reader.ReadToEnd();
-                data.Close();
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                string errorMessage = "An error occurred: " + ex.Message;
-                lblErrorMessage.Text = errorMessage;
-            }
-        }
-    }
-
+  
 }

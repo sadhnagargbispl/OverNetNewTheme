@@ -75,10 +75,8 @@ public partial class Index : System.Web.UI.Page
         {
             DataSet Ds = new DataSet();
             string strquery = string.Empty;
-            strquery = IsoStart;
-            strquery += " Exec sp_LoadTeamNewUpdateUpdate '" + Session["FormNo"].ToString() + "' ";
-            strquery += IsoEnd;
-            Ds = SqlHelper.ExecuteDataset(ConfigurationManager.ConnectionStrings["constr1"].ConnectionString, CommandType.Text, strquery);
+            strquery = IsoStart + " Exec sp_LoadTeamNewUpdateUpdate '" + Session["FormNo"].ToString() + "' " + IsoEnd;
+            Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strquery);
             Session["LoadTeam"] = Ds;
             if (Ds.Tables[0].Rows.Count > 0)
             {

@@ -632,7 +632,7 @@ public partial class DTProcess : System.Web.UI.Page
             writeJson(ErrObj);
         }
     }
-    private void AddressProof(string Imgpath, string Imgpath1,  string _Reqtype,  Dictionary<string, string> dict)
+    private void AddressProof(string Imgpath, string Imgpath1, string _Reqtype, Dictionary<string, string> dict)
     {
         string ImgPrefix, ImgFld = "", ImgDateFld, sql;
         string UserName = ClearInject(dict["userid"]);
@@ -756,7 +756,7 @@ public partial class DTProcess : System.Web.UI.Page
 
         Response.Write(_Output);
     }
-    private void BankProof(string Imgpath,  string _Reqtype,  Dictionary<string, string> dict)
+    private void BankProof(string Imgpath, string _Reqtype, Dictionary<string, string> dict)
     {
         string ImgPrefix, ImgFld = "", ImgDateFld, sql;
         string UserName = ClearInject(dict["userid"]);
@@ -863,7 +863,7 @@ public partial class DTProcess : System.Web.UI.Page
 
         Response.Write(_Output);
     }
-    private void PanCardNo(string Imgpath, string _Reqtype,  Dictionary<string, string> dict)
+    private void PanCardNo(string Imgpath, string _Reqtype, Dictionary<string, string> dict)
     {
         string ImgPrefix, ImgFld = "", sql;
         string UserName = ClearInject(dict["userid"]);
@@ -980,7 +980,7 @@ public partial class DTProcess : System.Web.UI.Page
                 string _ReqToNo = Convert.ToString(Convert.ToInt32(ClearInject(dict["to"])));
                 string _ReqSearchBy = ClearInject(dict["status"]);
                 string _Reqlegno = ClearInject(dict["legno"]);
-                string Result_Json = Directs(_ReqUser, _ReqPassw, _ReqLevel, _Reqlegno,Convert.ToInt32(_ReqFromNo), Convert.ToInt32(_ReqToNo),1, _ReqSearchBy);
+                string Result_Json = Directs(_ReqUser, _ReqPassw, _ReqLevel, _Reqlegno, Convert.ToInt32(_ReqFromNo), Convert.ToInt32(_ReqToNo), 1, _ReqSearchBy);
                 Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
                 Response.Clear();
                 Response.ContentType = "application/json";
@@ -2071,17 +2071,8 @@ public partial class DTProcess : System.Web.UI.Page
             string baseurl = string.Empty;
             try
             {
-                if (Session["CompID"] != null && Session["CompID"].ToString() == "1015")
-                {
-                    baseurl = "http://weberleads.in/http-api.php?username=discountap&password=discountap&senderid=DISCNT&route=2&number="
-                              + MobileNo + "&message=" + SMS;
-                }
-                else
-                {
-                    baseurl = "http://78.46.58.54/vb/apikey.php?apikey=baeVEum0EOQkbng7&senderid=OVRNET&templateid=1707160354001194457&number="
-                              + MobileNo + "&message=" + SMS;
-                }
-
+                baseurl = "http://78.46.58.54/vb/apikey.php?apikey=baeVEum0EOQkbng7&senderid=OVRNET&templateid=1707160354001194457&number="
+                          + MobileNo + "&message=" + SMS;
                 // Open the URL and read the response
                 using (Stream data = client.OpenRead(baseurl))
                 {
@@ -2275,8 +2266,7 @@ public partial class DTProcess : System.Web.UI.Page
 
         return _Output;
     }
-    public string AmountTransfertootherid(string userid, string passwd, Decimal Amount, string FromActype,
-                                      string Touserid, string transpassword, string userRemarks)
+    public string AmountTransfertootherid(string userid, string passwd, Decimal Amount, string FromActype,string Touserid, string transpassword, string userRemarks)
     {
         string _output = "";
         string voucherNo = "";
@@ -2793,14 +2783,11 @@ public partial class DTProcess : System.Web.UI.Page
                 }
 
                 _Output += "],\"response\":\"OK\"}";
-                Comm.Cancel();
             }
             else
             {
                 _Output = "{\"response\":\"FAILED\",\"msg\":\"Invalid Login Details.\"}";
             }
-
-            Comm.Cancel();
         }
         catch (Exception)
         {
@@ -2844,8 +2831,6 @@ public partial class DTProcess : System.Web.UI.Page
             {
                 _Output = "{\"response\":\"FAILED\",\"msg\":\"Invalid Login Details.\"}";
             }
-
-            Comm.Cancel();
         }
         catch (Exception)
         {
@@ -2903,13 +2888,11 @@ public partial class DTProcess : System.Web.UI.Page
                 }
 
                 _Output += "],\"recordcount\":\"" + Dt.Rows[0]["TotalCount"] + "\",\"response\":\"OK\"}";
-                Comm.Cancel();
             }
             else
             {
                 _Output = "{\"response\":\"FAILED\",\"msg\":\"Invalid Login Details.\"}";
             }
-            Comm.Cancel();
         }
         catch (Exception)
         {
@@ -2939,7 +2922,6 @@ public partial class DTProcess : System.Web.UI.Page
             }
 
             _Output += "],\"response\":\"OK\"}";
-            Comm.Cancel();
         }
         catch (Exception)
         {
@@ -2969,7 +2951,6 @@ public partial class DTProcess : System.Web.UI.Page
             }
 
             _Output += "],\"response\":\"OK\"}";
-            Comm.Cancel();
         }
         catch (Exception)
         {
@@ -3000,7 +2981,6 @@ public partial class DTProcess : System.Web.UI.Page
             }
 
             _Output += "],\"response\":\"OK\"}";
-            Comm.Cancel();
         }
         catch (Exception)
         {
@@ -3066,13 +3046,11 @@ public partial class DTProcess : System.Web.UI.Page
                 }
 
                 _Output += "],\"recordcount\":\"" + RecordCount + "\",\"response\":\"OK\"}";
-                Comm.Cancel();
             }
             else
             {
                 _Output = "{\"response\":\"FAILED\",\"msg\":\"Invalid Login Details.\"}";
             }
-            Comm.Cancel();
         }
         catch (Exception)
         {
@@ -3137,13 +3115,13 @@ public partial class DTProcess : System.Web.UI.Page
                 }
 
                 _Output += "],\"recordcount\":\"" + RecordCount + "\",\"response\":\"OK\"}";
-                Comm.Cancel();
+
             }
             else
             {
                 _Output = "{\"response\":\"FAILED\",\"msg\":\"Invalid Login Details.\"}";
             }
-            Comm.Cancel();
+
         }
         catch (Exception)
         {
@@ -3199,13 +3177,13 @@ public partial class DTProcess : System.Web.UI.Page
                 }
 
                 _Output += "],\"recordcount\":\"" + RecordCount + "\",\"response\":\"OK\"}";
-                Comm.Cancel();
+
             }
             else
             {
                 _Output = "{\"response\":\"FAILED\",\"msg\":\"Invalid Login Details.\"}";
             }
-            Comm.Cancel();
+
         }
         catch (Exception)
         {
@@ -3780,14 +3758,6 @@ public partial class DTProcess : System.Web.UI.Page
             }
 
             _Output += "],\"response\":\"OK\"}";
-            if (Comm != null) Comm.Cancel();
-            // }
-            // else
-            // {
-            //     _Output = "{\"response\":\"FAILED\",\"msg\":\"Invalid Login Details.\"}";
-            // }
-
-            if (Comm != null) Comm.Cancel();
         }
         catch (Exception ex)
         {
@@ -4209,9 +4179,7 @@ public partial class DTProcess : System.Web.UI.Page
 
         return _Output;
     }
-    private string SetProfile(string userid, string passwd, string memberid, string Gaurdian, string Memrelation,
-                          string Dob, string Email, string Nominee, string Relation, string Phoneno,
-                          string Mobile = "0")
+    private string SetProfile(string userid, string passwd, string memberid, string Gaurdian, string Memrelation, string Dob, string Email, string Nominee, string Relation, string Phoneno, string Mobile = "0")
     {
         string _Output = "";
         try
@@ -4769,7 +4737,7 @@ public partial class DTProcess : System.Web.UI.Page
         {
             int _Retry = 0;
             string mobl = "";
-            
+
             string Formno = GetFormNo(idno);
             string Str = IsoStart + "Select FormNo,ActiveStatus,Mobl,Address1 From " + ObjDAL.dBName + "..M_MemberMaster WHERE FormNo = '" + Formno + "'" + IsoEnd;
             if (selectConn.State == ConnectionState.Closed)
@@ -4830,19 +4798,8 @@ public partial class DTProcess : System.Web.UI.Page
             try
             {
                 string baseurl = "";
-
-                if (Session["CompID"] != null && Session["CompID"].ToString() == "1015")
-                {
-                    baseurl = "http://weberleads.in/http-api.php?username=discountap&password=discountap&senderid=DISCNT&route=2&number="
-                              + MobileNo + "&message=" + SMS;
-                }
-                else
-                {
-                    // baseurl = "http://www.apiconnecto.com/API/SMSHttp.aspx?UserId=" + Session["SmsId"] + "&pwd=" + Session["SmsPass"] + "&Message=" + SMS + "&Contacts=" + MobileNo + "&SenderId=" + Session["ClientId"];
-                    baseurl = "http://78.46.58.54/vb/apikey.php?apikey=baeVEum0EOQkbng7&senderid=OVRNET&templateid=1707169640731570892&number="
-                              + MobileNo + "&message=" + SMS;
-                }
-
+                baseurl = "http://78.46.58.54/vb/apikey.php?apikey=baeVEum0EOQkbng7&senderid=OVRNET&templateid=1707169640731570892&number="
+                          + MobileNo + "&message=" + SMS;
                 using (Stream data = client.OpenRead(baseurl))
                 using (StreamReader reader = new StreamReader(data))
                 {
@@ -4917,12 +4874,12 @@ public partial class DTProcess : System.Web.UI.Page
             string IsFranchise = "", ActiveStatus = "", Address = "N", profilePic = "", Mobl = "";
             bool Bool = false;
 
-            SqlParameter[] prms = new SqlParameter[2];
-            prms[0] = new SqlParameter("@UserID", userName);
-            prms[1] = new SqlParameter("@Password", Password);
-
-            Dr = SqlHelper.ExecuteReader(constr1, "sp_Login", prms);
-
+            //SqlParameter[] prms = new SqlParameter[2];
+            //prms[0] = new SqlParameter("@UserID", userName);
+            //prms[1] = new SqlParameter("@Password", Password);
+            //Dr = SqlHelper.ExecuteReader(constr1, "sp_Login", prms);
+            Comm = new SqlCommand(IsoStart + "Exec sp_Login '" + userName + "','" + Password + "'" + IsoEnd, selectConn);
+            Dr = Comm.ExecuteReader();
             if (Dr.Read())
             {
                 MemName = (Dr["MemFirstName"].ToString().Trim() + " " + Dr["MemLastName"].ToString().Trim());
@@ -4938,8 +4895,6 @@ public partial class DTProcess : System.Web.UI.Page
                 DOj = Convert.ToDateTime(Dr["Doj"]).ToString("dd-MMM-yyyy");
                 DOA = Convert.ToDateTime(Dr["Upgradedate"]).ToString("dd-MMM-yyyy");
                 Address = Dr["Address1"].ToString();
-
-                Dr.Close();
                 Bool = true;
             }
             Dr.Close();
@@ -5000,10 +4955,10 @@ public partial class DTProcess : System.Web.UI.Page
 
                 DataSet Ds = new DataSet();
 
-                SqlParameter[] prms = new SqlParameter[1];
-                prms[0] = new SqlParameter("@FormNo", Formno);
-                Ds = SqlHelper.ExecuteDataset(selectConn, "sp_LoadTeam", prms);
-
+                //SqlParameter[] prms = new SqlParameter[1];
+                //prms[0] = new SqlParameter("@FormNo", Formno);
+                string sql = IsoStart + "exec sp_LoadTeam '" + Formno + "'" + IsoEnd;
+                Ds = SqlHelper.ExecuteDataset(selectConn, CommandType.Text, sql);
                 _Output = "{\"leftreferral\":\"" + Session["CompShortUrl"] + "NewJoining.aspx?ref=" + Crypto.Encrypt(userid + "/1") + "&side=Left" +
                           "\",\"rightreferral\":\"" + Session["CompShortUrl"] + "NewJoining.aspx?ref=" + Crypto.Encrypt(userid + "/2") + "&side=Right" +
                           "\",\"myteam\":";
@@ -5174,8 +5129,7 @@ public partial class DTProcess : System.Web.UI.Page
         {
             if (UserExists(userID, oldPasswd))
             {
-                if (Conn.State == ConnectionState.Closed) Conn.Open();
-
+                if (selectConn.State == ConnectionState.Closed) selectConn.Open();
                 bool isMemExist = false;
 
                 string query = IsoStart + "Select * from " + ObjDAL.dBName + "..M_MemberMaster Where IDNo='" + userID + "' and Passw ='" + oldPasswd + "'" + IsoEnd;
@@ -5285,7 +5239,6 @@ public partial class DTProcess : System.Web.UI.Page
 
         return output;
     }
-
     public string JsonEncode(string str)
     {
         str = str.Replace("\\", "\\\\");

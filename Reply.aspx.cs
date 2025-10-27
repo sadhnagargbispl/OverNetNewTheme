@@ -17,7 +17,7 @@ public partial class Reply : System.Web.UI.Page
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
-        objDAL = new DAL();
+        //objDAL = new DAL();
         if (string.IsNullOrEmpty(Request.QueryString["CId"]) == false)
         {
             CIdQS = Request.QueryString["CId"];

@@ -397,7 +397,7 @@ public partial class Default : System.Web.UI.Page
             bool result = false;
             DataTable dt = new DataTable();
             DataSet Ds = new DataSet();
-            string Str = ObjDal.Isostart + "Select Debit From dbo.ufnGetBalance('" + Formno + "','M')" + ObjDal.IsoEnd;
+            string Str = ObjDal.Isostart + "Select Debit From " + ObjDal.dBName + "..ufnGetBalance('" + Formno + "','M')" + ObjDal.IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, Str);
             dt = Ds.Tables[0];
             if (Convert.ToInt32(dt.Rows[0]["Debit"]) >= 2400)

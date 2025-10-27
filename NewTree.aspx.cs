@@ -30,13 +30,12 @@ public partial class NewTree : System.Web.UI.Page
     private string strDrawKit;
     private DAL obj = new DAL();
     private string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
-    private string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
     string scrname = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
-            conn = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
+            conn = new SqlConnection(constr1);
             conn.Open();
             if (!Page.IsPostBack)
             {
@@ -247,10 +246,8 @@ public partial class NewTree : System.Web.UI.Page
         {
 
 
-            // conn = New SqlConnection(Application("Connect"))
-            // conn.Open()
-
-            Comm = new SqlCommand(strQuery, conn);
+            string strSql = obj.Isostart + strQuery + obj.IsoEnd;
+            Comm = new SqlCommand(strSql, conn);
             Comm.CommandTimeout = 100000000;
             Adp1 = new SqlDataAdapter(Comm);
             Adp1.Fill(dsGetQry);

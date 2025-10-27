@@ -70,8 +70,12 @@ public partial class MonthlyStatement : System.Web.UI.Page
                         PrevBal.InnerText = row["PrevBal"].ToString();
                         ClsBal.InnerText = row["ClsBal"].ToString();
                     }
+          
                 }
+                comm.Cancel();
+                
             }
+            
         }
     }
 }

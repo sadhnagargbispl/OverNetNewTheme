@@ -126,7 +126,7 @@ public partial class ChangePass : System.Web.UI.Page
                         if (tmptbl.Rows.Count == 1)
                         {
                             strQry = "Update M_MemberMaster Set Passw='" + pass1.Text + "',E_MainPassw='" + pass1.Text + "' Where FormNo=" + Session["FormNo"] + ";";
-                            int i = objDal.SaveData(strQry);
+                            int i = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, strQry));
                             if (i != 0)
                             {
                                 Response.Write("<script language='javascript'>window.alert('Password Changed Successfully, Login Again!!');window.location='logout.aspx';</script>");
@@ -156,45 +156,5 @@ public partial class ChangePass : System.Web.UI.Page
             throw new Exception(ex.Message);
         }
     }
-    private void sendSMS()
-    {
-        try
-        {
-            dbConnect.OpenConnection();
-            if (Session["MobileNo"] != null && Session["MobileNo"].ToString().Length >= 10)
-
-            {
-                WebClient client = new WebClient();
-                string baseurl;
-                Stream data;
-                string sms = "Dear " + Session["MemName"].ToString() +
-                            " Your Password has been Successfully changed" +
-                            ",New Password is : '" + pass1.Text + "'";
-                try
-                {
-                    baseurl = "http://www.unicel.in/SendSMS/sendmsg.php?uname=" + Session["SmsId"] +
-                                        " &pass=" + Session["SmsPass"] +
-                                        "&send=" + Session["ClientId"] +
-                                        "&dest=" + Session["MobileNo"] +
-                                        "&msg=" + sms + "";
-                    data = client.OpenRead(baseurl);
-                    StreamReader reader = new StreamReader(data);
-                    string s = reader.ReadToEnd();
-                    data.Close();
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    string errorMessage = "An error occurred: " + ex.Message;
-                    // Assuming you have a label control named lblErrorMessage on your ASPX page
-                    lblErrorMessage.Text = errorMessage;
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
-    }
-
+   
 }

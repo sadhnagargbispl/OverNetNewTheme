@@ -86,10 +86,15 @@
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="span12">
-                        <div class="table-responsive" style=" overflow:scroll;">
+                        <div class="table-responsive" style="overflow: scroll;">
                             <asp:GridView ID="RptDirects" runat="server" AutoGenerateColumns="true"
-                                CssClass="table table-bordered" EmptyDataText="No data to display." AllowPaging="true" PageSize="10" OnPageIndexChanging="RptDirects_PageIndexChanging" >
+                                CssClass="table table-bordered" EmptyDataText="No data to display." AllowPaging="true" PageSize="10" OnPageIndexChanging="RptDirects_PageIndexChanging">
                                 <Columns>
+                                    <asp:TemplateField HeaderText="S.No.">
+                                        <ItemTemplate>
+                                            <%#Container.DataItemIndex + 1%>.
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>
                         </div>

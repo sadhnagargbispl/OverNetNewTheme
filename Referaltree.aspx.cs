@@ -20,14 +20,12 @@ public partial class Referaltree : System.Web.UI.Page
     string strDrawKit;
     string IsoStart;
     string IsoEnd;
-
-    private string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
-    private string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
+    string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
-            Cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["constr1"].ConnectionString);
+            Cnn = new SqlConnection(constr1);
 
             if (!IsPostBack)
             {

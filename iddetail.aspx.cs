@@ -350,13 +350,10 @@ public partial class iddetail : System.Web.UI.Page
             var obj = new DAL();
             string query = ObjDal.Isostart + "SELECT StateCode, StateName FROM " + ObjDal.dBName + "..M_STateDivMaster WHERE ActiveStatus = 'Y' AND RowStatus = 'Y' ORDER BY StateCode" + ObjDal.IsoEnd;
             DataTable dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, query).Tables[0];
-            if (dt.Rows.Count > 0)
-            {
-                ddlState.DataSource = dt;
-                ddlState.DataValueField = "StateCode";
-                ddlState.DataTextField = "StateName";
-                ddlState.DataBind();
-            }
+            ddlState.DataSource = dt;
+            ddlState.DataValueField = "StateCode";
+            ddlState.DataTextField = "StateName";
+            ddlState.DataBind();
         }
         catch (Exception ex)
         {
@@ -680,7 +677,6 @@ public partial class iddetail : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, GetType(), "Exception", "alert('" + error + "');", true);
         }
     }
-
     private void CompressAndSaveImage(Stream inputStream, string savePath, string extension, long quality = 50L)
     {
         using (System.Drawing.Image img = System.Drawing.Image.FromStream(inputStream))

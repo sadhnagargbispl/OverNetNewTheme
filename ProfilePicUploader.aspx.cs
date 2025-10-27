@@ -16,7 +16,6 @@ public partial class ProfilePicUploader : System.Web.UI.Page
     string IsoEnd;
     SqlDataReader dr;
     string scrname;
-    string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
