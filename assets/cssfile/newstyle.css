@@ -1,4 +1,4 @@
-:root {
+/*:root {
     --parimary-color: linear-gradient(45deg, #af7a26 0%, #af7a26 100%) !important;
     --secondary-color: linear-gradient(45deg, #af7a26 0%, #af7a26 100%) !important;
     --thirdary-color: #af7a26 !important;
@@ -41,3 +41,4 @@
 #header .navbar-inner .nav .dropdown-toggle:hover, .navbar-inner .nav .dropdown.open .dropdown-toggle, .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
     background-color: var(--thirdary-color) !important;
 }
+*/
