@@ -26,7 +26,7 @@ ul.faq-list li a:hover, ul.faq-list li a.active {
     box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.34);
     /*background: linear-gradient(to right, #8b46bf, #057aac) !important;*/
 
-    background: #880b2f;
+   /* background: #880b2f;*/
 }
 
 #header .navbar-inner .nav .dropdown-toggle:hover, .navbar-inner .nav .dropdown.open .dropdown-toggle {
@@ -73,16 +73,14 @@ ul > li > a { /* font-family: 'Exo 2', sans-serif; */
 }
 
 #sidebar >
-
 ul > li a i {
     color: #fff !important;
 }
 
 #sidebar >
-
 ul > li > a:hover, #sidebar > ul > li:hover > a {
     color: #fff !important;
-    background: #d83030;
+    background: #710b0d;
 }
 
 /*#sidebar > ul > li.active > a {
@@ -96,9 +94,7 @@ ul > li > a:hover, #sidebar > ul > li:hover > a {
 ul > li > ul.sub > li > a {
     ;
 }
-
     #sidebar >
-
     ul > li > ul.sub > li > a:hover, #sidebar > ul > li > ul.sub > li.active a {
         color: #ffffff;
     }
@@ -112,9 +108,7 @@ li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
     filter: none;
     text-decoration: none;
 }
-
 .dropdown-menu >
-
 li > a {
     display: block;
     padding: 8px 9px;

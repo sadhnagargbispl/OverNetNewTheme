@@ -299,8 +299,9 @@ a, a:focus, a:hover, a:active {
 }
 
 #header.navbar-inverse .navbar-inner {
-    height: 64px;
-    border: none !important;
+    box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.34);
+    /* background: linear-gradient(to right, #8b46bf, #057aac) !important; */
+    background: #000152;
 }
 
 #header.navbar-inverse .divider-vertical {
@@ -825,7 +826,7 @@ form legend {
 .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
     color: #555;
     text-decoration: none;
-    background-color: #880b2f;
+    background-color: #710b0d;
     -webkit-box-shadow: inset 0 3px 8px rgba(0,0,0,0.125);
     -moz-box-shadow: inset 0 3px 8px rgba(0,0,0,0.125);
     box-shadow: inset 0 3px 8px rgba(0,0,0,0.125);
@@ -846,7 +847,7 @@ form legend {
     background-position: 0% 0%;
     height: 36px;
     border-bottom: 1px solid #fff;
-    background: linear-gradient(45deg, #d9056c 0%, #1e2961 100%) !important;
+    background: #710b0d !important;
     background-repeat: repeat;
     background-attachment: scroll;
 }
@@ -884,7 +885,7 @@ form legend {
 
 .btn {
     border-radius: 0;
-    background: #023452;
+    background: #710b0d;
     outline: none;
     color: #fff;
 }
@@ -4224,29 +4225,27 @@ jQuery UI Datepicker(new in v1.2.2)
 .small-box.bg-sds {
     position: relative;
     border-radius: 5px;
-    background: linear-gradient(50deg,#2b2e63,#01bf79) !important;
+   background: #710b0d !important;
 }
-
 
 .small-box.bg-aquas4 {
     position: relative;
     border-radius: 5px;
-    background: linear-gradient(45deg,#3a74e0,#c62535);
+    background: #710b0d !important;
 }
 
 .small-box.bg-aquas3 {
     position: relative;
     border-radius: 5px;
-    background: linear-gradient(50deg,#1c01ff,#8771ff) !important
+    background: #710b0d !important;
 }
+
+
 
 .small-box.bg-aqua2 {
     position: relative;
-    border-radius: 5px;
-    background: linear-gradient(50deg,#000000,#735d70) !important;
+    background: #710b0d !important;
 }
-
-
 
 .span4.border-right {
     border-right: 1px solid #000;
@@ -4400,10 +4399,8 @@ h5.widget-user-desc {
 }
 
 .small-box.bg-aqua {
-    background-image: linear-gradient(50deg,#4131ab,#092070) !important;
+    background: #710b0d !important;
 }
-
-
 
 .small-box {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.31);
@@ -4415,26 +4412,27 @@ h5.widget-user-desc {
 }
 
 .small-box.bg-greena {
-    background-image: linear-gradient(45deg,#d8a50a,#04134b);
+    /* background: #000152 !important; */
+    background: #710b0d !important;
     border-radius: 5px;
     position: relative;
 }
 
 .small-box.bg-sdsa {
     position: relative;
-    background-image: linear-gradient(45deg,#c30d0d,#fd0e0e);
+   background: #710b0d !important;
     border-radius: 5px;
 }
 
 .small-box.bg-aquas {
     position: relative;
-    background-image: linear-gradient(45deg,#8e0dc3,#c154e0);
+   background: #710b0d !important;
     border-radius: 5px;
 }
 
 .small-box.bg-aquass {
     position: relative;
-    background-image: linear-gradient(45deg,#116148,#1ce2a0);
+   background: #710b0d !important;
     border-radius: 5px;
 }
 
@@ -4800,17 +4798,15 @@ h3.widget-user-username {
 
 
 .blueclr {
-    background: #03114a !important;
+    background: #000152 !important;
 }
-
 .redclr {
     background: #d83030 !important;
 }
 
 .gradientclr {
-    background: linear-gradient(45deg, #1e2961 0%, #d9056c 100%) !important;
+    background-color: #390102 !important;    
 }
-
 
 
 @media only screen and (min-width: 431px) and (max-width: 800px) {
@@ -4855,3 +4851,17 @@ h3.widget-user-username {
         display: none !important;
     }
 }
+
+
+ .bluecolor {
+    background: #000152 !important;
+    border-radius: 5px;
+    position: relative;
+}
+
+.table th {
+    font-weight: bold;
+    background: #000152 !important;    
+    color: white;
+}
+ 

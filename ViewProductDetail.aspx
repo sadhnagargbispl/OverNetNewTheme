@@ -37,7 +37,7 @@
         <div class="col-md-12">
             <div id="ctl00_ContentPlaceHolder1_divgenexbusiness" class="clearfix gen-profile-box">
                 <div class="profile-bar-simple red-border clearfix">
-                    <h6>View Order Detail
+                    <h6>VIEW ORDER DETAIL
                     </h6>
                 </div>
                 <div class="clearfix gen-profile-box" style="min-height: auto;">

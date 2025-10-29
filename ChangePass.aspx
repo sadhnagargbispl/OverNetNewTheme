@@ -24,7 +24,7 @@
 
                         <div class="widget">
                             <div class="widget-title">
-                                <h4><i class="icon-credit-card"></i>Change Password</h4>
+                                <h4><i class="icon-credit-card"></i>CHANGE PASSWORD</h4>
                                 <span class="tools">
                                     <a href="javascript:;" class="icon-chevron-down"></a>
                                 </span>

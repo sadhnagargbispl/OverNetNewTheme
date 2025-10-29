@@ -77,7 +77,7 @@
                 <!-- BEGIN THEME CUSTOMIZER-->
                 <!-- END THEME CUSTOMIZER-->
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-                <h3 class="page-title">Registration </h3>
+               <%-- <h3 class="page-title">Registration </h3>--%>
                 <ul class="breadcrumb">
                     <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
                     <li><a href="#">Registration</a><span class="divider-last">&nbsp;</span></li>
@@ -104,7 +104,7 @@
 
                             <div class="widget">
                                 <div class="widget-title">
-                                    <h4><i class="icon-credit-card"></i>Registration</h4>
+                                    <h4><i class="icon-credit-card"></i>REGISTRATION</h4>
                                     <span class="tools">
                                         <a href="javascript:;" class="icon-chevron-down"></a>
                                     </span>

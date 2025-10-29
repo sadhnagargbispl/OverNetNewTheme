@@ -118,10 +118,10 @@
 
         <div class="row-fluid">
             <div class="span12">
-                <h3 class="page-title">Dashboard </h3>
+                <h3 class="page-title">DASHBOARD </h3>
                 <ul class="breadcrumb">
                     <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-                    <li><a href="#">Dashboard</a><span class="divider-last">&nbsp;</span></li>
+                    <li><a href="#">DASHBOARD</a><span class="divider-last">&nbsp;</span></li>
                 </ul>
             </div>
         </div>
@@ -157,26 +157,26 @@
                                 <a href="#">
                                     <div class="widget-user-header bg-green gradientclr">
                                         <div class="widget-user-image"><i class="fa fa-gift" aria-hidden="true"></i></div>
-                                        <h3 class="widget-user-username"><%#Eval("WalletName")%></h3>
+                                        <h3 class="widget-user-username" style ="text-transform:uppercase;font-weight: bolder;"><%#Eval("WalletName")%></h3>
                                     </div>
                                 </a>
                                 <div class="widgetleftright barset">
                                     <div class="span4 border-right">
                                         <div class="description-block">
                                             <h5 class="description-header"><span><span><%#Eval("Credit")%></span> </span></h5>
-                                            <span class="description-text">Credit</span>
+                                            <span class="description-text" style ="text-transform:uppercase;">Credit</span>
                                         </div>
                                     </div>
                                     <div class="span4 border-right">
                                         <div class="description-block">
                                             <h5 class="description-header"><span><span><%#Eval("Debit")%></span></span></h5>
-                                            <span class="description-text">Debit </span>
+                                            <span class="description-text" style ="text-transform:uppercase;">Debit </span>
                                         </div>
                                     </div>
                                     <div class="span4">
                                         <div class="description-block">
                                             <h5 class="description-header"><span><span><%#Eval("Balance")%></span></span></h5>
-                                            <span class="description-text">Balance</span>
+                                            <span class="description-text" style ="text-transform:uppercase;">Balance</span>
                                         </div>
                                     </div>
                                 </div>
@@ -192,7 +192,7 @@
                                 <i class="fa fa-user" aria-hidden="true"
                                     style="font-size: 60px; color: rgb(247, 247, 248); background: #2f90d9; padding: 10px 20px; position: absolute; top: -41px; left: 38%; border-radius: 50%; border: 2px solid rgba(48, 95, 182, 0.14); opacity: .8;"></i>
                             </div>
-                            <h3 class="widget-user-username"><%=Session["Title"].ToString ()%> : MY REFERRAL LINK</h3>
+                            <h3 class="widget-user-username" style ="text-transform:uppercase;font-weight: bolder;"><%=Session["Title"].ToString ()%> : MY REFERRAL LINK</h3>
                         </div>
 
                         <div class="widgetleftright barset">
@@ -253,7 +253,7 @@
                                 <div class="span4">
                                     <div class="widget">
                                         <div class="widget-title">
-                                            <h4><i class="icon-user"></i>Distributor Details</h4>
+                                            <h4 style ="text-transform:uppercase;font-weight: bolder;"><i class="icon-user" ></i>Distributor Details</h4>
                                             <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
                                         </div>
                                         <div class="widget-body">
@@ -293,7 +293,7 @@
                                 <div class="span8 column sortable">
                                     <div class="widget">
                                         <div class="widget-title">
-                                            <h4><i class="fa fa-envelope"></i>Latest News</h4>
+                                            <h4 style ="text-transform:uppercase;font-weight: bolder;"><i class="fa fa-envelope"></i>Latest News</h4>
                                             <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
                                         </div>
                                         <div class="widget-body">
@@ -322,7 +322,7 @@
                     <div class="span6">
                         <div class="widget">
                             <div class="widget-title">
-                                <h4><i class="icon-list-ol"></i>
+                                <h4 style ="text-transform:uppercase;font-weight: bolder;"><i class="icon-list-ol"></i>
                                     My Team Detail
                                 </h4>
                                 <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
@@ -481,7 +481,7 @@
                     <div class="span6">
                         <div class="widget">
                             <div class="widget-title">
-                                <h4><i class="icon-list-ol"></i>
+                                <h4 style ="text-transform:uppercase;font-weight: bolder;"><i class="icon-list-ol"></i>
                                     My Direct
                                 </h4>
                                 <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
@@ -522,7 +522,7 @@
                     <div class="span6">
                         <div class="widget">
                             <div class="widget-title">
-                                <h4><i class="icon-list-ol"></i>Self Repurchase BV</h4>
+                                <h4 style ="text-transform:uppercase;font-weight: bolder;"><i class="icon-list-ol"></i>Self Repurchase BV</h4>
                                 <span class="tools">
                                     <a href="javascript:;" class="icon-chevron-down"></a>
                                 </span>

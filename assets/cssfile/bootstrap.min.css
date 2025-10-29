@@ -2001,7 +2001,8 @@ table {
 
 .table th {
 	font-weight: bold;
-	background: linear-gradient( 45deg, #d9056c 0% 100%) !important;
+	/* background: linear-gradient( 45deg, #d9056c 0% 100%) !important; */
+	background: #000152 !important;
 	color: white;
 }
 

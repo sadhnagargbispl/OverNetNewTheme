@@ -118,7 +118,7 @@
                                     <hr>
                                 </div>
                             </div>
-                            <h3>Login to account</h3>
+                            <h3>LOGIN TO ACCOUNT</h3>
                             <br />
 
                             <input class="input-xxlarge" type="text" runat="server" id="Txtuid" name="uid" placeholder="User Id" required="">
