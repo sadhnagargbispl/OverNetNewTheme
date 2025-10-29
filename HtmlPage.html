@@ -1,0 +1,697 @@
+﻿<!-- Save as dashboard.html or paste inside your ASPX ContentPlaceHolder -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Overnet — Dashboard</title>
+
+    <!-- Fonts (system fallback) -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        /* ========== Color system ========== */
+        :root {
+            --bg: #f4f6f7;
+            --card-bg: #ffffff;
+            --muted: #9aa6b2;
+            /* Primary palette (dark maroon + deep blue) */
+            --maroon: #7f2329; /* accent maroon */
+            --maroon-600: #8e2b31;
+            --maroon-400: #a94a4f; /* lighter */
+            --blue: #0f3452; /* deep blue for nav/header */
+            --blue-600: #132f4a;
+            --accent-text: #ffffff;
+            /* shadows */
+            --elev: 0 6px 20px rgba(12,18,28,0.08);
+            --glass: rgba(255,255,255,0.65);
+        }
+
+        /* ========== Global reset & layout ========== */
+        * {
+            box-sizing: border-box
+        }
+
+        html, body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(180deg,var(--bg),#eef2f4);
+            color: #1f2b33;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.4;
+            font-size: 15px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        /* ========== App container ========== */
+        .app {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        /* ========== Left navigation ========== */
+        .sidebar {
+            background: linear-gradient(180deg,var(--blue),#0b2740);
+            color: var(--accent-text);
+            padding: 22px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+            .brand .logo {
+                width: 42px;
+                height: 42px;
+                background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 18px;
+                color: var(--accent-text);
+            }
+
+            .brand h1 {
+                font-size: 18px;
+                margin: 0;
+                letter-spacing: 0.2px;
+                opacity: 0.95;
+            }
+
+        .sidebar .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 10px;
+            border-radius: 6px;
+            color: var(--accent-text);
+            font-weight: 600;
+            transition: all .18s ease;
+        }
+
+            .nav a:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--elev)
+            }
+
+            .nav a.active {
+                background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+            }
+
+        .sidebar .spacer {
+            flex: 1
+        }
+
+        /* ========== Header ========== */
+        .header {
+            grid-column: 2/3;
+            height: 84px;
+            background: linear-gradient(90deg, var(--blue), #11324a);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            color: var(--accent-text);
+            box-shadow: 0 4px 10px rgba(8,12,20,0.06);
+        }
+
+            .header .welcome {
+                font-weight: 700;
+                font-size: 14px;
+                opacity: 0.95;
+            }
+
+            .header .user {
+                display: flex;
+                gap: 12px;
+                align-items: center
+            }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--maroon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            box-shadow: 0 3px 12px rgba(16,24,32,0.25)
+        }
+
+        /* ========== Main content area ========== */
+        .main {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: transparent;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 6px;
+        }
+
+            .page-title h2 {
+                margin: 0;
+                font-size: 26px;
+                color: #2c3a42;
+            }
+
+            .page-title p {
+                margin: 0;
+                color: var(--muted);
+                font-size: 13px
+            }
+
+        /* ========== Grid for cards ========== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+            align-items: start;
+        }
+
+        /* Stat Cards (top row) */
+        .stat-card {
+            background: var(--maroon);
+            color: var(--accent-text);
+            padding: 18px;
+            border-radius: 8px;
+            min-height: 86px;
+            box-shadow: var(--elev);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+        }
+
+            .stat-card.small {
+                grid-column: span 3;
+            }
+
+            .stat-card.large {
+                grid-column: span 6;
+                min-height: 110px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .stat-card .value {
+                font-size: 20px;
+                font-weight: 700;
+                letter-spacing: 0.2px
+            }
+
+            .stat-card .label {
+                font-size: 13px;
+                opacity: 0.95
+            }
+
+        /* White card style for content blocks */
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: var(--elev);
+        }
+
+        /* Wallet card */
+        .wallet {
+            background: linear-gradient(180deg,#f6f8f9,#ffffff);
+            border-radius: 8px;
+            padding: 0;
+            overflow: hidden;
+        }
+
+            .wallet .wallet-head {
+                background: var(--blue);
+                color: var(--accent-text);
+                padding: 14px 18px;
+                font-weight: 700;
+                text-align: center;
+            }
+
+            .wallet .wallet-body {
+                display: flex;
+                gap: 12px;
+                padding: 18px;
+                justify-content: space-between;
+                text-align: center;
+            }
+
+            .wallet .col {
+                flex: 1
+            }
+
+        /* Referral / right panel box */
+        .referral {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 120px;
+            box-shadow: var(--elev);
+        }
+
+            .referral p {
+                margin: 0 0 10px 0;
+                color: #111827;
+                font-weight: 700
+            }
+
+            .referral a {
+                color: #1d4ed8;
+                word-break: break-all;
+                display: block;
+                margin-bottom: 10px
+            }
+
+        .btn {
+            background: var(--maroon);
+            color: var(--accent-text);
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            border: 0;
+            cursor: pointer
+        }
+
+            .btn.secondary {
+                background: var(--blue);
+                color: #fff
+            }
+
+        /* Distributor details */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+            .info-table td {
+                padding: 10px 12px;
+                border-bottom: 1px solid #eef1f3;
+                color: #324046
+            }
+
+            .info-table tr.header td {
+                background: var(--blue);
+                color: var(--accent-text);
+                font-weight: 700
+            }
+
+        /* Latest news / boxes (maroon title) */
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+            .section-title h3 {
+                margin: 0;
+                font-size: 15px
+            }
+
+        .maroon-title {
+            background: var(--maroon);
+            color: var(--accent-text);
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        /* Footer small items/cards */
+        .small-card {
+            background: linear-gradient(180deg,#102c45,#0e253b);
+            color: #fff;
+            padding: 14px;
+            border-radius: 8px;
+            box-shadow: var(--elev)
+        }
+
+        /* ========== Grid placement (desktop layout) ========== */
+        /* row 1: 4 stat cards across */
+        .stats-row {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+        }
+
+        .stat-1 {
+            grid-column: span 3
+        }
+
+        .stat-2 {
+            grid-column: span 3
+        }
+
+        .stat-3 {
+            grid-column: span 3
+        }
+
+        .stat-4 {
+            grid-column: span 3
+        }
+
+        /* row 2: left column (6) wallet + distributor; right column (6) referral + news */
+        .left-col {
+            grid-column: 1 / 7;
+            display: flex;
+            flex-direction: column;
+            gap: 16px
+        }
+
+        .right-col {
+            grid-column: 7 / 13;
+            display: flex;
+            flex-direction: column;
+            gap: 16px
+        }
+
+        /* third area bottom cards (team detail and direct) */
+        .bottom-col-1 {
+            grid-column: 1 / 7
+        }
+
+        .bottom-col-2 {
+            grid-column: 7 / 10
+        }
+
+        .bottom-col-3 {
+            grid-column: 10 / 13
+        }
+
+        /* responsive */
+        @media (max-width:1100px) {
+            .app {
+                grid-template-columns: 220px 1fr
+            }
+
+            .left-col {
+                grid-column: 1 / -1
+            }
+
+            .right-col {
+                grid-column: 1 / -1
+            }
+
+            .stat-1, .stat-2, .stat-3, .stat-4 {
+                grid-column: span 6
+            }
+
+            .header {
+                padding: 0 16px
+            }
+        }
+
+        @media (max-width:760px) {
+            .app {
+                grid-template-columns: 1fr
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                height: 100vh;
+                width: 220px;
+                transition: all .24s ease;
+                z-index: 200
+            }
+
+                .sidebar.open {
+                    left: 0
+                }
+
+            .header {
+                height: 64px;
+                padding: 0 12px
+            }
+
+            .main {
+                padding: 16px
+            }
+
+            .stats-row {
+                display: block
+            }
+
+            .stat-1, .stat-2, .stat-3, .stat-4 {
+                grid-column: 1 / -1
+            }
+        }
+
+        /* small helpers */
+        .muted {
+            color: var(--muted)
+        }
+
+        .right {
+            text-align: right
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+
+        <!-- Left sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <div class="logo">O</div>
+                <div>
+                    <h1>Overnet</h1>
+                    <div style="font-size:12px;opacity:0.9">Trading Pvt. Ltd.</div>
+                </div>
+            </div>
+
+            <nav class="nav" aria-label="Main navigation">
+                <a class="active" href="#">🏠 Dashboard</a>
+                <a href="#">👥 My Team</a>
+                <a href="#">👤 Profile</a>
+                <a href="#">📤 Upload KYC</a>
+                <a href="#">📄 Documents</a>
+                <a href="#">🔑 Epin</a>
+                <a href="#">💰 Income</a>
+                <a href="#">👛 Wallet</a>
+                <a href="#">🔔 Complaint</a>
+                <a href="#">🚪 Logout</a>
+            </nav>
+
+            <div class="spacer"></div>
+
+            <div style="font-size:13px; opacity:0.9">Need help? <br><a href="#" style="color:rgba(255,255,255,0.9)">support@overnet.com</a></div>
+        </aside>
+
+        <!-- Right side (header + main) -->
+        <div style="display:flex;flex-direction:column;min-height:100vh">
+            <header class="header">
+                <div class="welcome">
+                    <div style="font-weight:700">Dashboard</div>
+                    <div style="font-size:12px; opacity:0.85">Welcome back — overview of your account</div>
+                </div>
+                <div class="user">
+                    <div style="text-align:right; font-size:13px">
+                        <div style="font-weight:700">WELCOME : DHANANJAY KUMAR (131599)</div>
+                        <div style="font-size:12px; opacity:0.85">Member since 09-Aug-2025</div>
+                    </div>
+                    <div class="avatar">D</div>
+                </div>
+            </header>
+
+            <main class="main">
+                <div class="page-title">
+                    <h2>Dashboard</h2>
+                    <p class="muted">Quick glance at your earnings, wallet, and team.</p>
+                </div>
+
+                <!-- Top stat cards -->
+                <div class="grid stats-row">
+                    <div class="stat-card stat-1 stat-1" style="--local-bg:var(--maroon);">
+                        <div class="value">775.00</div>
+                        <div class="label">EVEREST INCOME</div>
+                    </div>
+
+                    <div class="stat-card stat-2" style="background:var(--maroon);">
+                        <div class="value">467400.00</div>
+                        <div class="label">DIRECT SPONSOR INCOME</div>
+                    </div>
+
+                    <div class="stat-card stat-3" style="background:var(--maroon);">
+                        <div class="value">3700.00</div>
+                        <div class="label">MATCHING INCOME</div>
+                    </div>
+
+                    <div class="stat-card stat-4" style="background:var(--maroon);">
+                        <div class="value">0.00</div>
+                        <div class="label">DIAMOND CLUB</div>
+                    </div>
+                </div>
+
+                <!-- Two column content -->
+                <div class="grid" style="grid-template-columns:repeat(12,1fr);">
+                    <div class="left-col">
+
+                        <!-- Total income (big) -->
+                        <div class="card" style="background:var(--maroon-400); color:var(--accent-text);">
+                            <div style="display:flex;align-items:center;gap:12px">
+                                <div style="font-size:20px;font-weight:800">471875.00</div>
+                                <div style="font-size:13px;opacity:0.95">TOTAL INCOME</div>
+                            </div>
+                        </div>
+
+                        <!-- Wallet -->
+                        <div class="wallet card">
+                            <div class="wallet-head">MAIN WALLET</div>
+                            <div class="wallet-body">
+                                <div class="col">
+                                    <div class="muted">CREDIT</div>
+                                    <div style="font-weight:700; font-size:18px; margin-top:6px">382529.80</div>
+                                </div>
+                                <div class="col">
+                                    <div class="muted">DEBIT</div>
+                                    <div style="font-weight:700; font-size:18px; margin-top:6px">0.00</div>
+                                </div>
+                                <div class="col">
+                                    <div class="muted">BALANCE</div>
+                                    <div style="font-weight:700; font-size:18px; margin-top:6px">382529.80</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Distributor details -->
+                        <div class="card">
+                            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+                                <div class="small-card" style="display:inline-block;padding:6px 8px;border-radius:6px;background:var(--blue);"></div>
+                                <div style="font-weight:700">DISTRIBUTOR DETAILS</div>
+                            </div>
+
+                            <table class="info-table" role="table">
+                                <tr><td>ID No.</td><td>131599</td><td>Name</td><td>Dhananjay Kumar</td></tr>
+                                <tr><td>DOJ</td><td>09-Aug-2025</td><td>Sponsor</td><td>MANOJ GUPTA</td></tr>
+                                <tr><td>Sponsor ID</td><td>151397</td><td>Type</td><td>Distributor</td></tr>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="right-col">
+
+                        <!-- Referral box -->
+                        <div class="referral card">
+                            <p>WELCOME TO OVERNET TRADING PVT. LTD.: MY-REFERRAL LINK</p>
+                            <a href="#">http://localhost/NewjoiningBackup.aspx?ref=0xU</a>
+                            <button class="btn">Copy URL</button>
+                            <div style="height:10px"></div>
+                            <a href="#">http://localhost/NewjoiningBackup.aspx?ref=47w=</a>
+                            <button class="btn">Copy URL</button>
+                        </div>
+
+                        <!-- Latest news -->
+                        <div class="card">
+                            <div class="section-title">
+                                <div class="maroon-title">LATEST NEWS</div>
+                                <div style="color:var(--muted); font-size:13px">Announcements & updates</div>
+                            </div>
+                            <div style="min-height:90px; margin-top:12px; color:var(--muted)">
+                                No news at the moment. When you add announcements, they'll appear here.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Bottom small cards (team/direct) -->
+                <div class="grid" style="grid-template-columns:repeat(12,1fr); gap:16px;">
+                    <div class="card" style="grid-column: span 5;">
+                        <div style="font-weight:700; margin-bottom:8px">MY TEAM DETAIL</div>
+                        <div style="display:flex;gap:8px">
+                            <div style="flex:1">
+                                <div class="muted">Left</div>
+                                <div style="font-weight:700">120</div>
+                            </div>
+                            <div style="flex:1">
+                                <div class="muted">Right</div>
+                                <div style="font-weight:700">98</div>
+                            </div>
+                            <div style="flex:1">
+                                <div class="muted">Total</div>
+                                <div style="font-weight:700">218</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="grid-column: span 4;">
+                        <div style="font-weight:700; margin-bottom:8px">MY DIRECT</div>
+                        <table style="width:100%; border-collapse:collapse;">
+                            <thead style="opacity:0.9; font-size:13px;">
+                                <tr><th style="text-align:left; padding:6px 8px">User Name</th><th style="text-align:left; padding:6px 8px">Name</th><th style="text-align:right; padding:6px 8px">Date</th></tr>
+                            </thead>
+                            <tbody style="font-size:14px;">
+                                <tr><td style="padding:6px 8px">user1</td><td style="padding:6px 8px">Amit</td><td style="padding:6px 8px; text-align:right">01-Jun-2025</td></tr>
+                                <tr><td style="padding:6px 8px">user2</td><td style="padding:6px 8px">Soni</td><td style="padding:6px 8px; text-align:right">12-Jun-2025</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card" style="grid-column: span 3;">
+                        <div style="font-weight:700">QUICK ACTIONS</div>
+                        <div style="margin-top:12px; display:flex; gap:8px; flex-direction:column;">
+                            <button class="btn secondary">Add Fund</button>
+                            <button class="btn">Withdraw</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="height:28px"></div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Optional small JS for mobile sidebar toggle (paste into ASPX if needed) -->
+    <script>
+    // Toggle sidebar with .open class (for mobile). Bound to your hamburger if you add one.
+    function toggleSidebar(){
+      var s = document.getElementById('sidebar');
+      s.classList.toggle('open');
+    }
+    </script>
+</body>
+</html>

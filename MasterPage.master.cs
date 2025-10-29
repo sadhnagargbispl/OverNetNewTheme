@@ -37,7 +37,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 if (Session["Status"] != null && Session["Status"].ToString() == "OK")
                 {
                     //LoadTeam();
-                    string Strrank = objDal.Isostart + "select  idno,memfirstname + MemLastName as memname,replace(convert(varchar,upgradedate,106),' ','-') as DOA,ActiveStatus,isblock from " + objDal.dBName + "..m_membermaster where formno = '" + Session["Formno"].ToString() + "'" + objDal.IsoEnd;
+                    string Strrank = objDal.Isostart + "select  idno,UPPER(MemFirstName + MemLastName) as memname,replace(convert(varchar,upgradedate,106),' ','-') as DOA,ActiveStatus,isblock from " + objDal.dBName + "..m_membermaster where formno = '" + Session["Formno"].ToString() + "'" + objDal.IsoEnd;
                     Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, Strrank).Tables[0];
                     if (Dt.Rows.Count > 0)
                     {

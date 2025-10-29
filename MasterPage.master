@@ -277,10 +277,10 @@
                             <%--  <li class="dropdown mtop7 hidden-phone">
                                 <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="NewJoiningBackup.aspx" data-original-title="New Registration"><i class="icon-plus hidden-phone"></i></a>
                             </li>--%>
-                            <li class="dropdown mtop7"><a href="NewJoiningBackup.aspx" id="ctl00_addnew" class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" data-original-title="New Registration">
-                                <i class="icon-plus hidden-phone"></i><span id="mobileshow">New Registration</span></a></li>
+                            <%--  <li class="dropdown mtop7"><a href="NewJoiningBackup.aspx" id="ctl00_addnew" class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" data-original-title="New Registration">
+                                <i class="icon-plus hidden-phone"></i><span id="mobileshow">New Registration</span></a></li>--%>
                             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="username whiteclr">Welcome : <strong>
+                                <span class="username whiteclr">WELCOME : <strong>
                                     <asp:Label ID="LblName" runat="server"></asp:Label>(<asp:Label ID="LblId" runat="server"></asp:Label>)</strong></span> <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="profile.aspx"><i class="icon-user"></i>My Profile</a></li>
@@ -309,7 +309,17 @@
                     <ul class="sidebar-menu blueclr">
                         <br />
                         <li class=""><a href="index.aspx" class=""><span class="icon-box"><i class="icon-arrow"></i></span>Dashboard</a></li>
+                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>My Team<span class="arrow"></span></a>
+                            <ul class="sub">
+                                <li><a href="Mydirects.aspx">Level Wise Report</a></li>
+                                <li><a href="Referaltree.aspx">My Direct Tree </a></li>
 
+                                <li><a href="NewTree.aspx">Geneology</a></li>
+                                <%--<li><a href="Downline.aspx">Downline Detail</a></li>--%>
+                                <li><a href="EverestTree.aspx">My Everest Detail</a></li>
+                                <li><a href="BusinessReport.aspx">My Everest Table</a></li>
+                            </ul>
+                        </li>
                         <li class="has-sub">
                             <a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Profile <span class="arrow"></span></a>
                             <ul class="sub">
@@ -337,17 +347,7 @@
                             </ul>
                         </li>
 
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>My Team<span class="arrow"></span></a>
-                            <ul class="sub">
-                                <li><a href="Mydirects.aspx">Level Wise Report</a></li>
-                                <li><a href="Referaltree.aspx">My Direct Tree </a></li>
 
-                                <li><a href="NewTree.aspx">Geneology</a></li>
-                                <%--<li><a href="Downline.aspx">Downline Detail</a></li>--%>
-                                <li><a href="EverestTree.aspx">My Everest Detail</a></li>
-                                <li><a href="BusinessReport.aspx">My Everest Table</a></li>
-                            </ul>
-                        </li>
 
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Epin <span class="arrow"></span></a>
                             <ul class="sub">
