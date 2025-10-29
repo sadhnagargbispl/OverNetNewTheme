@@ -19,8 +19,8 @@
     <link href="assets/cssfile/bootstrap.min.css" rel="stylesheet">
     <link href="assets/cssfile/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="assets/cssfile/font-awesome.css" rel="stylesheet">
-    <link href="assets/cssfile/style.css" rel="stylesheet">
-    <link id="ctl00_style_color" href="assets/cssfile/style_navy-blue.css" rel="stylesheet">
+
+    <link id="ctl00_style_color" href="assets/cssfile/style_navy-blue.css?v=1.8" rel="stylesheet">
     <link rel="stylesheet" href="assets/cssfile/font-awesome.min.css">
     <link href="assets/cssfile/jquery.fancybox.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/cssfile/uniform.default.css">
@@ -238,7 +238,11 @@
         // Add the slideshow providing the controlbar and the thumbstrip
 
     </script>
+
     <link href="assets/cssfile/newstyle.css" rel="stylesheet">
+
+    <link href="assets/cssfile/style.css?v=2.7" rel="stylesheet">
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -308,75 +312,75 @@
                         { %>
                     <ul class="sidebar-menu blueclr">
                         <br />
-                        <li class=""><a href="index.aspx" class=""><span class="icon-box"><i class="icon-arrow"></i></span>DASHBOARD</a></li>
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>MY TEAM<span class="arrow"></span></a>
+                        <li class=""><a href="index.aspx" class=""><span class="icon-box"><i class="icon-arrow"></i></span>Dashboard</a></li>
+                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>My Team<span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="Mydirects.aspx">LEVEL WISE REPORT</a></li>
-                                <li><a href="Referaltree.aspx">MY DIRECT TREE </a></li>
+                                <li><a href="Mydirects.aspx">Level Wise Report</a></li>
+                                <li><a href="Referaltree.aspx">My Direct Tree </a></li>
 
-                                <li><a href="NewTree.aspx">GENEOLOGY</a></li>
+                                <li><a href="NewTree.aspx">Geneology</a></li>
                                 <%--<li><a href="Downline.aspx">Downline Detail</a></li>--%>
-                                <li><a href="EverestTree.aspx">MY EVEREST DETAIL</a></li>
-                                <li><a href="BusinessReport.aspx">MY EVEREST TABLE</a></li>
+                                <li><a href="EverestTree.aspx">My Everest Detail</a></li>
+                                <li><a href="BusinessReport.aspx">My Everest Table</a></li>
                             </ul>
                         </li>
                         <li class="has-sub">
-                            <a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>PROFILE <span class="arrow"></span></a>
+                            <a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Profile <span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="NewJoiningBackup.aspx">NEW REGISTRATION</a> </li>
-                                <li><a href="profile.aspx">PROFILE</a></li>
+                                <li><a href="NewJoiningBackup.aspx">New Registration</a> </li>
+                                <li><a href="profile.aspx">Profile</a></li>
 
-                                <li><a href="ChangePass.aspx">CHANGE PASSWORD</a></li>
-                                <li><a href="ChangeTransPass.aspx">CHANGE TRANSACTION PASSWORD</a></li>
-
-                            </ul>
-                        </li>
-                        <li class="has-sub">
-                            <a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>UPLOAD KYC <span class="arrow"></span></a>
-                            <ul class="sub">
-                                <li><a href="iddetail.aspx">ADDRESS PROOF </a></li>
-                                <li><a href="KycbankDetail.aspx">BANK DETAIL </a></li>
-                                <li><a href="Pancard.aspx">PAN CARD </a></li>
+                                <li><a href="ChangePass.aspx">Change Password</a></li>
+                                <li><a href="ChangeTransPass.aspx">Change Transaction Password</a></li>
 
                             </ul>
                         </li>
                         <li class="has-sub">
-                            <a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>DOCUMENTS <span class="arrow"></span></a>
+                            <a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Upload KYC <span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="welcome.aspx">WELCOME LETTER</a></li>
+                                <li><a href="iddetail.aspx">Address Proof </a></li>
+                                <li><a href="KycbankDetail.aspx">Bank Detail </a></li>
+                                <li><a href="Pancard.aspx">Pan Card </a></li>
+
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Documents <span class="arrow"></span></a>
+                            <ul class="sub">
+                                <li><a href="welcome.aspx">Welcome Letter</a></li>
                             </ul>
                         </li>
 
 
 
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>EPIN <span class="arrow"></span></a>
+                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Epin <span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="epinDetail.aspx">PIN DETAIL</a> </li>
-                                <li><a href="PinTransfer.aspx">PIN TRANSFER</a> </li>
-                                <li><a href="PinTransferDetails.aspx">SEND PIN DETAIL</a> </li>
-                                <li><a href="PinReceivedDetails.aspx">RECEIVED PIN DETAIL</a> </li>
-                                <li><a href="ProductrequestDetail.aspx">SHOPPING</a> </li>
+                                <li><a href="epinDetail.aspx">Pin Detail</a> </li>
+                                <li><a href="PinTransfer.aspx">Pin Transfer</a> </li>
+                                <li><a href="PinTransferDetails.aspx">Send Pin Detail</a> </li>
+                                <li><a href="PinReceivedDetails.aspx">Received Pin Detail</a> </li>
+                                <li><a href="ProductrequestDetail.aspx">Shopping</a> </li>
                             </ul>
                         </li>
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>INCOME<span class="arrow"></span></a>
+                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Income<span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="Monthlyincome.aspx">MONTHLY PAYOUT DETAIL</a></li>
-                                <li><a href="dailyeverestincome.aspx">DAILY INCOME DETAIL</a></li>
+                                <li><a href="Monthlyincome.aspx">Monthly Payout Detail</a></li>
+                                <li><a href="dailyeverestincome.aspx">Daily Income Detail</a></li>
                             </ul>
                         </li>
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>WALLET<span class="arrow"></span></a>
+                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Wallet<span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="AllWalletReport.aspx">WALLET REPORT</a></li>
-                                <li><a href="ServiceWalletTransfer.aspx">WALLET TRANSFER</a></li>
+                                <li><a href="AllWalletReport.aspx">Wallet Report</a></li>
+                                <li><a href="ServiceWalletTransfer.aspx">Wallet Transfer</a></li>
                             </ul>
                         </li>
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>COMPLAINT<span class="arrow"></span></a>
+                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Complaint<span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="Complain.aspx">RAISE TICKET</a></li>
-                                <li><a href="ComplainSolution.aspx">TICKET STATUS</a></li>
+                                <li><a href="Complain.aspx">Raise Ticket</a></li>
+                                <li><a href="ComplainSolution.aspx">Ticket Status</a></li>
                             </ul>
                         </li>
-                        <li class="has-sub"><a href="logout.aspx" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>LOGOUT<span class="arrow"></span> </a></li>
+                        <li class="has-sub"><a href="logout.aspx" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Logout<span class="arrow"></span> </a></li>
 
 
                         <%-- <li class="has-sub"><a href="#" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Referral Link<span class="arrow"></span> </a></li>--%>
@@ -389,8 +393,8 @@
                 <br />
                 <br />
                 <ul>
-                    <li><a href="NewJoiningBackup.aspx">SIGN UP</a></li>
-                    <li><a href="Default.aspx">SIGN IN</a></li>
+                    <li><a href="NewJoiningBackup.aspx">Sign Up</a></li>
+                    <li><a href="Default.aspx">Sign In</a></li>
                 </ul>
                 <% }%>
             </div>

@@ -479,6 +479,7 @@ ul.sidebar-menu span.icon-box {
             border-bottom: 1px solid #082159;
             border-top: 1px solid rgba(255, 255, 255, 0.32);
             color: #fff;
+            text-transform: uppercase;
         }
 
         #sidebar > ul > li a i {
@@ -547,6 +548,7 @@ ul.sidebar-menu span.icon-box {
         text-shadow: 0 1px 1px #000;
         font-size: 17px;
         font-weight: normal;
+        text-transform: uppercase;
     }
 
 i.fa.fa-circle-o {
@@ -4306,9 +4308,9 @@ h5.widget-user-desc {
     color: #000000;
     background: rgba(131, 191, 27, 0) !important;
     padding: 2px 12px;
-    MARGIN-TOP: 20PX;
+    MARGIN-TOP: 45px;
     border-radius: 5px;
-    MARGIN-BOTTOM: 0PX;
+    MARGIN-BOTTOM: 10px;
 }
 
 .small-box .icon {
@@ -4752,6 +4754,10 @@ h5.widget-user-desc {
 }
 
 
+.gradientclr {      
+    background-color: #710b0d !important;
+}
+
 
 .widget-user-header.bg-green {
     text-align: center;
@@ -4794,8 +4800,10 @@ h3.widget-user-username {
 .whiteclr {
     color: #FFFFFF;
     font-size: 14px;
+    background-color: #710b0d !important;
+    padding: 6px;
+    border-radius: 7px;
 }
-
 
 .blueclr {
     background: #000152 !important;
@@ -4804,9 +4812,7 @@ h3.widget-user-username {
     background: #d83030 !important;
 }
 
-.gradientclr {
-    background-color: #390102 !important;    
-}
+
 
 
 @media only screen and (min-width: 431px) and (max-width: 800px) {
