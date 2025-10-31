@@ -2001,8 +2001,7 @@ table {
 
 .table th {
 	font-weight: bold;
-	/* background: linear-gradient( 45deg, #d9056c 0% 100%) !important; */
-	background: #000152 !important;
+	background: linear-gradient( 45deg, #d9056c 0% 100%) !important;
 	color: white;
 }
 
@@ -2883,7 +2882,7 @@ table th[class*="span"],
 }
 
 .dropdown .caret {
-	margin-top: 8px;
+	/* margin-top: 8px; */
 	margin-left: 2px
 }
 
@@ -4105,7 +4104,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .nav .dropdown-toggle .caret {
-	margin-top: 6px;
+	/* margin-top: 6px; */
 	border-top-color: #08c;
 	border-bottom-color: #08c
 }
@@ -4546,9 +4545,7 @@ input[type="submit"].btn.btn-mini {
 	text-shadow: 0 1px 0 #fff
 }
 
-.navbar .nav .dropdown-toggle .caret {
-	margin-top: 8px
-}
+
 
 .navbar .nav>li>a:focus,
 .navbar .nav>li>a:hover {
@@ -4670,7 +4667,7 @@ input[type="submit"].btn.btn-mini {
 .navbar .nav li.dropdown.active>.dropdown-toggle,
 .navbar .nav li.dropdown.open.active>.dropdown-toggle {
 	color: #555;
-	background-color: #e5e5e5
+	/* background-color: #e5e5e5 */
 }
 
 .navbar .nav li.dropdown>.dropdown-toggle .caret {
@@ -4773,7 +4770,7 @@ input[type="submit"].btn.btn-mini {
 .navbar-inverse .nav li.dropdown.active>.dropdown-toggle,
 .navbar-inverse .nav li.dropdown.open.active>.dropdown-toggle {
 	color: #fff;
-	background-color: #111
+	/* background-color: #111 */
 }
 
 .navbar-inverse .nav li.dropdown>a:hover .caret,

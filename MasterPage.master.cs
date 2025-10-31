@@ -41,8 +41,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, Strrank).Tables[0];
                     if (Dt.Rows.Count > 0)
                     {
-                        LblId.Text = Dt.Rows[0]["idno"].ToString();
-                        LblName.Text = Dt.Rows[0]["memname"].ToString();
+                       // LblId.Text = Dt.Rows[0]["idno"].ToString();
+                        //LblName.Text = Dt.Rows[0]["memname"].ToString();
                         //if (Dt.Rows[0]["ActiveStatus"].ToString() == "Y")
                         //{
                         //    Lblactive.Text = Dt.Rows[0]["DOA"].ToString();

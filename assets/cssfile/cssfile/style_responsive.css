@@ -262,7 +262,7 @@
 
     #header .brand {
         margin-top: -5px !important;
-        /*padding: 22px 35px !important;*/
+        padding: 22px 35px !important;
     }
 
     #header.navbar-inverse .navbar-inner {
@@ -650,11 +650,11 @@
     }
 
     #header .brand {
- margin-top: -5px !important;
- padding: 3px 90px !important;
- width: 58%;
- height: 70px;
- }
+	 margin-top: -5px !important;
+	/* padding: 3px 90px !important;*/
+	 width: 53%;
+	 height: 70px;
+	 }
 
 
     .dashboard-report-li {

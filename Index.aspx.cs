@@ -90,11 +90,14 @@ public partial class Index : System.Web.UI.Page
 
             }
             if (Ds.Tables[2].Rows.Count > 0)
-            {
-                LblUserName.Text = Ds.Tables[2].Rows[0]["Name"].ToString();
+            {  
                 LblUserID.Text = Ds.Tables[2].Rows[0]["IdNo"].ToString();
-                LbldateOfJoining.Text = Ds.Tables[2].Rows[0]["DOj"].ToString();
-                //LblRank.Text = Ds.Tables[2].Rows[0]["Rank"].ToString();
+                LblUserName.Text = Ds.Tables[2].Rows[0]["Name"].ToString();
+                LbldateOfJoining.Text = Ds.Tables[2].Rows[0]["DOj"].ToString(); 
+                LblUserNo.Text = Ds.Tables[2].Rows[0]["IdNo"].ToString();
+                LblLUserName.Text = Ds.Tables[2].Rows[0]["Name"].ToString();
+                Lbldateofjoiningg.Text = Ds.Tables[2].Rows[0]["DOj"].ToString();
+                LblRank.Text = Ds.Tables[2].Rows[0]["Rank"].ToString();
                 //LblRank.Text = Ds.Tables[2].Rows[0]["RegType"].ToString();
                 LblSponsorID.Text = Ds.Tables[2].Rows[0]["sponsorId"].ToString();
                 LblSponsorName.Text = Ds.Tables[2].Rows[0]["sponsorName"].ToString();

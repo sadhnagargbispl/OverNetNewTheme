@@ -14,7 +14,7 @@ a, a:hover {
 }
 
 ul.faq-list li a:hover, ul.faq-list li a.active {
-    background: #19488e;
+    background: #060729 ;
 }
 
 .navbar-inverse .brand, .navbar-inverse .nav > li > a {
@@ -26,11 +26,11 @@ ul.faq-list li a:hover, ul.faq-list li a.active {
     box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.34);
     /*background: linear-gradient(to right, #8b46bf, #057aac) !important;*/
 
-    background: #880b2f;
+    background: #060729 ;
 }
 
 #header .navbar-inner .nav .dropdown-toggle:hover, .navbar-inner .nav .dropdown.open .dropdown-toggle {
-    background-color: #880b2f !important;
+    /* background-color: #880b2f !important; */
 }
 
 .navbar-inverse .nav >
@@ -80,7 +80,7 @@ ul > li a i {
 #sidebar >
 ul > li > a:hover, #sidebar > ul > li:hover > a {
     color: #fff !important;
-    background: #710b0d
+    background: #350001
     
 }
 
