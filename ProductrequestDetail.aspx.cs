@@ -17,7 +17,7 @@ public partial class ProductrequestDetail : System.Web.UI.Page
         try
         {
 
-            if (Session["Status"].ToString() == "OK")
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
 
             }
@@ -64,7 +64,7 @@ public partial class ProductrequestDetail : System.Web.UI.Page
     ") as x ORDER BY try_convert(datetime, x.orderdate, 106) DESC" + Objdal.IsoEnd;
             //str = Objdal.Isostart + " exec Sp_GetEverestDataDeatil '" + Session["FormNo"] + "' " + Objdal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strquery).Tables[0];
-            Session["DirectIncome"] = dt;
+            Session["ProductrequestDetail"] = dt;
             if (dt.Rows.Count > 0)
             {
                 RptDirects.DataSource = dt;

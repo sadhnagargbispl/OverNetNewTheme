@@ -22,7 +22,7 @@ public partial class Reftree : System.Web.UI.Page
         {
             Cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["constr1"].ConnectionString);
 
-            if (Session["Status"].ToString() == "OK")
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 string scrname = "";
                 string DownFormNo = Get_FormNo(DownLineFormNo.Value);

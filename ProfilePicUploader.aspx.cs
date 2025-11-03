@@ -19,7 +19,7 @@ public partial class ProfilePicUploader : System.Web.UI.Page
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Status"].ToString() == "OK")
+        if (Session["Status"] != null && Session["Status"].ToString() == "OK")
         {
             if (!Page.IsPostBack)
             {

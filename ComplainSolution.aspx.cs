@@ -79,7 +79,7 @@ public partial class ComplainSolution : System.Web.UI.Page
             ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str);
             dt = new DataTable();
             dt = ds.Tables[0];
-            Session["DirectData1"] = dt;
+            Session["ComplainSolution"] = dt;
             RptDirects.DataSource = dt;
             RptDirects.DataBind();
         }

@@ -17,7 +17,7 @@ public partial class BusinessReport : System.Web.UI.Page
         try
         {
 
-            if (Session["Status"].ToString() == "OK")
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
 
             }
@@ -50,7 +50,7 @@ public partial class BusinessReport : System.Web.UI.Page
             DataSet Ds = new DataSet();
             str = Objdal.Isostart + " exec Sp_LevelWiseBusinessReport '" + Session["FormNo"] + "' " + Objdal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
-            Session["DirectIncome"] = dt;
+            Session["BusinessReport"] = dt;
             if (dt.Rows.Count > 0)
             {
                 RptDirects.DataSource = dt;

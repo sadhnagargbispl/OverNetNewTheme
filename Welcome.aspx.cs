@@ -43,7 +43,7 @@ public partial class welcome : System.Web.UI.Page
                         strcondition = " and mMst.IDNo=''" + Session["LASTID"] + "''";
                     }
                     else if (Session["Status"] != null && Session["Status"].ToString() == "OK")
-                    //else if (Session["Status"].ToString() == "OK")
+                    //else if (Session["Status"] != null && Session["Status"].ToString() == "OK")
                     {
                         strcondition = " and mMst.FormNo=''" + Convert.ToInt32(Session["Formno"]) + "''";
                     }

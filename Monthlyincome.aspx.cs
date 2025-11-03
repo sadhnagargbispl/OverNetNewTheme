@@ -33,7 +33,7 @@ public partial class Monthlyincome : System.Web.UI.Page
         try
         {
 
-            if (Session["Status"].ToString() == "OK")
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
 
             }
@@ -73,7 +73,7 @@ public partial class Monthlyincome : System.Web.UI.Page
                   "WHERE Formno='" + Session["Formno"].ToString() + "' AND Onwebsite='Y' " + Objdal.IsoEnd;
             
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
-            Session["DirectIncome"] = dt;
+            Session["Monthlyincome"] = dt;
             DataTable dtFull = dt;
             int startRow = CurrentPage * PageSize;
             int endRow = Math.Min(startRow + PageSize, dtFull.Rows.Count);
@@ -112,7 +112,7 @@ public partial class Monthlyincome : System.Web.UI.Page
     }
     protected void btnNext_Click(object sender, EventArgs e)
     {
-        DataTable dtFull = Session["epinData"] as DataTable;
+        DataTable dtFull = Session["Monthlyincome"] as DataTable;
         if (dtFull != null && (CurrentPage + 1) * PageSize < dtFull.Rows.Count)
         {
             CurrentPage += 1;

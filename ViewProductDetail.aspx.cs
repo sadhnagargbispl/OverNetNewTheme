@@ -17,7 +17,7 @@ public partial class ViewProductDetail : System.Web.UI.Page
         try
         {
 
-            if (Session["Status"].ToString() == "OK")
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
 
             }
