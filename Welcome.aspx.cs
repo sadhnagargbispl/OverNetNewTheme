@@ -23,84 +23,79 @@ public partial class welcome : System.Web.UI.Page
             {
                 string strcondition = "";
                 string str = "";
-
                 DataTable dt = new DataTable();
+
                 if (Request["id"] != null)
                 {
-                    if (Request["id"] != Session["LASTID"].ToString())
-                    {
-                        string scrname = "<SCRIPT language='javascript'>alert('Try Again Later.');" + "</SCRIPT>";
-                        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "alert", "alert('Invalid Access.');", true);
-                        return;
-                    }
-
                     strcondition = " and mMst.IDNo=''" + Request["id"] + "''";
+                    BtnHome.Visible = false;
+                    BtnPrint.Visible = false;
                 }
                 else
                 {
-                    if (Session["JOIN"] != null && Session["JOIN"].ToString() == "YES") 
+                    if (Session["JOIN"] != null && Session["JOIN"].ToString() == "YES")
                     {
                         strcondition = " and mMst.IDNo=''" + Session["LASTID"] + "''";
+                        Session["JOIN"] = "FINISH";
                     }
                     else if (Session["Status"] != null && Session["Status"].ToString() == "OK")
-                    //else if (Session["Status"] != null && Session["Status"].ToString() == "OK")
                     {
                         strcondition = " and mMst.FormNo=''" + Convert.ToInt32(Session["Formno"]) + "''";
                     }
                     else
                     {
-                        Response.Redirect("Logout.aspx");
+                        Response.Redirect("Default.aspx");
                         Response.End();
+                        return;
                     }
                 }
 
-                DataSet ds1 = new DataSet();
                 str = ObjDal.Isostart + "exec sp_MemDtl '" + strcondition + "'" + ObjDal.IsoEnd;
-                dt = SqlHelper.ExecuteDataset(constr1 ,CommandType.Text, str).Tables[0];
+                DataSet ds = new DataSet();
+                dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
+
                 if (dt.Rows.Count > 0)
                 {
-                  // LblIdno.Text = dt.Rows[0]["Idno"].ToString();
-                    //LblName.Text = dt.Rows[0]["Memname"].ToString();
-                    LblIdno1.Text = dt.Rows[0]["Idno"].ToString();
-                    LblName1.Text = dt.Rows[0]["Memname"].ToString();
-                   // lblDoj.Text = Convert.ToDateTime(dt.Rows[0]["Doj"]).ToString("dd-MMM-yyyy");
-                    lblDoj1.Text = Convert.ToDateTime(dt.Rows[0]["Doj"]).ToString("dd-MMM-yyyy");
-                    lblPassw.Text = dt.Rows[0]["Passw"].ToString();
-                    lblEPassw.Text = dt.Rows[0]["EPassw"].ToString();
+                    LblYear.InnerText = dt.Rows[0]["CYear"].ToString();
+                    LblId.InnerText = dt.Rows[0]["Idno"].ToString();
+                    LblIdno.Text = dt.Rows[0]["Idno"].ToString();
 
-                    if (Session["JOIN"] != null && Session["JOIN"].ToString() == "YES")
-                    {
-                        Session["JOIN"] = "FINISH";
-                    }
+                    LblName.Text = dt.Rows[0]["Memname"].ToString();
+                    LblAddress.Text = dt.Rows[0]["Address1"].ToString();
+                    LblCity.Text = dt.Rows[0]["cityName"].ToString();
+                    LblDistrict.Text = dt.Rows[0]["District"].ToString();
+                    LblState.Text = dt.Rows[0]["statename"].ToString();
+                    LblMobl.Text = dt.Rows[0]["Mobl"].ToString();
+
+                    if (dt.Rows[0]["Doj"] != DBNull.Value)
+                        lblDoj.Text = Convert.ToDateTime(dt.Rows[0]["Doj"]).ToString("dd-MMM-yyyy");
+
+                    LblPlacementid.Text = dt.Rows[0]["RefIdno"].ToString();
+                    LblPlacementName.Text = dt.Rows[0]["RefName"].ToString();
+                    LblEmail.Text = dt.Rows[0]["Email"].ToString();
+                    LblPanno.Text = dt.Rows[0]["Panno"].ToString();
+                    LblKitName.Text = dt.Rows[0]["Category"].ToString();
+                    LblKitAmount.Text = dt.Rows[0]["Kitamount"].ToString();
+                    LblPassw.Text = dt.Rows[0]["Password"].ToString();
                 }
             }
         }
         catch (Exception ex)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "alertMessage", "alert('" + ex.Message + "')", true);
-        }
-    }
-    protected void BtnHome_ServerClick(object sender, EventArgs e)
-    {
-        try
-        {
-            Response.Redirect("index.aspx");
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
-    }
-   protected void BtnNewJoin_ServerClick(object sender, EventArgs e)
-    {
-        try
-        {
-            Response.Redirect("NewJoiningBackup.aspx");
-        }
-        catch(Exception ex)
-        {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "alertMessage", "alert('" + ex.Message + "')", true);
+            string path = HttpContext.Current.Request.Url.AbsoluteUri;
+            string text = path + ":  " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss:fff ") + Environment.NewLine;
+            ObjDal.WriteToFile(text + ex.Message);
+            Response.Write("Try later.");
         }
     }
 
+    protected void BtnHome_ServerClick(object sender, EventArgs e)
+    {
+        Response.Redirect("Index.aspx");
+    }
+
+    protected void BtnNewJoin_ServerClick(object sender, EventArgs e)
+    {
+        Response.Redirect("NewJoiningBackup.aspx", false);
+    }
 }

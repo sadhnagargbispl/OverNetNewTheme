@@ -132,22 +132,22 @@
 
                     <div class="user-info">
                         <div class="info-item">
-                            <label>ID No.</label>
+                            <label>Member ID</label>
                             <span><b><asp:Label ID="LblUserNo" runat="server" Text=""></asp:Label></b></span>
                         </div>
 
                         <div class="info-item">
-                            <label>Name</label>
+                            <label>Member Name</label>
                             <span><b><asp:Label ID="LblLUserName" runat="server" Text=""></asp:Label></b></span>
                         </div>
 
                         <div class="info-item">
-                            <label>Date Of Joining</label>
+                            <label>Date Of Activation</label>
                             <span><b><asp:Label ID="Lbldateofjoiningg" runat="server" Text=""></asp:Label></b></span>
                         </div>
 
                         <div class="info-item">
-                            <label>Pin Level</label>
+                            <label>Rank</label>
                             <span><b><asp:Label ID="LblRank" runat="server" Text=""></asp:Label></b></span>
                         </div>
                     </div>
@@ -175,6 +175,7 @@
 
 
                 <div class="row-fluid panelpart">
+             
                     <asp:Repeater ID="gvBalance" runat="server">
                         <ItemTemplate>
                             <div class="span4">
@@ -212,13 +213,13 @@
 
 
 
-                    <div class="span8 packeviti">
+                    <div class="span8">
                         <div class="box box-widget widget-user-2">
-                            <div class="widget-user-header bg-aqua gradientclr">
+                            <div class="widget-user-header  gradientclr">
                                 <div class="widget-user-image">
                                     <i class="fa fa-user" aria-hidden="true" style="font-size: 60px; color: rgb(247, 247, 248); background: #2f90d9; padding: 10px 20px; position: absolute; top: -41px; left: 38%; border-radius: 50%; border: 2px solid rgba(48, 95, 182, 0.14); opacity: .8;"></i>
                                 </div>
-                                <h3 class="widget-user-username" style="text-transform: uppercase; font-weight: bolder;"><%=Session["Title"].ToString ()%> : MY REFERRAL LINK </h3>
+                                <h3 class="widget-user-username" style="text-transform: uppercase; font-weight: bolder;">MY REFERRAL LINK </h3>
                             </div>
 
                             <div class="widgetleftright barset">
@@ -285,7 +286,6 @@
                     <div class="clearfix"></div>
 
                     <div class="row-fluid panelpart">
-
                         <div class="span12">
                             <div id="ctl00_ContentPlaceHolder1_Distributor1_TbBoard">
                                 <div class="row-fluid">
@@ -301,10 +301,10 @@
                                                         <table class="table table-striped table-bordered table-hover">
                                                             <tbody>
                                                                 <tr style="background: #f9f9f9; color: #333; text-align: left;">
-                                                                    <th style="padding: 12px 15px; width: 15%;">ID No.</th>
+                                                                    <th style="padding: 12px 15px; width: 15%;">Member ID</th>
                                                                     <td style="padding: 12px 15px; width: 35%; font-weight: 600;">
                                                                         <asp:Label ID="LblUserID" runat="server" Text=""></asp:Label></td>
-                                                                    <th style="padding: 12px 15px; width: 15%;">Name</th>
+                                                                    <th style="padding: 12px 15px; width: 15%;">Member Name</th>
                                                                     <td style="padding: 12px 15px; width: 35%; font-weight: 600;">
                                                                         <asp:Label ID="LblUserName" runat="server" Text=""></asp:Label></td>
                                                                 </tr>
@@ -313,8 +313,8 @@
                                                                     <th style="padding: 12px 15px;">DOJ</th>
                                                                     <td style="padding: 12px 15px;">
                                                                         <asp:Label ID="LbldateOfJoining" runat="server" Text=""></asp:Label></td>
-                                                                    <th style="padding: 12px 15px;">Pin Level </th>
-                                                                    <td style="padding: 12px 15px; color: green; font-weight: 600;">Active</td>
+                                                                    <th style="padding: 12px 15px;">Status</th>
+                                                                    <td style="padding: 12px 15px; color: green; font-weight: 600;"><asp:Label ID="Lblstatus" runat="server" Text=""></asp:Label></td>
                                                                 </tr>
 
                                                                 <tr style="background: #ffffff;">
@@ -363,6 +363,9 @@
                         </div>
                     </div>
                     <div class="row-fluid">
+                          <div class="span12">
+      <div id="ctl00_ContentPlaceHolder1_Distributor1_TbBoard">
+          <div class="row-fluid">
                         <div class="span6">
                             <div class="widget">
                                 <div class="widget-title">
@@ -556,7 +559,9 @@
                                 </div>
                             </div>
                         </div>
-
+                                </div>
+    </div>
+</div>
                     </div>
 
                     <div class="row-fluid">

@@ -70,3 +70,18 @@ Thread was being aborted.
 http://localhost:52664/dailyeverestincome.aspx:  03-Nov-2025 11:02:54:800 
 Object reference not set to an instance of an object.
 --------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx:  03-Nov-2025 11:30:35:816 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx?pin=562430&scratch=7456F:  03-Nov-2025 11:31:35:934 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:52664/Downline.aspx:  03-Nov-2025 12:08:25:801 
+Thread was being aborted.
+--------------------------------------------------------
+http://localhost:52664/index.aspx:  03-Nov-2025 12:40:29:397
+Thread was being aborted.
+--------------------------------------------------------
+http://localhost:52664/Index.aspx:  03-Nov-2025 03:08:29:128
+Thread was being aborted.
+--------------------------------------------------------

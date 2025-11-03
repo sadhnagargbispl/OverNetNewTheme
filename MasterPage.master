@@ -386,7 +386,7 @@
 
                             <li class="">
 
-                                <button type="bg-white bg-white" class="btn btn-danger"><i class="icon-signout" style="margin-right: 8px; font-size: 13px; color: #ffffff;"></i><a href="logout.aspx" style="color: #ffffff;"> LOGOUT </a></button>
+                                <button type="bg-white bg-white" class="btn btn-danger"><i class="icon-signout" style="margin-right: 8px; font-size: 13px; color: #ffffff;"></i><a href="logout.aspx" style="color: #ffffff;">LOGOUT </a></button>
 
 
                             </li>
@@ -459,6 +459,7 @@
                                 <li><a href="Mydirects.aspx">Level Wise Report</a></li>
                                 <li><a href="Referaltree.aspx">My Direct Tree </a></li>
                                 <li><a href="NewTree.aspx">Geneology</a></li>
+                                <li><a href="Downline.aspx">Downline Detail</a></li>
                                 <li><a href="EverestTree.aspx">My Everest Detail</a></li>
                                 <li><a href="BusinessReport.aspx">My Everest Table</a></li>
                             </ul>
@@ -632,7 +633,7 @@
             <!-- END FOOTER -->
 
             <!-- BEGIN FOOTER -->
-            <div id="footer">
+            <div id="footer" style="text-transform: uppercase;">
                 © 2025 | <%=Session["Title"].ToString ()%>
                 <div class="span pull-right">
                     <span class="go-top"><i class="icon-arrow-up"></i></span>

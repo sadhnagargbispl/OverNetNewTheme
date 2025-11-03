@@ -28,7 +28,8 @@ public partial class AllWalletReport : System.Web.UI.Page
                 }
 
             }
-            else {
+            else
+            {
                 Response.Redirect("logout.aspx");
             }
 
@@ -58,6 +59,8 @@ public partial class AllWalletReport : System.Web.UI.Page
                 ddlVoucherType.DataValueField = "Actype";
                 ddlVoucherType.DataBind();
             }
+            FillBalance();
+            FillDetail();
         }
         catch (Exception ex)
         {
@@ -110,7 +113,7 @@ public partial class AllWalletReport : System.Web.UI.Page
     {
         try
         {
-          RptDirects.PageIndex = e.NewPageIndex;
+            RptDirects.PageIndex = e.NewPageIndex;
             FillDetail();
         }
         catch (Exception ex)

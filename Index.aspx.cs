@@ -96,9 +96,8 @@ public partial class Index : System.Web.UI.Page
                 LbldateOfJoining.Text = Ds.Tables[2].Rows[0]["DOj"].ToString(); 
                 LblUserNo.Text = Ds.Tables[2].Rows[0]["IdNo"].ToString();
                 LblLUserName.Text = Ds.Tables[2].Rows[0]["Name"].ToString();
-                Lbldateofjoiningg.Text = Ds.Tables[2].Rows[0]["DOj"].ToString();
-                LblRank.Text = Ds.Tables[2].Rows[0]["Rank"].ToString();
-                //LblRank.Text = Ds.Tables[2].Rows[0]["RegType"].ToString();
+                Lbldateofjoiningg.Text = Ds.Tables[2].Rows[0]["ActivationDate"].ToString();
+                Lblstatus.Text = Ds.Tables[2].Rows[0]["status"].ToString();
                 LblSponsorID.Text = Ds.Tables[2].Rows[0]["sponsorId"].ToString();
                 LblSponsorName.Text = Ds.Tables[2].Rows[0]["sponsorName"].ToString();
                 //Image2.ImageUrl = Ds.Tables[2].Rows[0]["ProfilePic"].ToString();
@@ -116,6 +115,14 @@ public partial class Index : System.Web.UI.Page
             {
                 RptNews.DataSource = Ds.Tables[4];
                 RptNews.DataBind();
+            }
+            if (Ds.Tables[5].Rows.Count > 0)
+            {
+                LblRank.Text = Ds.Tables[5].Rows[0]["Rank"].ToString();
+            }
+            else
+            {
+                LblRank.Text = "Not Achieved";
             }
             if (Ds.Tables[7].Rows.Count > 0)
             {

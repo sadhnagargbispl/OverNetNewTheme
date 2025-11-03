@@ -1158,6 +1158,27 @@ public partial class NewJoiningBackup : System.Web.UI.Page
                         //}
                         int UpdateData1 = 0;
 
+                        string refValue = "0";
+                        if (Session["Refral"] == null || string.IsNullOrWhiteSpace(Session["Refral"].ToString()) || Convert.ToDouble(Session["Refral"]) == 0)
+                        {
+                            refValue = txtRefralId.Text;
+                        }
+                        else
+                        {
+                            refValue = Session["Refral"].ToString();
+                        }
+                        if (refValue == "0")
+                        {
+                            string scrname = "<SCRIPT language='javascript'>alert('Please Enter Valid Sponsor ID.');</SCRIPT>";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('Please Enter Valid Sponsor ID.');", true);
+                            return;
+                        }
+                        if (refValue == "")
+                        {
+                            string scrname = "<SCRIPT language='javascript'>alert('Please Enter Valid Sponsor ID.');</SCRIPT>";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('Please Enter Valid Sponsor ID.');", true);
+                            return;
+                        }
                         if (UpdateData1 == 0)
                         {
                             strQry = "INSERT INTO m_memberMaster (" +
@@ -1173,7 +1194,7 @@ public partial class NewJoiningBackup : System.Web.UI.Page
     "PID,Paymode,ChDDNo,ChDDBankID,ChDDBank,ChddDate,ChDDBranch,IsPanCard,AadharNo,AadharNo2,AAdharNo3) " +
 "VALUES (" +
     Session["SessID"] + ",0," + txtPIN.Text.Trim() + ",0," + Session["Kitid"] + "," +
-    Session["Uplnr"] + ",0," + iLeg + ",0," + Session["Refral"] + "," +
+    Session["Uplnr"] + ",0," + iLeg + ",0," + refValue + "," +
     "'" + ClearInject(txtFrstNm.Text.ToUpper()) + "',''," +
     "'" + CmbType.SelectedValue + "','" + ClearInject(txtFNm.Text.ToUpper()) + "','" + strDOB + "','" + cGender + "',''," +
     "'" + ClearInject(txtNominee.Text.ToUpper()) + "','" + ClearInject(txtAddLn1.Text.ToUpper()) + "','',''," +

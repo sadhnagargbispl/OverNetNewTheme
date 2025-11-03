@@ -416,9 +416,12 @@ dTree.prototype.node = function(node, nodeId) {
 		strTable+='<tr>';
 		strTable += '<td ' + tooltiptdlbl + '><font ' + tooltipfontlbl + '>Member ID:</font></td>';
 		strTable += '<td ' + tooltiptdtxt + '><font ' + tooltipfonttxt + '>' + node.Idno+ '</td>';  
-		strTable+='</tr>';
-		
-		
+            strTable += '</tr>';
+            strTable += '<tr>';
+            strTable += '<td ' + tooltiptdlbl + '><font ' + tooltipfontlbl + '>Sponsor ID:</font></td>';
+            strTable += '<td ' + tooltiptdtxt + '><font ' + tooltipfonttxt + '>' + node.sponsor + '</td>';
+            strTable += '</tr>';
+                      
 		strTable+='<tr>'; 
 			strTable+='<td ' + tooltiptdlbl + '><font ' + tooltipfontlbl + '>Status :</font></td>';  
 			strTable+='<td ' + tooltiptdtxt + '><font ' + tooltipfonttxt + '>' +node.status +'</td>';  
