@@ -20,7 +20,7 @@
     <link href="assets/cssfile/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="assets/cssfile/font-awesome.css" rel="stylesheet">
     <link href="assets/cssfile/style.css?v=1.5" rel="stylesheet">
-    <link id="ctl00_style_color" href="assets/cssfile/style_navy-blue.css" rel="stylesheet">
+    <link id="ctl00_style_color" href="assets/cssfile/style_navy-blue.css?v=1.5" rel="stylesheet">
     <link rel="stylesheet" href="assets/cssfile/font-awesome.min.css">
     <link href="assets/cssfile/jquery.fancybox.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/cssfile/uniform.default.css">

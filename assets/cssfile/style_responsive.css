@@ -652,7 +652,7 @@
     #header .brand {
  margin-top: -5px !important;
  padding: 3px 90px !important;
- width: 58%;
+ /* width: 58%; */
  height: 70px;
  }
 

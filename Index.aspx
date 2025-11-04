@@ -152,30 +152,14 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
                 <div class="row">
-
                     <asp:Repeater runat="server" ID="RptDirectList">
                         <ItemTemplate>
                             <%#Eval("div")%>
                         </ItemTemplate>
                     </asp:Repeater>
-
                 </div>
-
-
-
-                <div class="row-fluid panelpart">
-             
+                <div class="row-fluid panelpart">  
                     <asp:Repeater ID="gvBalance" runat="server">
                         <ItemTemplate>
                             <div class="span4">
@@ -210,9 +194,6 @@
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>
-
-
-
                     <div class="span8">
                         <div class="box box-widget widget-user-2">
                             <div class="widget-user-header  gradientclr">
@@ -281,10 +262,7 @@
 
                         </div>
                     </div>
-
-
                     <div class="clearfix"></div>
-
                     <div class="row-fluid panelpart">
                         <div class="span12">
                             <div id="ctl00_ContentPlaceHolder1_Distributor1_TbBoard">

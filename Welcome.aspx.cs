@@ -29,7 +29,7 @@ public partial class welcome : System.Web.UI.Page
                 {
                     strcondition = " and mMst.IDNo=''" + Request["id"] + "''";
                     BtnHome.Visible = false;
-                    BtnPrint.Visible = false;
+                    //BtnPrint.Visible = false;
                 }
                 else
                 {
