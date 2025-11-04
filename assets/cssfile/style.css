@@ -266,7 +266,7 @@ a, a:focus, a:hover, a:active {
 }
 
 #header.navbar-inverse .btn-navbar {
-    margin-top: -58px;
+    margin-top: 0px;
     margin-right: 12px;
     color: #062e43;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -296,11 +296,13 @@ a, a:focus, a:hover, a:active {
     -moz-border-radius: 0;
     border-radius: 0;
 }
+
 #header.navbar-inverse .navbar-inner {
     box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.34);
     /* background: linear-gradient(to right, #8b46bf, #057aac) !important; */
     background: #070727;
 }
+
 #header.navbar-inverse .divider-vertical {
     height: 40px;
 }
@@ -308,9 +310,11 @@ a, a:focus, a:hover, a:active {
 #header .navbar-search {
     margin-left: 110px;
 }
+
 #header .top-nav .dropdown-menu {
     margin-top: 3px;
 }
+
 .top-menu {
     padding: 0px;
     margin-top: 8px !important;
@@ -321,6 +325,7 @@ a, a:focus, a:hover, a:active {
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
 }
+
 .navbar-inverse .navbar-search .search-query {
     background-color: #FFFFFF;
     border: 0 none;
@@ -2322,7 +2327,7 @@ textarea, select, input[type="text"], input[type="password"], input[type="dateti
 
         .table-advance thead tr th {
             background-color: rgb(245, 247, 250);
-           /* color: #000;*/
+            /* color: #000;*/
         }
 
 th i {
@@ -4218,7 +4223,7 @@ jQuery UI Datepicker(new in v1.2.2)
 .small-box.bg-sds {
     position: relative;
     border-radius: 5px;
-   background: #350001 !important;
+    background: #350001 !important;
 }
 
 .small-box.bg-aquas4 {
@@ -4249,7 +4254,7 @@ jQuery UI Datepicker(new in v1.2.2)
 }
 
     .description-block h5 {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600;
         color: #000;
     }
@@ -4413,19 +4418,19 @@ h5.widget-user-desc {
 
 .small-box.bg-sdsa {
     position: relative;
-   background: #350001 !important;
+    background: #350001 !important;
     border-radius: 5px;
 }
 
 .small-box.bg-aquas {
     position: relative;
-   background: #350001 !important;
+    background: #350001 !important;
     border-radius: 5px;
 }
 
 .small-box.bg-aquass {
     position: relative;
-   background: #350001 !important;
+    background: #350001 !important;
     border-radius: 5px;
 }
 
@@ -4602,18 +4607,15 @@ h3.widget-user-username.headd {
     }
 
     #header .brand {
-    background: hsla(0, 0%, 0%, 0);
-    margin-top: 0px !important;
-    /* opacity: 0.8; */
-    padding: 0px 20px;
-    /* width: 230px; */
-    border-right: 1px solid #E7E4E4;
-    height: 80px !important;
-    background: white;
-}
-
-
-
+        background: hsla(0, 0%, 0%, 0);
+        margin-top: 0px !important;
+        /* opacity: 0.8; */
+        padding: 0px 20px;
+        /* width: 230px; */
+        border-right: 1px solid #E7E4E4;
+        height: 80px !important;
+        background: white;
+    }
 }
 
 .headd {
@@ -4657,7 +4659,7 @@ h3.widget-user-username.headd {
 }
 
     .description-block h5 {
-        font-size: 18px;
+        font-size: 14px;
         font-weight: 600;
         color: #000;
         margin-bottom: 1em;
@@ -4752,7 +4754,7 @@ h5.widget-user-desc {
 }
 
 
-.gradientclr {      
+.gradientclr {
     background-color: #350001 !important;
 }
 
@@ -4797,7 +4799,7 @@ h3.widget-user-username {
 
 .whiteclr {
     color: #05004f;
-    font-size: 14px;    
+    font-size: 14px;
     padding: 6px;
     border-radius: 7px;
     background-color: white;
@@ -4806,6 +4808,7 @@ h3.widget-user-username {
 .blueclr {
     background: #070727 !important;
 }
+
 .redclr {
     background: #d83030 !important;
 }
@@ -4857,7 +4860,7 @@ h3.widget-user-username {
 }
 
 
- .bluecolor {
+.bluecolor {
     background: #070727 !important;
     border-radius: 5px;
     position: relative;
@@ -4868,35 +4871,35 @@ h3.widget-user-username {
     background: #d7d7d7 !important;
     color: #000000;
 }
- 
+
 
 .packeviti .card {
-  border-radius: 12px;
-  overflow: hidden;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .widget-user-username {
-  color: #fff;
+    color: #fff;
 }
 
 @media (max-width: 768px) {
-  .widget-user-image i {
-    font-size: 50px;
-    top: -25px;
-  }
+    .widget-user-image i {
+        font-size: 50px;
+        top: -25px;
+    }
 }
 
 
-.bg-white{
+.bg-white {
     background-color: #ffffff !important;
-    color: #000000 !important;  
-        }
+    color: #000000 !important;
+}
 
 
-      .userprofile{
-        background-color: #000;
-        width: 300px;
-      }
+.userprofile {
+    background-color: #000;
+    width: 300px;
+}
 
 .userprofile {
     background: #350001;
@@ -4905,21 +4908,21 @@ h3.widget-user-username {
     padding: 15px 15px;
     width: 100%;
     max-width: 500px;
-    margin-bottom: 10px;    
+    margin-bottom: 10px;
     font-family: "Poppins", sans-serif;
     color: #fff;
     box-sizing: border-box;
 }
 
-.userprofile h3 {
-    text-align: left;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: #ffffff;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 15px;
-}
+    .userprofile h3 {
+        text-align: left;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 15px;
+    }
 
 .user-info {
     display: flex;
@@ -4927,46 +4930,41 @@ h3.widget-user-username {
     justify-content: space-between;
 }
 
-.user-info .info-item {
-    flex: 1 1 45%;
-    margin-bottom: 15px;
-}
+    .user-info .info-item {
+        flex: 1 1 45%;
+        margin-bottom: 15px;
+    }
 
-.user-info label {
-    display: block;
-    font-weight: 600;
-    color: #ffffff;
-    font-size: 14px;
-    margin-bottom: 4px;
-}
+    .user-info label {
+        display: block;
+        font-weight: 600;
+        color: #ffffff;
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
 
-.user-info span {
-    display: block;
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 14px;
-    color: #555;
-    word-break: break-word;
-    margin-right: 10px;
-}
+    .user-info span {
+        display: block;
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 14px;
+        color: #555;
+        word-break: break-word;
+        margin-right: 10px;
+    }
 
 @media (max-width: 600px) {
     .user-info .info-item {
         flex: 1 1 100%;
     }
 
-.brand img{
-    margin-top: 18px;
+    .brand img {
+        margin-top: 18px;
     }
-   
-
 }
 
 
-   .userprofile {
-        padding: 20px 15px;
-    }
-
-
- 
+.userprofile {
+    padding: 20px 15px;
+}
