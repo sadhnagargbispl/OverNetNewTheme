@@ -1271,42 +1271,6 @@ public partial class NewJoiningBackup : System.Web.UI.Page
                                 Session["LASTID"] = LastInsertID;
                                 Session["Join"] = "YES";
                                 Response.Redirect("Welcome.Aspx?IDNo=" + LastInsertID, false);
-                                //string membername = "";
-                                //string SPONSORID1 = "";
-                                //string SPONSORnAME = "";
-                                //string Doj = "";
-                                //string kitamount = "";
-                                //string Email = "";
-                                //string Password = "";
-                                //DataTable Dtsms = new DataTable();
-                                //string strSql = string.Empty;
-                                //// Execute stored procedure to get login details
-                                ////strSql = IsoStart + " EXEC Sp_GetLoginDetail '" + Txtusername.Text.ToString().Replace(";", "").Replace("'", "").Replace("=", "").Replace(" ", "") + "'" + IsoEnd;
-                                //strSql = IsoStart + " EXEC Sp_GetProfile " + IsoEnd;
-                                //Dtsms = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql).Tables[0];
-                                //if (Dtsms.Rows.Count > 0)
-                                //{
-                                //    membername = Dtsms.Rows[0]["MemfirstName"].ToString() + " " + Dtsms.Rows[0]["MemLastName"].ToString();
-                                //    //SPONSORID1 = Dtsms.Rows[0]["SPONSORID"].ToString();
-                                //    //SPONSORnAME = Dtsms.Rows[0]["SPONSORnAME"].ToString();
-                                //    //Doj = Dtsms.Rows[0]["JoiningDate"].ToString();
-                                //    //kitamount = Dtsms.Rows[0]["kitamount"].ToString();
-                                //    Email = Dtsms.Rows[0]["Email"].ToString();
-                                //    LastInsertID = Dtsms.Rows[0]["IDNO"].ToString();
-                                //    Password = Dtsms.Rows[0]["Passw"].ToString();
-                                //    Session["Kit"] = Dtsms.Rows[0]["IsBill"];
-
-                                //    //FUND_LOGIN_CHECK(Dtsms.Rows[0]["IDNO"].ToString(), Dtsms.Rows[0]["Passw"].ToString(), Dtsms.Rows[0]["formno"].ToString());
-                                //}
-                                //else
-                                //{
-                                //    LastInsertID = "10001";
-                                //}
-                                //CmdSave.Enabled = true;
-                                ////SendToMemberMail(LastInsertID, Email, membername, Password);
-                                //Session["LASTID"] = LastInsertID;
-                                //Session["Join"] = "YES";
-                                //Response.Redirect("Welcome.Aspx?IDNo=" + LastInsertID, false);
                             }
                             else
                             {
@@ -1326,16 +1290,9 @@ public partial class NewJoiningBackup : System.Web.UI.Page
                 }
                 catch (Exception e)
                 {
-                    CmdSave.Enabled = true;
-                    chkterms.Checked = false;
                     string scrname = "<SCRIPT language='javascript'>alert('" + e.Message + "');</SCRIPT>";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "alert", "alert('" + e.Message + "');", true);
-
-                    string path = HttpContext.Current.Request.Url.AbsoluteUri;
-                    string text = path + ": " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss:fff") + Environment.NewLine;
-                    ObjDAL.WriteToFile(text + e.Message);
-                    Response.Write("Try later.");
-                    return;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + e.Message + "');", true);
+                    return; 
                 }
             }
             else
@@ -1348,6 +1305,9 @@ public partial class NewJoiningBackup : System.Web.UI.Page
         {
             dbConnect.closeConnection();
             dbConnectSelect.closeConnection();
+            string scrname = "<SCRIPT language='javascript'>alert('" + ex.Message + "');</SCRIPT>";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + ex.Message + "');", true);
+            return;
         }
     }
     private void sendSMS()

@@ -97,3 +97,20 @@ Thread was being aborted.
 http://localhost:52664/Index.aspx:  04-Nov-2025 05:30:03:260
 Thread was being aborted.
 --------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx:  04-Nov-2025 05:46:43:062 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx?pin=562428&scratch=A913C:  04-Nov-2025 05:47:03:310 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx?pin=562428&scratch=A913C: 04-Nov-2025 05:49:12:608
+Execution Timeout Expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+Operation cancelled by user.
+--------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx?pin=562428&scratch=A913C: 04-Nov-2025 05:51:35:837
+Execution Timeout Expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+Operation cancelled by user.
+--------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx:  05-Nov-2025 12:27:23:541 
+The method or operation is not implemented.
+--------------------------------------------------------
