@@ -270,7 +270,7 @@
                                             <label class="control-label">
                                                 Amount <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
                                             <div class="controls">
-                                                <asp:TextBox ID="txtAmount" runat="server" CssClass="input-xxlarge" AutoPostBack="true" OnTextChanged="txtAmount_TextChanged" Text="0" onkeypress="return isNumberKey(event);"></asp:TextBox>
+                                                <asp:TextBox ID="txtAmount" runat="server" CssClass="input-xxlarge" Text="0" onkeypress="return isNumberKey(event);"></asp:TextBox>
                                                 <asp:Label ID="LblAmount" runat="server" Visible="false"></asp:Label>
                                                 <asp:Label ID="LblAmountUse" runat="server" Visible="false"></asp:Label>
                                             </div>

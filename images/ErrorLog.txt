@@ -114,3 +114,24 @@ Operation cancelled by user.
 http://localhost:52664/NewJoiningBackup.aspx:  05-Nov-2025 12:27:23:541 
 The method or operation is not implemented.
 --------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx:  06-Nov-2025 04:31:10:886 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx:  07-Nov-2025 11:07:41:700 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx?pin=562426&scratch=3855358:  07-Nov-2025 11:43:03:306 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx:  07-Nov-2025 11:55:18:485 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx:  07-Nov-2025 11:55:31:954 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx:  07-Nov-2025 11:56:11:870 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:52664/NewJoiningBackup.aspx?pin=562426&scratch=3855358:  07-Nov-2025 11:57:15:873 
+The method or operation is not implemented.
+--------------------------------------------------------

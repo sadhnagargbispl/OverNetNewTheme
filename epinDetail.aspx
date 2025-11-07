@@ -151,8 +151,8 @@
                                                                             CommandName="Join"
                                                                             CommandArgument="Join"
                                                                             HeaderText="Registration"
-                                                                            Visible='<%# Convert.ToBoolean(Eval("JoinVisible")) %>' CssClass="btn btn-primary" />
-                                                                        <asp:Button ID="btnTopup" runat="server" Text="Topup" CommandArgument="Topup" Visible="false" CssClass="btn btn-primary" />
+                                                                            Visible='<%# Convert.ToBoolean(Eval("JoinVisible")) %>' CssClass="btn" />
+                                                                        <asp:Button ID="btnTopup" runat="server" Text="Topup" CommandArgument="Topup" Visible="false" CssClass="btn" />
                                                                     </td>
                                                                 </tr>
                                                             </ItemTemplate>
@@ -160,9 +160,9 @@
                                                     </tbody>
                                                 </table>
                                                 <div style="margin-top: 10px; text-align: center;">
-                                                    <asp:Button ID="btnPrevious" runat="server" Text="Previous" OnClick="btnPrevious_Click" CssClass="btn btn-primary" />
+                                                    <asp:Button ID="btnPrevious" runat="server" Text="Previous" OnClick="btnPrevious_Click" CssClass="btn" />
                                                     <asp:Label ID="lblPageInfo" runat="server" Text=""></asp:Label>
-                                                    <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="btn btn-primary"/>
+                                                    <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="btn"/>
                                                 </div>
                                             </div>
 

@@ -269,8 +269,39 @@ public partial class ServiceWalletTransfer : System.Web.UI.Page
         {
             string scrName;
             DataTable Dt1 = new DataTable();
+            if (TxtMemId.Text == "")
+            {
+                cmdSave1.Enabled = true;
+                LblAmount.Visible = false;
+                scrName = "<SCRIPT language='javascript'>alert('Please Enter Member ID.');</SCRIPT>";
+                this.RegisterStartupScript("MyAlert", scrName);
+                return;
+            }
+            if (Convert.ToDouble(txtAmount.Text) < 0)
+            {
+                cmdSave1.Enabled = true;
+                LblAmount.Visible = false;
+                scrName = "<SCRIPT language='javascript'>alert('Amount cannot be negative');</SCRIPT>";
+                this.RegisterStartupScript("MyAlert", scrName);
+                return;
+            }
+            if (Convert.ToDouble(txtAmount.Text) < 100)
+            {
+                cmdSave1.Enabled = true;
+                LblAmount.Visible = false;
+                scrName = "<SCRIPT language='javascript'>alert('Minimum amount should be 100');</SCRIPT>";
+                this.RegisterStartupScript("MyAlert", scrName);
+                return;
+            }
+            if (TxtRemark.Text == "")
+            {
+                cmdSave1.Enabled = true;
+                LblAmount.Visible = false;
+                scrName = "<SCRIPT language='javascript'>alert('Please Enter Remark.');</SCRIPT>";
+                this.RegisterStartupScript("MyAlert", scrName);
+                return;
+            }
             // Generate OTPs
-
             string str = objDal.Isostart + "select * from " + objDal.dBName + "..M_MemberMaster where Formno=" + Session["Formno"] + objDal.IsoEnd;
             Dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             if (Dt1.Rows.Count > 0)
@@ -326,6 +357,22 @@ public partial class ServiceWalletTransfer : System.Web.UI.Page
     }
     protected void cmdSave1_Click(object sender, EventArgs e)
     {
+        if (TxtPassword.Text == "")
+        {
+            cmdSave1.Enabled = true;
+            LblAmount.Visible = false;
+            scrName = "<SCRIPT language='javascript'>alert('Please Enter Wallet Password.');</SCRIPT>";
+            this.RegisterStartupScript("MyAlert", scrName);
+            return;
+        }
+        if (TxtPassword1.Text == "")
+        {
+            cmdSave1.Enabled = true;
+            LblAmount.Visible = false;
+            scrName = "<SCRIPT language='javascript'>alert('Please Enter Mobile OTP.');</SCRIPT>";
+            this.RegisterStartupScript("MyAlert", scrName);
+            return;
+        }
         string q = objDal.Isostart + "Select a.Formno, MemFirstName + MemLastName as MemName from " + objDal.dBName + "..M_Membermaster as a" +
             " where a.IsBlock='N' and IdNo='" + TxtMemId.Text + "'" + objDal.IsoEnd;
         DataTable dt1 = new DataTable();

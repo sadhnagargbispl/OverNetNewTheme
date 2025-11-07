@@ -138,7 +138,7 @@
                                         <div id="DivSideA" runat="server" class="col-md-12">
                                             <h4>Left Downline</h4>
                                             <div class="form-group ">
-                                                <asp:Button ID="BtnExportA" runat="server" Text="Export" class="btn btn-primary" />
+                                                <asp:Button ID="BtnExportA" runat="server" Text="Export" class="btn" />
                                             </div>
                                             <asp:Label ID="Label1" runat="server" Text="Total Records"></asp:Label>
                                             <asp:Label ID="lbltotal" runat="server"></asp:Label>
@@ -211,9 +211,9 @@
             </Triggers>
         </asp:UpdatePanel>--%>
                                                 <div style="margin-top: 10px; text-align: center;">
-                                                    <asp:Button ID="btnPrevious" runat="server" Text="Previous" OnClick="btnPrevious_Click" class="btn btn-primary" />
+                                                    <asp:Button ID="btnPrevious" runat="server" Text="Previous" OnClick="btnPrevious_Click" class="btn" />
                                                     <asp:Label ID="lblPageInfo" runat="server" Text=""></asp:Label>
-                                                    <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" class="btn btn-primary" />
+                                                    <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" class="btn" />
                                                 </div>
                                             </div>
                                         </div>
@@ -221,7 +221,7 @@
                                             <h4>Right Downline <span></span>
                                             </h4>
                                             <div class="form-group">
-                                                <asp:Button ID="BtnExportB" runat="server" Text="Export" class="btn btn-primary" />
+                                                <asp:Button ID="BtnExportB" runat="server" Text="Export" class="btn" />
                                             </div>
                                             <asp:Label ID="Label2" runat="server" Text="Total Records"></asp:Label>
                                             <asp:Label ID="lbltotal2" runat="server"></asp:Label>
@@ -294,9 +294,9 @@
             </Triggers>
         </asp:UpdatePanel>--%>
                                                 <div style="margin-top: 10px; text-align: center;">
-                                                    <asp:Button ID="Btnrightpre" runat="server" Text="Previous" OnClick="Btnrightpre_Click" class="btn btn-primary" />
+                                                    <asp:Button ID="Btnrightpre" runat="server" Text="Previous" OnClick="Btnrightpre_Click" class="btn" />
                                                     <asp:Label ID="lblright" runat="server" Text=""></asp:Label>
-                                                    <asp:Button ID="Btnrightnxt" runat="server" Text="Next" OnClick="Btnrightnxt_Click" class="btn btn-primary" />
+                                                    <asp:Button ID="Btnrightnxt" runat="server" Text="Next" OnClick="Btnrightnxt_Click" class="btn" />
                                                 </div>
                                             </div>
                                         </div>

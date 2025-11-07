@@ -187,7 +187,7 @@
 
                             <h5>Enrollment Details</h5>
 
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="overflow: scroll;">
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>

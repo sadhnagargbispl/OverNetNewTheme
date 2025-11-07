@@ -54,17 +54,17 @@
                                                         <tr>
                                                         <td style="width: 250px" class="textBP" valign="middle" height="30" width="250px"
                                                             align="center">
-                                                            <b>&nbsp;Email Id</b>
+                                                            <b>&nbsp;Mobile No.</b>
                                                         </td>
                                                         <td style="width: 285px" valign="middle" align="left">
                                                             <label>
-                                                                <asp:TextBox ID="txtemail" runat="server" class="textboxBG"
+                                                                <asp:TextBox ID="TxtMobileNo" runat="server" class="textboxBG"
                                                                     Width="200px"></asp:TextBox></label>
                                                             <asp:RequiredFieldValidator ID="Requiredemail" runat="server" 
-                                                                ControlToValidate="txtemail" ErrorMessage="*"></asp:RequiredFieldValidator>
-                                                                 <asp:RegularExpressionValidator ID="EmailExpressionValidator" runat="server" ControlToValidate="txtemail"
+                                                                ControlToValidate="TxtMobileNo" ErrorMessage="*"></asp:RequiredFieldValidator>
+                                                             <%--    <asp:RegularExpressionValidator ID="EmailExpressionValidator" runat="server" ControlToValidate="txtemail"
                                                     ErrorMessage="Enter Valid Email ID!" Display="None" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
-                                                    SetFocusOnError ="true" ValidationGroup="eInformation"></asp:RegularExpressionValidator>&nbsp;
+                                                    SetFocusOnError ="true" ValidationGroup="eInformation"></asp:RegularExpressionValidator>&nbsp;--%>
                                                         </td>
                                                     </tr>
                                                     <tr>

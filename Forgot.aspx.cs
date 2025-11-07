@@ -15,11 +15,15 @@ public partial class Forgot : System.Web.UI.Page
 
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     DataTable Dt = new DataTable();
+    SqlConnection Conn = new SqlConnection();
+    DAL ObjDal = new DAL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
-           
+            Conn = new SqlConnection(constr1);
+            Conn.Open();
+
 
             if (!Page.IsPostBack)
             {
@@ -33,98 +37,150 @@ public partial class Forgot : System.Web.UI.Page
     }
     protected void Submit_Click(object sender, EventArgs e)
     {
-        try
+        SqlCommand Comm;
+        DataTable Dt;
+        SqlDataAdapter Ad;
+        string scrname = "";
+
+        // Validation
+        if (txtIDNo.Text == "")
         {
-            SqlCommand Comm;
-            DataTable Dt;
+            scrname = "<SCRIPT language='javascript'>alert('ID No. can not be left blank');</SCRIPT>";
+            this.RegisterStartupScript("MyAlert", scrname);
+            return;
+        }
 
-            SqlDataAdapter Ad;
-            string scrname;
-            //lblerror.Text = "";
-            if (txtIDNo.Text == "")
-            {
-                scrname = "<SCRIPT language='javascript'>alert('ID No. can not be left blank');" + "</SCRIPT>";
-                this.RegisterStartupScript("MyAlert", scrname);
-                return;
-            }
-            if (txtemail.Text == "")
-            {
-                scrname = "<SCRIPT language='javascript'>alert('Enter Email ID.');" + "</SCRIPT>";
-                this.RegisterStartupScript("MyAlert", scrname);
-                return;
-            }
+        if (TxtMobileNo.Text == "")
+        {
+            scrname = "<SCRIPT language='javascript'>alert('Mobile No. can not be left blank');</SCRIPT>";
+            this.RegisterStartupScript("MyAlert", scrname);
+            return;
+        }
 
-            if (txtIDNo.Text == "" || txtemail.Text == "")
-            {
-                scrname = "<SCRIPT language='javascript'>alert('Please Fill Detail');" + "</SCRIPT>";
-                this.RegisterStartupScript("MyAlert", scrname);
-                return;
-            }
+        if (txtIDNo.Text == "" || TxtMobileNo.Text == "")
+        {
+            scrname = "<SCRIPT language='javascript'>alert('Please Fill Detail');</SCRIPT>";
+            this.RegisterStartupScript("MyAlert", scrname);
+            return;
+        }
 
-            DAL objdal = new DAL();
-            string IDNo = txtIDNo.Text.Replace("'", "").Replace(";", "").Replace("=", "").Replace("-", "");
-            if (IDNo != "")
+        if (TxtMobileNo.Text == "" || TxtMobileNo.Text.Length != 10)
+        {
+            scrname = "<SCRIPT language='javascript'>alert('Invalid Mobile No.');</SCRIPT>";
+            this.RegisterStartupScript("MyAlert", scrname);
+            return;
+        }
+
+        // Clean IDNo
+        string IDNo = txtIDNo.Text.Trim()
+                        .Replace("'", "")
+                        .Replace(";", "")
+                        .Replace("=", "")
+                        .Replace("-", "");
+
+        if (IDNo != "")
+        {
+            string MemberPass = "";
+            string MemberTransPassw = "";
+
+            Comm = new SqlCommand(
+               ObjDal.Isostart + "SELECT (a.MemFirstName + ' ' + a.MemLastname) AS MemName, a.*, b.smsUsernm, b.smsSenderID, b.SmPass " +
+                "FROM " + ObjDal.dBName + "..m_membermaster a, " + ObjDal.dBName + "..m_companymaster b WHERE IDNo = '" + IDNo + "'" + ObjDal.IsoEnd, Conn);
+            Comm.Connection = Conn;
+            Ad = new SqlDataAdapter(Comm);
+            Dt = new DataTable();
+            Ad.Fill(Dt);
+
+            if (Dt.Rows.Count > 0)
             {
-                string MemberPass = "";
-                string MemberTransPassw = "";
-                string str = objdal.Isostart  + " Exec Sp_MemberForgotPassw '" + IDNo + "'" + objdal.IsoEnd;
-                Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
-                if (Dt.Rows.Count > 0)
+                string Username = Dt.Rows[0]["Idno"].ToString();
+                string Password = Dt.Rows[0]["Passw"].ToString();
+                string TranPassw = Dt.Rows[0]["EPassw"].ToString();
+
+                Session["SmsId"] = Dt.Rows[0]["smsUsernm"].ToString();
+                Session["SmsPass"] = Dt.Rows[0]["SmPass"].ToString();
+                Session["ClientId"] = Dt.Rows[0]["smsSenderID"].ToString();
+
+                if (TxtMobileNo.Text == Dt.Rows[0]["Mobl"].ToString())
                 {
-                    string Username = Dt.Rows[0]["Idno"].ToString();
-                    string Password = Dt.Rows[0]["Passw"].ToString();
-                    string TranPassw = Dt.Rows[0]["EPassw"].ToString();
-                    string Email = Dt.Rows[0]["Email"].ToString();
-                    string MemfristName = Dt.Rows[0]["MemName"].ToString();
-                    string compname = Dt.Rows[0]["CompName"].ToString();
-                    string website = Dt.Rows[0]["WebSite"].ToString();
-                    Session["SmsId"] = Dt.Rows[0]["smsUsernm"];
-                    Session["SmsPass"] = Dt.Rows[0]["SmPass"];
-                    Session["ClientId"] = Dt.Rows[0]["smsSenderID"];
-                    Session["CompMail"] = Dt.Rows[0]["CompMail"];
-                    Session["MailPass"] = Dt.Rows[0]["mailPass"];
-                    Session["MailHost"] = Dt.Rows[0]["mailHost"];
-
-                    if (txtemail.Text == Dt.Rows[0]["email"].ToString())
+                    if (TxtMobileNo.Text.Length >= 10)
                     {
-                        if (txtemail.Text == Dt.Rows[0]["email"].ToString())
-                        {
-                            MemberPass = Password;
-                            MemberTransPassw = TranPassw;
-                            MemberPass = MemberPass.Replace("%", "%25").Replace("&", "%26").Replace("#", "%23").Replace("'", "%22").Replace(",", "%2C").Replace("(", "%28").Replace(")", "%29").Replace("*", "%2A").Replace("!", "%21").Replace("/", "%2F").Replace("@", "%40");
-                            MemberTransPassw = MemberTransPassw.Replace("%", "%25").Replace("&", "%26").Replace("#", "%23").Replace("'", "%22").Replace(",", "%2C").Replace("(", "%28").Replace(")", "%29").Replace("*", "%2A").Replace("!", "%21").Replace("/", "%2F").Replace("@", "%40");
-                            string sms = "Your Login password is " + MemberPass + " and TXN password is " + MemberTransPassw + " of IDNO " + Username + ".For login go to our site " + website + " .Thank you! Regard: " + compname + "";
-                            //objdal.sendsms(sms, TxtMobileNo.Text, Session["ClientId"]);
-                            SendToMemberMail(txtIDNo.Text, Email, MemfristName, Password, TranPassw);
+                        MemberPass = Password;
+                        MemberTransPassw = TranPassw;
 
-                            //scrname = "<SCRIPT language='javascript'>alert('Your Password has been sent on your mobile and E mail Id !');" + "</SCRIPT>";
-                            //this.RegisterStartupScript("MyAlert", scrname);
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('Your Password has been sent on your  E mail Id !');", true);
+                        // URL Encoding manually
+                        MemberPass = MemberPass.Replace("%", "%25").Replace("&", "%26").Replace("#", "%23")
+                            .Replace("'", "%22").Replace(",", "%2C").Replace("(", "%28").Replace(")", "%29")
+                            .Replace("*", "%2A").Replace("!", "%21").Replace("/", "%2F").Replace("@", "%40");
 
-                            txtIDNo.Text = "";
-                            txtemail.Text = "";
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        scrname = "<SCRIPT language='javascript'>alert('Invalid Email Id.');" + "</SCRIPT>";
+                        MemberTransPassw = MemberTransPassw.Replace("%", "%25").Replace("&", "%26").Replace("#", "%23")
+                            .Replace("'", "%22").Replace(",", "%2C").Replace("(", "%28").Replace(")", "%29")
+                            .Replace("*", "%2A").Replace("!", "%21").Replace("/", "%2F").Replace("@", "%40");
+
+                        string sms = " Your Forgot Login password " + MemberPass +
+                                     " and TXN password is " + TranPassw +
+                                     " of IDNO " + txtIDNo.Text +
+                                     ".For login go to our site " + Session["CompWeb"] + ". Thank you!";
+
+                        sendSMS(sms);
+
+                        scrname = "<SCRIPT language='javascript'>alert('Your Password has been sent on your mobile');</SCRIPT>";
                         this.RegisterStartupScript("MyAlert", scrname);
+
+                        txtIDNo.Text = "";
+                        TxtMobileNo.Text = "";
                         return;
                     }
                 }
                 else
                 {
-                    scrname = "<SCRIPT language='javascript'>alert('Invalid Idno.');" + "</SCRIPT>";
+                    scrname = "<SCRIPT language='javascript'>alert('Invalid Mobile No.');</SCRIPT>";
                     this.RegisterStartupScript("MyAlert", scrname);
                     return;
                 }
             }
-
+            else
+            {
+                scrname = "<SCRIPT language='javascript'>alert('Invalid ID No.');</SCRIPT>";
+                this.RegisterStartupScript("MyAlert", scrname);
+                return;
+            }
+        }
+    }
+    private void sendSMS(string sms)
+    {
+        try
+        {
+            if (TxtMobileNo.Text.Length >= 10)
+            {
+                // OLD/LEGACY approach using WebClient (keeps behavior close to your VB version)
+                try
+                {
+                    using (var client = new WebClient())
+                    {
+                        string baseUrl = "http://78.46.58.54/vb/apikey.php?apikey=baeVEum0EOQkbng7&senderid=OVRNET&templateid=1707160354011152729&number=" + TxtMobileNo.Text + "&message=" + sms + ""; // <<-- FILL THIS with your SMS provider URL
+                        if (!string.IsNullOrWhiteSpace(baseUrl))
+                        {
+                            using (Stream data = client.OpenRead(baseUrl))
+                            using (StreamReader reader = new StreamReader(data))
+                            {
+                                string response = reader.ReadToEnd();
+                                // Optionally: inspect response or log it
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Swallowing exception like your VB did — consider logging:
+                    // LogError(ex);
+                }
+            }
         }
         catch (Exception ex)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "alertMessage", "alert('" + ex.Message + "')", true);
+            // Outer catch (same as VB). Consider logging here as well.
+            // LogError(ex);
         }
     }
     protected void Page_LoadComplete(object sender, EventArgs e)
@@ -270,7 +326,7 @@ public partial class Forgot : System.Web.UI.Page
             string userEmail = "";
 
             string StrMsg = "";
-            System.Net.Mail.MailAddress SendFrom = new  System.Net.Mail.MailAddress(Session["CompMail"].ToString());
+            System.Net.Mail.MailAddress SendFrom = new System.Net.Mail.MailAddress(Session["CompMail"].ToString());
             System.Net.Mail.MailAddress SendTo = new System.Net.Mail.MailAddress(Email);
             System.Net.Mail.MailMessage MyMessage = new System.Net.Mail.MailMessage(SendFrom, SendTo);
             StrMsg = "<table style=\"margin:0; padding:10px; font-size:12px; font-family:Verdana, Arial, Helvetica, sans-serif; line-height:23px; text-align:justify;width:100%; colour:black;\">" +

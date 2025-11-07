@@ -533,7 +533,7 @@
                                         </tbody>
                                     </table>
                                     <div class="space7"></div>
-                                    <div class="clearfix"><a href="#" class="btn btn-mini pull-right btn-danger">More</a> </div>
+                                   <%-- <div class="clearfix"><a href="#" class="btn btn-mini pull-right btn-danger">More</a> </div>--%>
                                 </div>
                             </div>
                         </div>

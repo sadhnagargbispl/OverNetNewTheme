@@ -1298,9 +1298,9 @@ ul.icons {
     -webkit-border-radius: 0px;
 }
 
-.btn-primary {
+/*.btn-primary {
     background: #2fade7;
-}
+}*/
 
     .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
         background-color: #1DA4E7;

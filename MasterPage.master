@@ -466,7 +466,7 @@
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Profile<span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="NewJoiningBackup.aspx">New Registration</a> </li>
+                              <%--  <li><a href="NewJoiningBackup.aspx">New Registration</a> </li>--%>
                                 <li><a href="profile.aspx">Profile</a></li>
                                 <li><a href="ChangePass.aspx">Change Password</a></li>
                                 <li><a href="ChangeTransPass.aspx">Change Transaction Password</a></li>

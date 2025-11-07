@@ -179,7 +179,7 @@ public partial class Referaltree : System.Web.UI.Page
                 idStatus = row["idstatus"].ToString();
                 MemberName = row["IdNo"].ToString();
                 NodeName = row["Idno"].ToString() + "(" + row["MemFirstName"].ToString() + ")";
-                strImageFile = row["JoinColor"].ToString();
+                strImageFile = "img/" + row["Joincolor"].ToString();
                 Doj = row["Doj"].ToString();
                 LeftBV = Convert.ToDouble(row["Direct"]);
                 RightBV = Convert.ToDouble(row["Indirect"]);
@@ -250,7 +250,7 @@ public partial class Referaltree : System.Web.UI.Page
                 }
                 else
                 {
-                    strImageFile = dr["JoinColor"].ToString();
+                    strImageFile = "img/" + dr["JoinColor"];
 
                 }
 
