@@ -213,6 +213,842 @@ public partial class ProccessApiWithK : System.Web.UI.Page
         }
         Response.End();
     }
+    public void Process(string _Reqtype, Dictionary<string, string> dict)
+    {
+        try
+        {
+            if (_Reqtype == "reqlogin")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string Result_Json = checklogin(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'reqlogin' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "dashboardview")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string Result_Json = GetLink(_ReqUser, _ReqPassw, "dashboardview");
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'dashboardview' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "welcomeletter")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string Result_Json = GetLink(_ReqUser, _ReqPassw, "welcomedocs");
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'welcomeletter' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "levelwisedirectreportview")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string Result_Json = GetLink(_ReqUser, _ReqPassw, "levelwisedirectreportview");
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'levelwisedirectreportview' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "directs")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _ReqLevel = ClearInject(dict["levelid"]);
+                string _ReqFromNo = Convert.ToString(Convert.ToInt32(ClearInject(dict["from"])));
+                string _ReqToNo = Convert.ToString(Convert.ToInt32(ClearInject(dict["to"])));
+                string _ReqSearchBy = ClearInject(dict["status"]);
+                string _Reqlegno = ClearInject(dict["legno"]);
+                string Result_Json = Directs(_ReqUser, _ReqPassw, _ReqLevel, _Reqlegno, Convert.ToInt32(_ReqFromNo), Convert.ToInt32(_ReqToNo), 1, _ReqSearchBy);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'directs' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "myteam")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string Result_Json = DashBoard(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'myteam' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "cpassword") // 29Apr16 NJ
+            {
+                string _ReqUserID = ClearInject(dict["userid"]);
+                string _ReqPwd = ClearInject(dict["passwd"]);
+                string _ReqNPwd = ClearInject(dict["npasswd"]);
+                string Result_Json = ChangePassword(_ReqUserID, _ReqPwd, _ReqNPwd);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'cpassword' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "reftree")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string Result_Json = GetLink(_ReqUser, _ReqPassw, "reftree");
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'reftree' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "memtree")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string Result_Json = GetLink(_ReqUser, _ReqPassw, "memtree");
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'memtree' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            
+            else if (_Reqtype == "pincode")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _Reqpincode = ClearInject(dict["pincode"]);
+                string Result_Json = GetAddressByPincode(_ReqUser, _ReqPassw, _Reqpincode);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'pincode' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "walletotp")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string Result_Json = GeneratePinOTP(_ReqUser, _ReqPassw, "walletotp");
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'walletotp' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "validwalletotp")
+            {
+                string _ReqMobileNo = ClearInject(dict["mobileno"]);
+                string _ReqOtpCode = ClearInject(dict["otp"]);
+                string Result_Json = ValidWalletOtp(_ReqMobileNo, _ReqOtpCode);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'validwalletotp' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "complainttype")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string Result_Json = ComplaintList(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'complainttype' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "complaintreply")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _ReqcomplaintId = ClearInject(dict["Complaintid"]);
+                string Result_Json = ComplaintReplyDetail(_ReqUser, _ReqPassw, _ReqcomplaintId);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'complaintreply' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "savecomplaint")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _ReqIdno = ClearInject(dict["idno"]);
+                string _Reqname = ClearInject(dict["name"]);
+                string _ReqMobileno = ClearInject(dict["mobileno"]);
+                string _ReqEmail = ClearInject(dict["email"]);
+                string Complaintid = ClearInject(dict["complaintid"]);
+                string _ReqSubject = ClearInject(dict["subject"]);
+                string _ReqDescription = ClearInject(dict["description"]);
+                string Result_Json = SaveComplaint(_ReqUser, _ReqPassw, _ReqIdno, _Reqname, _ReqMobileno, _ReqEmail, Complaintid, _ReqSubject, _ReqDescription);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'savecomplaint' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "mwallethistory")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _ReqFromNo = ClearInject(dict["from"]);
+                string _ReqToNo = ClearInject(dict["to"]);
+                string Result_Json = MWalletHistory(_ReqUser, _ReqPassw, _ReqFromNo, _ReqToNo);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'mwallethistory' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "epinpackagelist")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string Result_Json = PackagelistEPin(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'epinpackagelist' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "getsponsor")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _ReqSponsorID = ClearInject(dict["sponsorid"]);
+                string Result_Json = FillSponsor(_ReqUser, _ReqPassw, _ReqSponsorID);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'getsponsor' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "checkpin")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _ReqPinNo = ClearInject(dict["pinno"]);
+                string _ReqScratchNo = ClearInject(dict["scratchno"]);
+
+                bool exists = UserExists(_ReqUser, _ReqPassw);
+
+                if (exists)
+                {
+                    string Rsponse = Validate_NewJoin(_ReqPinNo, _ReqScratchNo);
+                    if (Rsponse == "OK")
+                    {
+                        string Result_Json = "{\"response\":\"" + Rsponse + "\",\"kitamount\":\"" + Session["Kitamount"] + "\",\"msg\":\"success\"}";
+                        string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'checkpin' WHERE ReqID = '" + sResult.Trim() + "'";
+                        int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                        Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                        Response.Clear();
+                        Response.ContentType = "application/json";
+                        Response.Write(Result_Json);
+                    }
+                    else
+                    {
+                        string Result_Json = "{\"response\":\"FAILED\",\"kitamount\":\"0\",\"msg\":\"" + Rsponse + "\"}";
+                        string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'checkpin' WHERE ReqID = '" + sResult.Trim() + "'";
+                        int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                        Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                        Response.Clear();
+                        Response.ContentType = "application/json";
+                        Response.Write(Result_Json);
+                    }
+                }
+                else
+                {
+                    string Result_Json = "{\"response\":\"Invalid Request\"}";
+                    string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'checkpin' WHERE ReqID = '" + sResult.Trim() + "'";
+                    int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                    Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                    Response.Clear();
+                    Response.ContentType = "application/json";
+                    Response.Write(Result_Json);
+                }
+            }
+            else if (_Reqtype == "joining")
+            {
+                string Result_Json = Register(dict);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'joining' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "getprofile")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _ReqMemberID = ClearInject(dict["memberid"]);
+                string Result_Json = GetProfile(_ReqUser, _ReqPassw, _ReqMemberID);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'getprofile' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "setprofile")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _ReqMemberID = ClearInject(dict["memberid"]);
+                string _Reqphoneno = ClearInject(dict["phno"]);
+                string _Gaurdian = ClearInject(dict["fname"]);
+                string _Dob = ClearInject(dict["dob"]);
+                string _Mobile = ClearInject(dict["mobile"]);
+                string _Email = ClearInject(dict["email"]);
+                string _MemRelation = ClearInject(dict["memrelation"]);
+                string _Nominee = ClearInject(dict["nominee"]);
+                string _Relation = ClearInject(dict["nomineerelation"]);
+                string Result_Json = SetProfile(_ReqUser, _ReqPassw, _ReqMemberID, _Gaurdian, _MemRelation, _Dob, _Email, _Nominee, _Relation, _Reqphoneno, _Mobile);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'setprofile' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "kycdetail")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+
+                string Result_Json = KYCDetail(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'kycdetail' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "kycbankdetail")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+
+                string Result_Json = KYCBankDetail(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'kycbankdetail' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "kycpancarddetail")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+
+                string Result_Json = KYCPancardDetail(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'kycpancarddetail' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "packagelist")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+
+                string Result_Json = Packagelist(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'packagelist' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "epindetail")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                int _ReqPkgID = Convert.ToInt32(ClearInject(dict["pkgid"]));
+                string _ReqStatus = ClearInject(dict["ptype"]);
+                string _ReqFromNo = ClearInject(dict["from"]);
+                string _ReqToNo = ClearInject(dict["to"]);
+
+
+                string Result_Json = EpinDetail(_ReqUser, _ReqPassw, _ReqPkgID, _ReqStatus, _ReqFromNo, _ReqToNo);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'epindetail' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "memrellist")
+            {
+
+                string Result_Json = Relation();
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'memrellist' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "ctpassword") // 29Apr16 NJ
+            {
+                string _ReqUserID = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _ReqPwd = ClearInject(dict["tpasswd"]);
+                string _ReqNPwd = ClearInject(dict["ntpasswd"]);
+
+                string Result_Json = ChangeTransactionPassword(_ReqUserID, _ReqPassw, _ReqPwd, _ReqNPwd);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'ctpassword' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "pintransfer")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _ReqTPassw = ClearInject(dict["otp"]);
+                string _ReqmemID = ClearInject(dict["toid"]);
+                int _Reqpin = Convert.ToInt32(dict["pkgid"]);
+                int _Reqqty = Convert.ToInt32(dict["qty"]);
+                string _ReqRemark = ClearInject(dict["remark"]);
+
+                string Result_Json = TransferPin(_ReqUser, _ReqPassw, _ReqTPassw, _ReqmemID, _Reqpin, _Reqqty, _ReqRemark);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'pintransfer' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "transferdetail")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                int _Reqpkg = Convert.ToInt32(ClearInject(dict["pkgid"]));
+                string _ReqFromNo = ClearInject(dict["from"]);
+                string _ReqToNo = ClearInject(dict["to"]);
+
+                string Result_Json = PinTransferDetails(_ReqUser, _ReqPassw, _Reqpkg, _ReqFromNo, _ReqToNo);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'transferdetail' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "receivedetail")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                int _Reqpkg = Convert.ToInt32(ClearInject(dict["pkgid"]));
+                string _ReqFromNo = ClearInject(dict["from"]);
+                string _ReqToNo = ClearInject(dict["to"]);
+
+                string Result_Json = PinReceiveDetails(_ReqUser, _ReqPassw, _Reqpkg, _ReqFromNo, _ReqToNo);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'receivedetail' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "getpinkit")
+            {
+                string _Requser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+
+                string Result_Json = GetPinKit(_Requser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'getpinkit' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "generatepin")
+            {
+                string _Requser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _Reqactype = ClearInject(dict["actype"]);
+                string Kitid = ClearInject(dict["kitid"]);
+                string qty = ClearInject(dict["qty"]);
+                string transpasswd = ClearInject(dict["transpassw"]);
+
+                string Result_Json = GeneratePin(_Requser, _ReqPassw, _Reqactype, Kitid, qty, transpasswd);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'generatepin' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "levellist")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+
+                string Result_Json = LevelList(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'levellist' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "dailyincentive")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _FromNo = ClearInject(dict["from"]);
+                string _Tono = ClearInject(dict["to"]);
+
+                string Result_Json = DailyIncentive(_ReqUser, _ReqPassw, _FromNo, _Tono);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'dailyincentive' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "newdailyincentive")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _FromNo = ClearInject(dict["from"]);
+                string _Tono = ClearInject(dict["to"]);
+
+                string Result_Json = NewDailyIncentive(_ReqUser, _ReqPassw, _FromNo, _Tono);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'newdailyincentive' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "monthlyincentive")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _FromNo = ClearInject(dict["from"]);
+                string _Tono = ClearInject(dict["to"]);
+
+                string Result_Json = NewMonthlyIncentive(_ReqUser, _ReqPassw, _FromNo, _Tono);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'monthlyincentive' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "accounttype")
+            {
+                string Result_Json = AccountType();
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'accounttype' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "idtype")
+            {
+                string Result_Json = IdTypelist();
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'idtype' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "achievertype")
+            {
+                string Result_Json = Achieverlist();
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'achievertype' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "downline")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                int _ReqLegNo = Convert.ToInt32(ClearInject(dict["side"]));
+                string _ReqFromNo = ClearInject(dict["from"]);
+                string _ReqToNo = ClearInject(dict["to"]);
+
+                string Result_Json = Downline(_ReqUser, _ReqPassw, _ReqLegNo, _ReqFromNo, _ReqToNo);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'downline' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "downlinesummary")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+
+                string Result_Json = DownlineSummary(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'downlinesummary' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "pintransferpackage")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+
+                string Result_Json = PinTransferPackageList(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'pintransferpackage' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "products")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+
+                string Result_Json = Products(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'products' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "dailyeverestincome")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _FromNo = ClearInject(dict["from"]);
+                string _Tono = ClearInject(dict["to"]);
+
+                string Result_Json = DailyEverestIncome(_ReqUser, _ReqPassw, _FromNo, _Tono);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'dailyeverestincome' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "Business")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+
+                string Result_Json = Business(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'Business' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "EverestTree")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string Result_Json = EverestTree(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'EverestTree' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "RefIncome")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _Reqsessid = ClearInject(dict["sessid"]);
+                string _FromNo = ClearInject(dict["from"]);
+                string _Tono = ClearInject(dict["to"]);
+
+                string Result_Json = RefIncome(_ReqUser, _ReqPassw, _Reqsessid, _FromNo, _Tono);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'RefIncome' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "deliverycenter")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+
+                string Result_Json = DeliveryCenter(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'deliverycenter' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "getnews")
+            {
+                string Result_Json = Getnews();
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'getnews' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "monthlyincentive")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                int _ReqFromNo = Convert.ToInt32(ClearInject(dict["from"]));
+                int _ReqToNo = Convert.ToInt32(ClearInject(dict["to"]));
+
+                string Result_Json = MonthlyIncentive(_ReqUser, _ReqPassw, _ReqFromNo, _ReqToNo);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'monthlyincentive' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "getwalletbalance") // -- wayfast
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _Reqactype = ClearInject(dict["actype"]);
+
+                string Result_Json = GetBalance(_ReqUser, _ReqPassw, 0, _Reqactype);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'getwalletbalance' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "amounttransfertoother") // -- wayfast
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                Decimal _reqamount = Convert.ToDecimal(ClearInject(dict["reqamount"]));
+                string _ReqActype = ClearInject(dict["actype"]);
+                string _reqtranspassword = ClearInject(dict["transpassword"]);
+                string _reqremark = ClearInject(dict["remarks"]);
+                string _ReqtoUser = ClearInject(dict["touserid"]);
+
+                string Result_Json = AmountTransfertootherid(_ReqUser, _ReqPassw, _reqamount, _ReqActype, _ReqtoUser, _reqtranspassword, _reqremark);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'amounttransfertoother' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "allachiever")
+            {
+                string _achievetype = ClearInject(dict["type"]);
+                int _ReqFromNo = Convert.ToInt32(ClearInject(dict["from"]));
+                int _ReqToNo = Convert.ToInt32(ClearInject(dict["to"]));
+
+                string Result_Json = AllAchiever(_achievetype, _ReqFromNo, _ReqToNo);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'allachiever' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "shopping")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+
+                string Result_Json = ProductRequestDetail(_ReqUser, _ReqPassw);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'shopping' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_Reqtype == "vieworder")
+            {
+                string _ReqUser = ClearInject(dict["userid"]);
+                string _ReqPassw = ClearInject(dict["passwd"]);
+                string _ReqOrderno = ClearInject(dict["orderno"]);
+                string Result_Json = ViewProductOrderDetail(_ReqUser, _ReqPassw, _ReqOrderno);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'vieworder' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else
+            {
+                string Result_Json = "";
+                Result_Json = "{\"response\":\"FAILED\",\"msg\":\"Api Process Request Not Found.!\" }";
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+        }
+        catch (Exception)
+        {
+            string Result_Json = "";
+            Result_Json = "{\"response\":\"FAILED\",\"msg\":\"Exception Case Process Not Valid.!\" }";
+            string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "' WHERE ReqID = '" + sResult.Trim() + "'";
+            int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+            Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+            Response.Clear();
+            Response.ContentType = "application/json";
+            Response.Write(Result_Json);
+        }
+    }
     protected void getData()
     {
         cls_DataAccess dbConnect = new cls_DataAccess(constr1);
@@ -1010,829 +1846,6 @@ public partial class ProccessApiWithK : System.Web.UI.Page
         }
 
         Response.Write(_Output);
-    }
-    public void Process(string _Reqtype, Dictionary<string, string> dict)
-    {
-        try
-        {
-            if (_Reqtype == "reqlogin")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string Result_Json = checklogin(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'reqlogin' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "dashboardview")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string Result_Json = GetLink(_ReqUser, _ReqPassw, "dashboardview");
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'dashboardview' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "directs")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _ReqLevel = ClearInject(dict["levelid"]);
-                string _ReqFromNo = Convert.ToString(Convert.ToInt32(ClearInject(dict["from"])));
-                string _ReqToNo = Convert.ToString(Convert.ToInt32(ClearInject(dict["to"])));
-                string _ReqSearchBy = ClearInject(dict["status"]);
-                string _Reqlegno = ClearInject(dict["legno"]);
-                string Result_Json = Directs(_ReqUser, _ReqPassw, _ReqLevel, _Reqlegno, Convert.ToInt32(_ReqFromNo), Convert.ToInt32(_ReqToNo), 1, _ReqSearchBy);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'directs' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "myteam")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string Result_Json = DashBoard(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'myteam' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "cpassword") // 29Apr16 NJ
-            {
-                string _ReqUserID = ClearInject(dict["userid"]);
-                string _ReqPwd = ClearInject(dict["passwd"]);
-                string _ReqNPwd = ClearInject(dict["npasswd"]);
-                string Result_Json = ChangePassword(_ReqUserID, _ReqPwd, _ReqNPwd);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'cpassword' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "reftree")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string Result_Json = GetLink(_ReqUser, _ReqPassw, "reftree");
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'reftree' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "memtree")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string Result_Json = GetLink(_ReqUser, _ReqPassw, "memtree");
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'memtree' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "welcomeletter")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string Result_Json = GetLink(_ReqUser, _ReqPassw, "welcomedocs");
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'welcomeletter' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "pincode")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _Reqpincode = ClearInject(dict["pincode"]);
-                string Result_Json = GetAddressByPincode(_ReqUser, _ReqPassw, _Reqpincode);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'pincode' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "walletotp")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string Result_Json = GeneratePinOTP(_ReqUser, _ReqPassw, "walletotp");
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'walletotp' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "validwalletotp")
-            {
-                string _ReqMobileNo = ClearInject(dict["mobileno"]);
-                string _ReqOtpCode = ClearInject(dict["otp"]);
-                string Result_Json = ValidWalletOtp(_ReqMobileNo, _ReqOtpCode);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'validwalletotp' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "complainttype")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string Result_Json = ComplaintList(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'complainttype' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "complaintreply")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _ReqcomplaintId = ClearInject(dict["Complaintid"]);
-                string Result_Json = ComplaintReplyDetail(_ReqUser, _ReqPassw, _ReqcomplaintId);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'complaintreply' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "savecomplaint")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _ReqIdno = ClearInject(dict["idno"]);
-                string _Reqname = ClearInject(dict["name"]);
-                string _ReqMobileno = ClearInject(dict["mobileno"]);
-                string _ReqEmail = ClearInject(dict["email"]);
-                string Complaintid = ClearInject(dict["complaintid"]);
-                string _ReqSubject = ClearInject(dict["subject"]);
-                string _ReqDescription = ClearInject(dict["description"]);
-                string Result_Json = SaveComplaint(_ReqUser, _ReqPassw, _ReqIdno, _Reqname, _ReqMobileno, _ReqEmail, Complaintid, _ReqSubject, _ReqDescription);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'savecomplaint' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "mwallethistory")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _ReqFromNo = ClearInject(dict["from"]);
-                string _ReqToNo = ClearInject(dict["to"]);
-                string Result_Json = MWalletHistory(_ReqUser, _ReqPassw, _ReqFromNo, _ReqToNo);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'mwallethistory' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "epinpackagelist")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string Result_Json = PackagelistEPin(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'epinpackagelist' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "getsponsor")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _ReqSponsorID = ClearInject(dict["sponsorid"]);
-                string Result_Json = FillSponsor(_ReqUser, _ReqPassw, _ReqSponsorID);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'getsponsor' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "checkpin")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _ReqPinNo = ClearInject(dict["pinno"]);
-                string _ReqScratchNo = ClearInject(dict["scratchno"]);
-
-                bool exists = UserExists(_ReqUser, _ReqPassw);
-
-                if (exists)
-                {
-                    string Rsponse = Validate_NewJoin(_ReqPinNo, _ReqScratchNo);
-                    if (Rsponse == "OK")
-                    {
-                        string Result_Json = "{\"response\":\"" + Rsponse + "\",\"kitamount\":\"" + Session["Kitamount"] + "\",\"msg\":\"success\"}";
-                        string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'checkpin' WHERE ReqID = '" + sResult.Trim() + "'";
-                        int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                        Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                        Response.Clear();
-                        Response.ContentType = "application/json";
-                        Response.Write(Result_Json);
-                    }
-                    else
-                    {
-                        string Result_Json = "{\"response\":\"FAILED\",\"kitamount\":\"0\",\"msg\":\"" + Rsponse + "\"}";
-                        string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'checkpin' WHERE ReqID = '" + sResult.Trim() + "'";
-                        int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                        Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                        Response.Clear();
-                        Response.ContentType = "application/json";
-                        Response.Write(Result_Json);
-                    }
-                }
-                else
-                {
-                    string Result_Json = "{\"response\":\"Invalid Request\"}";
-                    string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'checkpin' WHERE ReqID = '" + sResult.Trim() + "'";
-                    int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                    Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                    Response.Clear();
-                    Response.ContentType = "application/json";
-                    Response.Write(Result_Json);
-                }
-            }
-            else if (_Reqtype == "joining")
-            {
-                string Result_Json = Register(dict);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'joining' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "getprofile")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _ReqMemberID = ClearInject(dict["memberid"]);
-                string Result_Json = GetProfile(_ReqUser, _ReqPassw, _ReqMemberID);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'getprofile' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "setprofile")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _ReqMemberID = ClearInject(dict["memberid"]);
-                string _Reqphoneno = ClearInject(dict["phno"]);
-                string _Gaurdian = ClearInject(dict["fname"]);
-                string _Dob = ClearInject(dict["dob"]);
-                string _Mobile = ClearInject(dict["mobile"]);
-                string _Email = ClearInject(dict["email"]);
-                string _MemRelation = ClearInject(dict["memrelation"]);
-                string _Nominee = ClearInject(dict["nominee"]);
-                string _Relation = ClearInject(dict["nomineerelation"]);
-                string Result_Json = SetProfile(_ReqUser, _ReqPassw, _ReqMemberID, _Gaurdian, _MemRelation, _Dob, _Email, _Nominee, _Relation, _Reqphoneno, _Mobile);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'setprofile' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "kycdetail")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-
-                string Result_Json = KYCDetail(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'kycdetail' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "kycbankdetail")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-
-                string Result_Json = KYCBankDetail(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'kycbankdetail' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "kycpancarddetail")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-
-                string Result_Json = KYCPancardDetail(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'kycpancarddetail' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "packagelist")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-
-                string Result_Json = Packagelist(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'packagelist' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "epindetail")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                int _ReqPkgID = Convert.ToInt32(ClearInject(dict["pkgid"]));
-                string _ReqStatus = ClearInject(dict["ptype"]);
-                string _ReqFromNo = ClearInject(dict["from"]);
-                string _ReqToNo = ClearInject(dict["to"]);
-
-
-                string Result_Json = EpinDetail(_ReqUser, _ReqPassw, _ReqPkgID, _ReqStatus, _ReqFromNo, _ReqToNo);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'epindetail' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "memrellist")
-            {
-
-                string Result_Json = Relation();
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'memrellist' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "ctpassword") // 29Apr16 NJ
-            {
-                string _ReqUserID = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _ReqPwd = ClearInject(dict["tpasswd"]);
-                string _ReqNPwd = ClearInject(dict["ntpasswd"]);
-
-                string Result_Json = ChangeTransactionPassword(_ReqUserID, _ReqPassw, _ReqPwd, _ReqNPwd);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'ctpassword' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "pintransfer")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _ReqTPassw = ClearInject(dict["otp"]);
-                string _ReqmemID = ClearInject(dict["toid"]);
-                int _Reqpin = Convert.ToInt32(dict["pkgid"]);
-                int _Reqqty = Convert.ToInt32(dict["qty"]);
-                string _ReqRemark = ClearInject(dict["remark"]);
-
-                string Result_Json = TransferPin(_ReqUser, _ReqPassw, _ReqTPassw, _ReqmemID, _Reqpin, _Reqqty, _ReqRemark);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'pintransfer' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "transferdetail")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                int _Reqpkg = Convert.ToInt32(ClearInject(dict["pkgid"]));
-                string _ReqFromNo = ClearInject(dict["from"]);
-                string _ReqToNo = ClearInject(dict["to"]);
-
-                string Result_Json = PinTransferDetails(_ReqUser, _ReqPassw, _Reqpkg, _ReqFromNo, _ReqToNo);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'transferdetail' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "receivedetail")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                int _Reqpkg = Convert.ToInt32(ClearInject(dict["pkgid"]));
-                string _ReqFromNo = ClearInject(dict["from"]);
-                string _ReqToNo = ClearInject(dict["to"]);
-
-                string Result_Json = PinReceiveDetails(_ReqUser, _ReqPassw, _Reqpkg, _ReqFromNo, _ReqToNo);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'receivedetail' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "getpinkit")
-            {
-                string _Requser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-
-                string Result_Json = GetPinKit(_Requser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'getpinkit' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "generatepin")
-            {
-                string _Requser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _Reqactype = ClearInject(dict["actype"]);
-                string Kitid = ClearInject(dict["kitid"]);
-                string qty = ClearInject(dict["qty"]);
-                string transpasswd = ClearInject(dict["transpassw"]);
-
-                string Result_Json = GeneratePin(_Requser, _ReqPassw, _Reqactype, Kitid, qty, transpasswd);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'generatepin' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "levellist")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-
-                string Result_Json = LevelList(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'levellist' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "dailyincentive")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _FromNo = ClearInject(dict["from"]);
-                string _Tono = ClearInject(dict["to"]);
-
-                string Result_Json = DailyIncentive(_ReqUser, _ReqPassw, _FromNo, _Tono);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'dailyincentive' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "newdailyincentive")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _FromNo = ClearInject(dict["from"]);
-                string _Tono = ClearInject(dict["to"]);
-
-                string Result_Json = NewDailyIncentive(_ReqUser, _ReqPassw, _FromNo, _Tono);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'newdailyincentive' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "monthlyincentive")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _FromNo = ClearInject(dict["from"]);
-                string _Tono = ClearInject(dict["to"]);
-
-                string Result_Json = NewMonthlyIncentive(_ReqUser, _ReqPassw, _FromNo, _Tono);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'monthlyincentive' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "accounttype")
-            {
-                string Result_Json = AccountType();
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'accounttype' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "idtype")
-            {
-                string Result_Json = IdTypelist();
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'idtype' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "achievertype")
-            {
-                string Result_Json = Achieverlist();
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'achievertype' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "downline")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                int _ReqLegNo = Convert.ToInt32(ClearInject(dict["side"]));
-                string _ReqFromNo = ClearInject(dict["from"]);
-                string _ReqToNo = ClearInject(dict["to"]);
-
-                string Result_Json = Downline(_ReqUser, _ReqPassw, _ReqLegNo, _ReqFromNo, _ReqToNo);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'downline' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "downlinesummary")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-
-                string Result_Json = DownlineSummary(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'downlinesummary' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "pintransferpackage")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-
-                string Result_Json = PinTransferPackageList(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'pintransferpackage' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "products")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-
-                string Result_Json = Products(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'products' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "dailyeverestincome")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _FromNo = ClearInject(dict["from"]);
-                string _Tono = ClearInject(dict["to"]);
-
-                string Result_Json = DailyEverestIncome(_ReqUser, _ReqPassw, _FromNo, _Tono);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'dailyeverestincome' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "Business")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-
-                string Result_Json = Business(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'Business' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "EverestTree")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string Result_Json = EverestTree(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'EverestTree' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "RefIncome")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _Reqsessid = ClearInject(dict["sessid"]);
-                string _FromNo = ClearInject(dict["from"]);
-                string _Tono = ClearInject(dict["to"]);
-
-                string Result_Json = RefIncome(_ReqUser, _ReqPassw, _Reqsessid, _FromNo, _Tono);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'RefIncome' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "deliverycenter")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-
-                string Result_Json = DeliveryCenter(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'deliverycenter' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "getnews")
-            {
-                string Result_Json = Getnews();
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'getnews' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "monthlyincentive")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                int _ReqFromNo = Convert.ToInt32(ClearInject(dict["from"]));
-                int _ReqToNo = Convert.ToInt32(ClearInject(dict["to"]));
-
-                string Result_Json = MonthlyIncentive(_ReqUser, _ReqPassw, _ReqFromNo, _ReqToNo);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'monthlyincentive' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "getwalletbalance") // -- wayfast
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _Reqactype = ClearInject(dict["actype"]);
-
-                string Result_Json = GetBalance(_ReqUser, _ReqPassw, 0, _Reqactype);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'getwalletbalance' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "amounttransfertoother") // -- wayfast
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                Decimal _reqamount = Convert.ToDecimal(ClearInject(dict["reqamount"]));
-                string _ReqActype = ClearInject(dict["actype"]);
-                string _reqtranspassword = ClearInject(dict["transpassword"]);
-                string _reqremark = ClearInject(dict["remarks"]);
-                string _ReqtoUser = ClearInject(dict["touserid"]);
-
-                string Result_Json = AmountTransfertootherid(_ReqUser, _ReqPassw, _reqamount, _ReqActype, _ReqtoUser, _reqtranspassword, _reqremark);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'amounttransfertoother' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "allachiever")
-            {
-                string _achievetype = ClearInject(dict["type"]);
-                int _ReqFromNo = Convert.ToInt32(ClearInject(dict["from"]));
-                int _ReqToNo = Convert.ToInt32(ClearInject(dict["to"]));
-
-                string Result_Json = AllAchiever(_achievetype, _ReqFromNo, _ReqToNo);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'allachiever' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "shopping")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-
-                string Result_Json = ProductRequestDetail(_ReqUser, _ReqPassw);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'shopping' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else if (_Reqtype == "vieworder")
-            {
-                string _ReqUser = ClearInject(dict["userid"]);
-                string _ReqPassw = ClearInject(dict["passwd"]);
-                string _ReqOrderno = ClearInject(dict["orderno"]);
-                string Result_Json = ViewProductOrderDetail(_ReqUser, _ReqPassw, _ReqOrderno);
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'vieworder' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-            else
-            {
-                string Result_Json = "";
-                Result_Json = "{\"response\":\"FAILED\",\"msg\":\"Api Process Request Not Found.!\" }";
-                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "' WHERE ReqID = '" + sResult.Trim() + "'";
-                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-                Response.Clear();
-                Response.ContentType = "application/json";
-                Response.Write(Result_Json);
-            }
-        }
-        catch (Exception)
-        {
-            string Result_Json = "";
-            Result_Json = "{\"response\":\"FAILED\",\"msg\":\"Exception Case Process Not Valid.!\" }";
-            string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "' WHERE ReqID = '" + sResult.Trim() + "'";
-            int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
-            Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
-            Response.Clear();
-            Response.ContentType = "application/json";
-            Response.Write(Result_Json);
-        }
     }
     private string Directs(string userid, string passwd, string mlevel, string legno, int FromNo, int ToNo, int pageIndex, string Searchby)
     {
@@ -3994,12 +4007,12 @@ public partial class ProccessApiWithK : System.Web.UI.Page
         try
         {
             bool Bool = UserExists(userid, passwd);
-            string FormNo = GetFormNo(ClearInject(userid));
-
-            if (Bool && FormNo != "0")
+            if (Bool == true)
             {
+                DataTable DtCountry = new DataTable();
+                string RecordCount = "0";
+                string col = "";
                 string WhereCondition = "";
-
                 if (PType == "U")
                     WhereCondition = " AND [Status]='Used'";
                 else if (PType == "N")
@@ -4008,45 +4021,115 @@ public partial class ProccessApiWithK : System.Web.UI.Page
                 if (PkgID > 0)
                     WhereCondition += " AND KitID=" + PkgID;
 
-                DataTable dt = new DataTable();
-                _Output = "{\"epindetail\": [";
+                _Output = "{\"epindetail\":[";
 
-                string strQry = IsoStart + "SELECT COUNT(*) FROM " + ObjDAL.dBName + "..V#EpinStatus WHERE ReqFormNo='" + userid + "'" + WhereCondition + IsoEnd;
-                Comm = new SqlCommand(strQry, selectConn);
-                string RecordCount = Comm.ExecuteScalar().ToString();
-
-                strQry = "SELECT ROW_NUMBER() OVER(ORDER BY Cardno DESC) AS SNo, * FROM " + ObjDAL.dBName + "..V#EpinStatus WHERE ReqFormNo='" + userid + "'" + WhereCondition;
+                string strQry = "";
+                //_Output += "{\"pinno\":\"" + dr["CardNo"] + "\",\"scratchno\":\"" + dr["ScratchNo"] + "\",\"productname\":\"" + dr["ProductName"] + "\"," +
+                //    "\"issuedate\":\"" + dr["IssuedDate"] + "\",\"epinstatus\":\"" + dr["Status"] + "\",\"usedby\":\"" + dr["UsedBy"] + "\"," +
+                //    "\"mname\":\"" + dr["MemName"] + "\",\"useddate\":\"" + dr["UsedDate"] + "\"},";
+                strQry = "SELECT ROW_NUMBER() OVER(ORDER BY Cardno DESC) AS SNo,CardNo as [Pin No],scratchno as [Scratch No]," +
+                    "productname as [Product Name],IssuedDate as [Issue Date],Status as [Epin Status],UsedBy as [Used By]," +
+                    "MemName as Name,UsedDate as [Used Date] FROM " + ObjDAL.dBName + "..V#EpinStatus WHERE ReqFormNo='" + userid + "'" + WhereCondition;
                 strQry = IsoStart + "SELECT * FROM (" + strQry + ") AS b WHERE SNo >= " + FromNo + " AND SNo <= " + ToNo + IsoEnd;
-
-                SqlDataAdapter adp = new SqlDataAdapter(strQry, selectConn);
-                adp.Fill(dt);
-
-                if (dt.Rows.Count > 0)
+                DataSet ds1 = SqlHelper.ExecuteDataset(constr1,CommandType.Text,strQry);
+                DataTable dt = new DataTable();
+                if (ds1.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow dr in dt.Rows)
+                    dt = ds1.Tables[0];
+                }
+                foreach (DataRow Dr in dt.Rows)
+                {
+                    col = "{";
+
+                    foreach (DataColumn column in dt.Columns)
                     {
-                        _Output += "{\"pinno\":\"" + dr["CardNo"] + "\",\"scratchno\":\"" + dr["ScratchNo"] + "\",\"productname\":\"" + dr["ProductName"] + "\",\"issuedate\":\"" + dr["IssuedDate"] + "\",\"epinstatus\":\"" + dr["Status"] + "\",\"usedby\":\"" + dr["UsedBy"] + "\",\"mname\":\"" + dr["MemName"] + "\",\"useddate\":\"" + dr["UsedDate"] + "\"},";
+                        string value = "";
+
+                        if (Dr[column] == DBNull.Value)
+                            value = "0";
+                        else
+                            value = Dr[column].ToString();
+
+                        col += "\"" + column.ColumnName + "\":\"" + value + "\",";
                     }
-                    // Remove trailing comma
-                    _Output = _Output.Remove(_Output.Length - 1, 1);
+
+                    col = col.Remove(col.Length - 1, 1);
+                    col += "},";
+
+                    _Output += col;
                 }
 
-                _Output += "],\"recordcount\":\"" + Convert.ToString(RecordCount) + "\",\"response\":\"OK\"}";
-                if (Comm != null) Comm.Cancel();
+                _Output = _Output.Remove(_Output.Length - 1, 1);
+                _Output += "],\"response\":\"OK\",\"msg\":\"Success\"}";
             }
             else
             {
                 _Output = "{\"response\":\"FAILED\",\"msg\":\"Invalid Login Details.\"}";
             }
-
-            if (Comm != null) Comm.Cancel();
         }
         catch (Exception ex)
         {
-            _Output = "{\"response\":\"FAILED\"}";
+            _Output = "{\"response\":\"FAILED\",\"msg\":\"" + ex.Message + "\"}";
         }
 
         return _Output;
+        //string _Output = "";
+        //try
+        //{
+        //    bool Bool = UserExists(userid, passwd);
+        //    string FormNo = GetFormNo(ClearInject(userid));
+
+        //    if (Bool && FormNo != "0")
+        //    {
+        //        string WhereCondition = "";
+
+        //        if (PType == "U")
+        //            WhereCondition = " AND [Status]='Used'";
+        //        else if (PType == "N")
+        //            WhereCondition = " AND [Status]='UnUsed'";
+
+        //        if (PkgID > 0)
+        //            WhereCondition += " AND KitID=" + PkgID;
+
+        //        DataTable dt = new DataTable();
+        //        _Output = "{\"epindetail\": [";
+
+        //        string strQry = IsoStart + "SELECT COUNT(*) FROM " + ObjDAL.dBName + "..V#EpinStatus WHERE ReqFormNo='" + userid + "'" + WhereCondition + IsoEnd;
+        //        Comm = new SqlCommand(strQry, selectConn);
+        //        string RecordCount = Comm.ExecuteScalar().ToString();
+
+        //        strQry = "SELECT ROW_NUMBER() OVER(ORDER BY Cardno DESC) AS SNo, * FROM " + ObjDAL.dBName + "..V#EpinStatus WHERE ReqFormNo='" + userid + "'" + WhereCondition;
+        //        strQry = IsoStart + "SELECT * FROM (" + strQry + ") AS b WHERE SNo >= " + FromNo + " AND SNo <= " + ToNo + IsoEnd;
+
+        //        SqlDataAdapter adp = new SqlDataAdapter(strQry, selectConn);
+        //        adp.Fill(dt);
+
+        //        if (dt.Rows.Count > 0)
+        //        {
+        //            foreach (DataRow dr in dt.Rows)
+        //            {
+        //                _Output += "{\"pinno\":\"" + dr["CardNo"] + "\",\"scratchno\":\"" + dr["ScratchNo"] + "\",\"productname\":\"" + dr["ProductName"] + "\",\"issuedate\":\"" + dr["IssuedDate"] + "\",\"epinstatus\":\"" + dr["Status"] + "\",\"usedby\":\"" + dr["UsedBy"] + "\",\"mname\":\"" + dr["MemName"] + "\",\"useddate\":\"" + dr["UsedDate"] + "\"},";
+        //            }
+        //            // Remove trailing comma
+        //            _Output = _Output.Remove(_Output.Length - 1, 1);
+        //        }
+
+        //        _Output += "],\"recordcount\":\"" + Convert.ToString(RecordCount) + "\",\"response\":\"OK\"}";
+        //        if (Comm != null) Comm.Cancel();
+        //    }
+        //    else
+        //    {
+        //        _Output = "{\"response\":\"FAILED\",\"msg\":\"Invalid Login Details.\"}";
+        //    }
+
+        //    if (Comm != null) Comm.Cancel();
+        //}
+        //catch (Exception ex)
+        //{
+        //    _Output = "{\"response\":\"FAILED\"}";
+        //}
+
+        //return _Output;
     }
     public string Packagelist(string userid, string passwd)
     {
@@ -5450,7 +5533,10 @@ public partial class ProccessApiWithK : System.Web.UI.Page
                 {
                     webUrl = HttpContext.Current.Session["CompWeb"] + "/Welcomeletter.aspx?id=" + userId;
                 }
-
+                else if (lnkType.ToLower() == "levelwisedirectreportview")
+                {
+                    webUrl = HttpContext.Current.Session["CompWeb"] + "/AppMydirects.aspx?id=" + userId;
+                }
                 output = "{\"url\":\"" + webUrl + "\",\"response\":\"OK\"}";
             }
             else

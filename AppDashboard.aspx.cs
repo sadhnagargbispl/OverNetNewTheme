@@ -27,40 +27,11 @@ public partial class AppDashboard : System.Web.UI.Page
     {
         try
         {
-            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
+            if (Request["id"] != null)
             {
-                if (Request["id"] != null)
+                if (!Page.IsPostBack)
                 {
-                    if (!Page.IsPostBack)
-                    {
-                        LoadTeam();
-                    }
-                }       
-            }
-            else
-            {
-                string key = string.Empty;
-                try
-                {
-                    string KeyE = "6b04d38748f94490a636cf1be3d82841";
-                    string IV = "f8adbf3c94b7463d";
-                    byte[] KeyB = Encoding.ASCII.GetBytes(KeyE);
-                    byte[] IVB = Encoding.ASCII.GetBytes(IV);
-
-                    key = Request.Form["key"];
-                    bool Islogin = false;
-
-                    string[] Result = Decrypt(key, KeyB, IVB).Split(',');
-                    int Result1 = (int)(DateTime.Now - Convert.ToDateTime(Result[2])).TotalMinutes;
-
-                    if (Result1 > 30)
-                    {
-                        Response.Redirect("Logout.aspx");
-                    }
-                }
-                catch (Exception)
-                {
-                    Response.Redirect("Logout.aspx");
+                    LoadTeam();
                 }
             }
         }
