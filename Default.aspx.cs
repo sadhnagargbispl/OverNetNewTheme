@@ -103,7 +103,7 @@ public partial class Default : System.Web.UI.Page
                             int UIdIndx = Str.IndexOf("&pwd");
                             uid = qrystr[1].ToString();
                             Pwd = qrystr[2].ToString();
-                            Session["Adminmob"] = qrystr[3].ToString();
+                           // Session["Adminmob"] = qrystr[3].ToString();
                         }
                     }
                     else
@@ -129,7 +129,7 @@ public partial class Default : System.Web.UI.Page
                     }
                     else
                     {
-                        enterHomePgForAdmin();
+                        enterHomePg();
                     }
                 }
             }
