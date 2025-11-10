@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class ViewTeamInfinity : System.Web.UI.Page
+public partial class AppViewTeamInfinity : System.Web.UI.Page
 {
     DataTable dtData = new DataTable();
     DAL objDAL = new DAL();

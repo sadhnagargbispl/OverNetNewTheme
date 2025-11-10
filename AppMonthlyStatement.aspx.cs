@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
 
-public partial class MonthlyStatement : System.Web.UI.Page
+public partial class AppMonthlyStatement : System.Web.UI.Page
 {
     DAL Objdal = new DAL();
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;

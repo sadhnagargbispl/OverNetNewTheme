@@ -11,7 +11,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class epinDetail : System.Web.UI.Page
+public partial class AppPinReceivedDetails : System.Web.UI.Page
 {
     DataSet Ds;
     SqlConnection conn = new SqlConnection();
@@ -44,14 +44,14 @@ public partial class epinDetail : System.Web.UI.Page
     {
         try
         {
-            if (Session["Status"] != null)
+            if (Request["id"] != null)
             {
                 if (!Page.IsPostBack)
                 {
                     Session["DirDel"] = null;
                     Session["DirDelCount"] = null;
                     FillKit();
-                    FillDetail();
+                    GetEpinDetails(1);
                     string strQuery = "";
                     DataTable tmpTable = new DataTable();
                 }
@@ -71,7 +71,7 @@ public partial class epinDetail : System.Web.UI.Page
         try
         {
             // Construct the SQL to call your stored procedure
-            string sql = IsoStart + "Exec sp_GetKit '" + Session["IDNO"] + "'" + IsoEnd;
+            string sql = IsoStart + "Exec sp_GetKitDetails" + IsoEnd;
 
             // Execute the query using SqlHelper (from Microsoft.ApplicationBlocks.Data)
             DataSet ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql);
@@ -88,41 +88,32 @@ public partial class epinDetail : System.Web.UI.Page
             // Example: Console.WriteLine(ex.Message);
         }
     }
-    private void FillDetail()
+    private void GetEpinDetails(int pageIndex)
     {
         try
         {
-            string condition = "";
-
-            // Apply Kit filter
-            if (CmbKit.SelectedValue != "0")
+            SqlParameter[] prms = new SqlParameter[5];
+            prms[0] = new SqlParameter("@IDNo", Convert.ToString(Request["id"]).ToLower());
+            prms[1] = new SqlParameter("@KitId", CmbKit.SelectedValue);
+            prms[2] = new SqlParameter("@PageIndex", pageIndex);
+            prms[3] = new SqlParameter("@PageSize", 1000000);
+            prms[4] = new SqlParameter("@RecordCount", SqlDbType.Int)
             {
-                condition += " And KitID=" + CmbKit.SelectedValue;
-            }
+                Direction = ParameterDirection.Output
+            };
 
-            // Apply Status filter
-            if (rbtnStatus.SelectedValue == "USED")
-            {
-                condition += " And [Status]='Used'";
-            }
-            else if (rbtnStatus.SelectedValue == "UN-USED")
-            {
-                condition += " And [Status]='UnUsed'";
-            }
+            // Execute stored procedure
+            DataSet ds = SqlHelper.ExecuteDataset(constr1, "sp_GetEpinReceivedDetail", prms);
 
-            // Construct SQL query
-            string strQuery = IsoStart + "Select Row_Number() Over(Order by Cardno) As SNo,* From " +
-                              ObjDal.dBName + "..V#EpinStatus Where ReqFormNo='" + Session["IDNo"] + "' " +
-                              condition + " order by CardNo Desc" + IsoEnd;
+            // Store full dataset in session
+            Session["pindetails"] = ds.Tables[0];
 
-            // Execute query
-            DataSet ds1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQuery);
-
-            // Store full dataset in session for paging
-            Session["epinData"] = ds1.Tables[0];
+            // Get total record count from second table
+            int recordCount = Convert.ToInt32(ds.Tables[1].Rows[0]["RecordCount"]);
+            lbltotal.Text = recordCount.ToString();
 
             // Paging logic
-            DataTable dtFull = ds1.Tables[0];
+            DataTable dtFull = ds.Tables[0];
             int startRow = CurrentPage * PageSize;
             int endRow = Math.Min(startRow + PageSize, dtFull.Rows.Count);
             DataTable dtPage = dtFull.Clone();
@@ -132,21 +123,23 @@ public partial class epinDetail : System.Web.UI.Page
                 dtPage.ImportRow(dtFull.Rows[i]);
             }
 
-            // Bind paged data to repeater
+            // Bind paged data
             RptDirects.DataSource = dtPage;
             RptDirects.DataBind();
 
-            // Update page info label
             int totalPages = (int)Math.Ceiling((double)dtFull.Rows.Count / PageSize);
             lblPageInfo.Text = "Page " + (CurrentPage + 1) + " of " + totalPages;
+
+            // Optionally: PopulatePager(recordCount, pageIndex);
         }
         catch (Exception ex)
         {
             string path = HttpContext.Current.Request.Url.AbsoluteUri;
             string text = path + ":  " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss:fff ") + Environment.NewLine;
-
             ObjDal.WriteToFile(text + ex.Message);
             Response.Write("Try later.");
+            Response.Write(ex.Message);
+            Response.End();
         }
     }
     protected void btnPrevious_Click(object sender, EventArgs e)
@@ -154,23 +147,23 @@ public partial class epinDetail : System.Web.UI.Page
         if (CurrentPage > 0)
         {
             CurrentPage -= 1;
-            FillDetail();
+            GetEpinDetails(1);
         }
     }
     protected void btnNext_Click(object sender, EventArgs e)
     {
-        DataTable dtFull = Session["epinData"] as DataTable;
+        DataTable dtFull = Session["pindetails"] as DataTable;
         if (dtFull != null && (CurrentPage + 1) * PageSize < dtFull.Rows.Count)
         {
             CurrentPage += 1;
-            FillDetail();
+            GetEpinDetails(1);
         }
     }
     protected void PageSize_Changed(object sender, EventArgs e)
     {
         try
         {
-        
+
         }
         catch (Exception ex)
         {
@@ -182,6 +175,7 @@ public partial class epinDetail : System.Web.UI.Page
         try
         {
             int pageIndex = int.Parse(((LinkButton)sender).CommandArgument);
+            GetEpinDetails(pageIndex);
         }
         catch (Exception ex)
         {
@@ -192,7 +186,7 @@ public partial class epinDetail : System.Web.UI.Page
     {
         try
         {
-            FillDetail();
+            GetEpinDetails(1);
         }
         catch (Exception ex)
         {
@@ -204,7 +198,7 @@ public partial class epinDetail : System.Web.UI.Page
     {
         try
         {
-            FillDetail();
+            GetEpinDetails(1);
         }
         catch (Exception ex)
         {
@@ -215,69 +209,8 @@ public partial class epinDetail : System.Web.UI.Page
 
     protected void rbtnStatus_SelectedIndexChanged(object sender, EventArgs e)
     {
-        FillDetail();
+        GetEpinDetails(1);
     }
-    protected void RptDirects_ItemCommand(object source, RepeaterCommandEventArgs e)
-    {
-        try
-        {
-            string sql;
 
-            if (e.CommandArgument.ToString() == "Topup" || e.CommandArgument.ToString() == "Join")
-            {
-                string PinNo = ((Label)e.Item.FindControl("lblCardNo")).Text;
-                string ScratchNo = ((Label)e.Item.FindControl("lblScratchNo")).Text;
-                string Kitid = ((Label)e.Item.FindControl("lblKitID")).Text;
-
-                if (((Label)e.Item.FindControl("lblStatus")).Text == "UnUsed")
-                {
-                    if (e.CommandArgument.ToString() == "Topup")
-                    {
-                        if (((Label)e.Item.FindControl("IsTopup")).Text == "Y")
-                        {
-                            //DivTopup.Visible = true;
-                            //lblPinNo.Text = PinNo;
-                            //TxtScratchNo.Text = ScratchNo;
-
-                            sql = IsoStart + "Select a.KitName,b.FormNo,b.ScratchNo,b.GeneratedBy,b.UsedBy,a.Allowtopup,b.ProdId,a.MACAdrs,a.TopUpSeq,a.KitAmount,a.KitId,0 as TravelPoint,a.RP " +
-                                  "FROM " + ObjDal.dBName + "..M_KitMaster as a," + ObjDal.dBName + "..M_FormGeneration as b " +
-                                  "WHERE a.KitID=b.ProdID AND b.FormNo='" + PinNo.Trim() + "' AND a.Allowtopup='Y' and a.RowStatus='Y' AND b.Usedby='0' AND GeneratedBy='Y'" + IsoEnd;
-
-                            DataTable Dt_ = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql).Tables[0];
-
-                            Session["NewKitName"] = Convert.ToString(Dt_.Rows[0]["KitName"]);
-                            Session["TopUpSeq"] = Dt_.Rows[0]["TopUpSeq"];
-                            Session["MACAdrs"] = Dt_.Rows[0]["MACAdrs"];
-                            Session["NewKitAmount"] = Dt_.Rows[0]["KitAmount"];
-                            Session["NewKitId"] = Dt_.Rows[0]["KitId"];
-                        }
-                        else
-                        {
-                            string ScrName = "<SCRIPT language='javascript'>alert('Invalid Topup Pin.');</SCRIPT>";
-                            ClientScript.RegisterStartupScript(this.GetType(), "MyAlert", ScrName);
-                        }
-                    }
-                    else
-                    {
-                        // For Join command
-                        //Response.Redirect("NewJoiningBackup.aspx?pin=" + PinNo + "&scratch=" + ScratchNo, false);
-                        //Response.Redirect("#", false);
-                    }
-                }
-                else
-                {
-                    string ScrName = "<SCRIPT language='javascript'>alert('ePin Already Used.');</SCRIPT>";
-                    ClientScript.RegisterStartupScript(this.GetType(), "MyAlert", ScrName);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            string path = HttpContext.Current.Request.Url.AbsoluteUri;
-            string text = path + ":  " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss:fff ") + Environment.NewLine;
-            ObjDal.WriteToFile(text + ex.Message);
-            Response.Write("Try later.");
-        }
-    }
 
 }
