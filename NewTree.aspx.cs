@@ -364,7 +364,7 @@ public partial class NewTree : System.Web.UI.Page
                     // Else
                     // strImageFile = "img/deact.jpg"
                     // End If
-                    MemberName = "Direct";
+                    //MemberName = "Direct";
                     Target_ = "";
                     strUrlPath = "";
                     // strUrlPath = "" ''"newjoining.aspx?UpLnFormNo=" & ParentId & "&legno=" & LegNo
