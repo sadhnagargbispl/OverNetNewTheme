@@ -35,10 +35,10 @@ public partial class AppPinTransfer : System.Web.UI.Page
                     Fillkit();
                 }
             }
-            else
-            {
-                Response.Redirect("logout.aspx");
-            }
+            //else
+            //{
+            //    Response.Redirect("logout.aspx");
+            //}
         }
         catch (Exception ex)
         {

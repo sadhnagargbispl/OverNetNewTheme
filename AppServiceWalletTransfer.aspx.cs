@@ -30,10 +30,10 @@ public partial class AppServiceWalletTransfer : System.Web.UI.Page
                     FundWalletGetBalance();
                 }
             }
-            else
-            {
-                Response.Redirect("logout.aspx");
-            }
+            //else
+            //{
+            //    Response.Redirect("logout.aspx");
+            //}
         }
         catch (Exception ex)
         {

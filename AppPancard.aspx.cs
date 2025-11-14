@@ -37,10 +37,7 @@ public partial class AppPancard : System.Web.UI.Page
                     LoadImages();
                 }
             }
-            else
-            {
-                Response.Redirect("logout.aspx");
-            }
+
         }
         catch (Exception ex)
         {

@@ -260,7 +260,7 @@ public partial class epinDetail : System.Web.UI.Page
                     else
                     {
                         // For Join command
-                        Response.Redirect("NewJoiningBackup.aspx?pin=" + PinNo + "&scratch=" + ScratchNo, false);
+                       // Response.Redirect("NewJoiningBackup.aspx?pin=" + PinNo + "&scratch=" + ScratchNo, false);
                         //Response.Redirect("#", false);
                     }
                 }

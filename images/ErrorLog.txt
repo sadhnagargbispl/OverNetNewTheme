@@ -210,3 +210,15 @@ The method or operation is not implemented.
 http://localhost:51305/NewJoiningBackup.aspx?pin=592929&scratch=5323566:  08-Nov-2025 06:08:38:290 
 The method or operation is not implemented.
 --------------------------------------------------------
+http://localhost:51126/welcomeletter.aspx:  14-Nov-2025 05:49:25:937 
+Thread was being aborted.
+--------------------------------------------------------
+http://localhost:51126/AppPinTransfer.aspx:  14-Nov-2025 05:50:50:525 
+Thread was being aborted.
+--------------------------------------------------------
+http://localhost:51126/AppPinTransfer.aspx:  14-Nov-2025 05:55:24:468
+Object reference not set to an instance of an object.
+--------------------------------------------------------
+http://localhost:51126/AppServiceWalletTransfer.aspx:  14-Nov-2025 05:55:51:686 
+Thread was being aborted.
+--------------------------------------------------------

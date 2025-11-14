@@ -56,10 +56,10 @@ public partial class AppPinReceivedDetails : System.Web.UI.Page
                     DataTable tmpTable = new DataTable();
                 }
             }
-            else
-            {
-                Response.Redirect("logout.aspx");
-            }
+            //else
+            //{
+            //    Response.Redirect("logout.aspx");
+            //}
         }
         catch (Exception ex)
         {

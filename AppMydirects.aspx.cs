@@ -10,7 +10,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class AppMydirects : System.Web.UI.Page
+public partial class AppMyDirects : System.Web.UI.Page
 {
     DataSet Ds;
     DataTable dt;
