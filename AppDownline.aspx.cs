@@ -59,7 +59,7 @@ public partial class AppDownline : System.Web.UI.Page
         try
         {
 
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -90,7 +90,7 @@ public partial class AppDownline : System.Web.UI.Page
         try
         {
             DataTable Dt = new DataTable();
-            string strquery = ObjDAL.Isostart + " exec sp_ShowDownline " + Request["id"] + "," +
+            string strquery = ObjDAL.Isostart + " exec sp_ShowDownline " + Session["formno"] + "," +
                               (isSideA ? "1" : "2") +
                               (string.IsNullOrEmpty(Condition) ? "" : "," + Condition) + ObjDAL.IsoEnd;
 
@@ -204,7 +204,7 @@ public partial class AppDownline : System.Web.UI.Page
     {
         try
         {
-            string strquery = ObjDAL.Isostart + "Select * from " + ObjDAL.dBName + "..V#DownlineInfo where Formno=" + Request["id"] + " " + ObjDAL.IsoEnd;
+            string strquery = ObjDAL.Isostart + "Select * from " + ObjDAL.dBName + "..V#DownlineInfo where Formno=" + Session["formno"] + " " + ObjDAL.IsoEnd;
 
             DataTable dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strquery).Tables[0];
 
@@ -232,7 +232,7 @@ public partial class AppDownline : System.Web.UI.Page
     {
         try
         {
-            string strquery = ObjDAL.Isostart + " exec sp_ShowDownline " + Request["id"] + "," +
+            string strquery = ObjDAL.Isostart + " exec sp_ShowDownline " + Session["formno"] + "," +
                               (isSideA ? 1 : 2) +
                               (string.IsNullOrEmpty(condition) ? "" : "," + condition) + ObjDAL.IsoEnd;
 

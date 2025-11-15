@@ -45,7 +45,7 @@ public partial class AppViewTeamInfinity : System.Web.UI.Page
 
             if (!Page.IsPostBack)
             {
-                if (Request["id"] != null)
+                if (Session["Status"] != null && Session["Status"].ToString() == "OK")
                 {
                     if (!string.IsNullOrEmpty(Request["Sessid"]))
                     {
@@ -77,7 +77,7 @@ public partial class AppViewTeamInfinity : System.Web.UI.Page
                 "FROM " + objDAL.dBName + "..MstRefIncome AS A " +
                 "INNER JOIN " + objDAL.dBName + "..M_MemberMaster AS B ON A.FormNoDwn = B.FormNo " +
                " INNER JOIN " + objDAL.dBName + "..D_BSessnMaster AS C ON A.SessID = C.SessID " +
-               " WHERE A.FormNo = '" + Request["id"] + "' AND A.SessID = '" + Request["Sessid"] + "' AND Comm > 0 " +
+               " WHERE A.FormNo = '" + Session["formno"] + "' AND A.SessID = '" + Request["Sessid"] + "' AND Comm > 0 " +
                " ORDER BY A.SessID" + objDAL.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql1).Tables[0];
             Session["GDatalevel"] = dt;

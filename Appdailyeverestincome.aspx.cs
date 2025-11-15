@@ -34,7 +34,7 @@ public partial class Appdailyeverestincome : System.Web.UI.Page
         try
         {
 
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -70,7 +70,7 @@ public partial class Appdailyeverestincome : System.Web.UI.Page
             "NetIncome AS [Gross Income], TdsAmount AS [TDS Amount], AdminCharge AS [Admin Charge], CouponsAmt AS [Repurchase Deduction], Wdeduct AS [Retopup Deduction], " +
             "Deduction AS [Total Deduction], PrevBal AS [Previous Balance], chqAmt AS [Net Income], ClsBal AS [Carry Forward Balance], ClubIncome, RepairIncome, Sessid " +
             "FROM " + Objdal.dBName + "..V#DailyPayoutDetailNew " +
-            "WHERE Formno = '" + Request["id"] + "' AND sessid >= 20240701 AND Onwebsite = 'Y' " + Objdal.IsoEnd;
+            "WHERE Formno = '" + Session["formno"] + "' AND sessid >= 20240701 AND Onwebsite = 'Y' " + Objdal.IsoEnd;
 
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             Session["dailyeverestincome"] = dt;

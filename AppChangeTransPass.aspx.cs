@@ -23,7 +23,7 @@ public partial class AppChangeTransPass : System.Web.UI.Page
         try
         {
             this.BtnUpdate.Attributes.Add("onclick", DisableTheButton(this.Page, this.BtnUpdate));
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 //BtnUpdate.Attributes.Add("OnClick", "return ValidForm();")
             }
@@ -112,14 +112,14 @@ public partial class AppChangeTransPass : System.Web.UI.Page
                 {
                     string str = objDal .Isostart +"Select IdNo from " + objDal.dBName + "..M_MemberMaster " +
                                     " Where " +
-                                    " FormNo='" + Request["id"] + "' and " +
+                                    " FormNo='" + Session["formno"] + "' and " +
                                     " Epassw ='" + oldpass.Text.Trim() + "' " + objDal.IsoEnd ;
                     tmptbl = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
                     if (tmptbl.Rows.Count == 1)
                     {
-                        strQry = "Update M_MemberMaster Set EPassw='" + pass1.Text + "' Where FormNo=" + Request["id"] + ";";
+                        strQry = "Update M_MemberMaster Set EPassw='" + pass1.Text + "' Where FormNo=" + Session["formno"] + ";";
                         strQry += " insert into UserHistory(UserId,UserName,PageName,Activity,ModifiedFlds,RecTimeStamp,MemberId)Values" +
-                                    "(0,'','Change Transaction Password','Change Transaction Password','Transaction Password Changed',Getdate(),'" + Request["id"] + "')";
+                                    "(0,'','Change Transaction Password','Change Transaction Password','Transaction Password Changed',Getdate(),'" + Session["formno"] + "')";
                         int i = Convert.ToInt32(SqlHelper.ExecuteNonQuery (constr ,CommandType.Text, strQry));
                         if (i != 0)
                         {

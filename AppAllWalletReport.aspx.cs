@@ -12,14 +12,13 @@ public partial class AppAllWalletReport : System.Web.UI.Page
     private string query;
     private DataTable Dt = new DataTable();
     private DAL Obj = new DAL();
-    private string IsoStart;
-    private string IsoEnd;
+    DAL Objdal = new DAL();
     private string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!IsPostBack)
                 {
@@ -43,7 +42,7 @@ public partial class AppAllWalletReport : System.Web.UI.Page
             DataTable dt = new DataTable();
 
             // Update query for stored procedure without formno parameter
-            query = IsoStart + "Exec Sp_GetWalletTypeByformno " + IsoEnd;
+            query = Objdal.Isostart  + "Exec Sp_GetWalletTypeByformno " + Objdal.IsoEnd;
 
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, query).Tables[0];
 
@@ -67,7 +66,7 @@ public partial class AppAllWalletReport : System.Web.UI.Page
     {
         try
         {
-            query = IsoStart + " Select * From dbo.ufnGetBalance('" + Request["id"] + "','" + ddlVoucherType.SelectedValue + "')" + IsoEnd;
+            query = Objdal.Isostart + " Select * From dbo.ufnGetBalance('" + Session["formno"] + "','" + ddlVoucherType.SelectedValue + "')" + Objdal.IsoEnd;
             Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, query).Tables[0];
             MCredit.InnerText = Dt.Rows[0]["Credit"].ToString();
             MDebit.InnerText = Dt.Rows[0]["Debit"].ToString();
@@ -85,7 +84,7 @@ public partial class AppAllWalletReport : System.Web.UI.Page
     {
         try
         {
-            query = IsoStart + " Exec Sp_WalletrReport '" + ddlVoucherType.SelectedValue + "','" + Request["id"] + "',1,100000" + IsoEnd;
+            query = Objdal.Isostart + " Exec Sp_WalletrReport '" + ddlVoucherType.SelectedValue + "','" + Session["formno"] + "',1,100000" + Objdal.IsoEnd;
             Dt = new DataTable();
             Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, query).Tables[0];
             Session["AllFundReport"] = Dt;

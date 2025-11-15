@@ -166,7 +166,7 @@
                 <div class="row-fluid panelpart">
                     <asp:Repeater ID="gvBalance" runat="server">
                         <ItemTemplate>
-                            <div class="span4">
+                            <div class="span6">
                                 <div class="box box-widget widget-user-2">
                                     <a href="#">
                                         <div class="widget-user-header bg-green gradientclr">
@@ -198,7 +198,52 @@
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>
-                    <div class="span8">
+                    <div class="span6">
+    <div class="widget">
+        <div class="widget-title">
+            <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="icon-user"></i>Distributor Details</h4>
+            <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
+        </div>
+        <div class="widget-body">
+            <div class="row-fluid">
+                <div class="span12" style="display: block; margin-top: 20px;">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tbody>
+                            <tr style="background: #f9f9f9; color: #333; text-align: left;">
+                                <th style="padding: 12px 15px; width: 15%;">Member ID</th>
+                                <td style="padding: 12px 15px; width: 35%; font-weight: 600;">
+                                    <asp:Label ID="LblUserID" runat="server" Text=""></asp:Label></td>
+                                <th style="padding: 12px 15px; width: 15%;">Member Name</th>
+                                <td style="padding: 12px 15px; width: 35%; font-weight: 600;">
+                                    <asp:Label ID="LblUserName" runat="server" Text=""></asp:Label></td>
+                            </tr>
+
+                            <tr style="background: #f9f9f9;">
+                                <th style="padding: 12px 15px;">DOJ</th>
+                                <td style="padding: 12px 15px;">
+                                    <asp:Label ID="LbldateOfJoining" runat="server" Text=""></asp:Label></td>
+                                <th style="padding: 12px 15px;">Status</th>
+                                <td style="padding: 12px 15px; color: green; font-weight: 600;">
+                                    <asp:Label ID="Lblstatus" runat="server" Text=""></asp:Label></td>
+                            </tr>
+
+                            <tr style="background: #ffffff;">
+                                <th style="padding: 12px 15px;">Sponsor ID</th>
+                                <td style="padding: 12px 15px;">
+                                    <asp:Label ID="LblSponsorID" runat="server" Text=""></asp:Label></td>
+                                <th style="padding: 12px 15px;">Sponsor Name</th>
+                                <td style="padding: 12px 15px; font-weight: 600;">
+                                    <asp:Label ID="LblSponsorName" runat="server" Text=""></asp:Label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="span8" style="display: none;">
                         <div class="box box-widget widget-user-2">
                             <div class="widget-user-header  gradientclr">
                                 <div class="widget-user-image">
@@ -210,14 +255,16 @@
                             <div class="widgetleftright barset">
                                 <div class="span9 border-right">
                                     <div class="description-block">
-                                        <h5 class="description-header"><span id="ctl00_ContentPlaceHolder1_lblleftgroup">Left: 
+                                        <h5 class="description-header">
+                                            <span id="ctl00_ContentPlaceHolder1_lblleftgroup">Left: 
                                       <a runat="server" target="_blank" id="aRfLink">
                                           <span>
-                                              <asp:Label ID="lblLink" Style="color: blue;" runat="server"></asp:Label></span></a>
-                                            <%--   <a href="#" id="ContentPlaceHolder1_aRfLink" target="_blank">
-                                  <span id="ContentPlaceHolder1_lblLink"> ................... </span></a>--%>
+                                              <asp:Label ID="lblLink" Style="color: blue;" runat="server"></asp:Label>
+                                          </span>
+                                      </a>
+                                        </span>
 
-                                        </span></h5>
+                                        </h5>
                                     </div>
                                 </div>
 
@@ -271,76 +318,200 @@
                         <div class="span12">
                             <div id="ctl00_ContentPlaceHolder1_Distributor1_TbBoard">
                                 <div class="row-fluid">
-                                    <div class="span4">
-                                        <div class="widget">
-                                            <div class="widget-title">
-                                                <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="icon-user"></i>Distributor Details</h4>
-                                                <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-                                            </div>
-                                            <div class="widget-body">
-                                                <div class="row-fluid">
-                                                    <div class="span12" style="display: block; margin-top: 20px;">
-                                                        <table class="table table-striped table-bordered table-hover">
-                                                            <tbody>
-                                                                <tr style="background: #f9f9f9; color: #333; text-align: left;">
-                                                                    <th style="padding: 12px 15px; width: 15%;">Member ID</th>
-                                                                    <td style="padding: 12px 15px; width: 35%; font-weight: 600;">
-                                                                        <asp:Label ID="LblUserID" runat="server" Text=""></asp:Label></td>
-                                                                    <th style="padding: 12px 15px; width: 15%;">Member Name</th>
-                                                                    <td style="padding: 12px 15px; width: 35%; font-weight: 600;">
-                                                                        <asp:Label ID="LblUserName" runat="server" Text=""></asp:Label></td>
-                                                                </tr>
+                                        <div class="span6">
+        <div class="widget">
+            <div class="widget-title">
+                <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="icon-list-ol"></i>
+                    My Team Detail
+                </h4>
+                <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
+            </div>
+            <div class="widget-body">
+                <table id="table" class="table table-hover table-mc-light-blue table-bordered">
+                    <tbody>
+                        <tr class="infoclr">
+                            <th></th>
+                            <th>Left
+                            </th>
+                            <th>Right
+                            </th>
+                            <th>Total
+                            </th>
+                        </tr>
+                        <tr class="backclr">
+                            <td>Current Month Registration
+                            </td>
 
-                                                                <tr style="background: #f9f9f9;">
-                                                                    <th style="padding: 12px 15px;">DOJ</th>
-                                                                    <td style="padding: 12px 15px;">
-                                                                        <asp:Label ID="LbldateOfJoining" runat="server" Text=""></asp:Label></td>
-                                                                    <th style="padding: 12px 15px;">Status</th>
-                                                                    <td style="padding: 12px 15px; color: green; font-weight: 600;">
-                                                                        <asp:Label ID="Lblstatus" runat="server" Text=""></asp:Label></td>
-                                                                </tr>
+                            <td id="crntmonthjoinleft" runat="server">0
+                            </td>
+                            <td id="crntmonthjoinright" runat="server">0
+                            </td>
+                            <td id="currentmonthtotaljoin" runat="server">0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Current Month Activation
+                            </td>
+                            <td id="curntmothactiveleft" runat="server">0
+                            </td>
+                            <td id="curentmonthactiveright" runat="server">0
+                            </td>
+                            <td id="crntmonthtotalactive" runat="server">0
+                            </td>
+                        </tr>
+                        <tr class="backclr" style="display: none;">
+                            <td>Current Month Retopup
+                            </td>
+                            <td id="curntmothretopupleft" runat="server">0
+                            </td>
+                            <td id="curntmothretopupRight" runat="server">0
+                            </td>
+                            <td id="curntmothretopupTotal" runat="server">0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Today's Activation
+                            </td>
+                            <td id="TodayDirectActive" runat="server">0
+                            </td>
+                            <td id="TodayIndirectActive" runat="server">0
+                            </td>
+                            <td id="TodayTotalActive" runat="server">0
+                            </td>
+                        </tr>
+                        <tr class="backclr">
+                            <td>Total Activation
+                            </td>
+                            <td id="TotalDirectActivation" runat="server">0
+                            </td>
+                            <td id="TotalIndirectActivation" runat="server">0
+                            </td>
+                            <td id="TotalActivation" runat="server">0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total Direct Active
+                            </td>
+                            <td id="TdLeftDirectActive" runat="server">0
+                            </td>
+                            <td id="TdRightIndirectActive" runat="server">0
+                            </td>
+                            <td id="TdTotalDirectActive" runat="server">0
+                            </td>
+                        </tr>
+                        <tr class="backclr" style="display: none;">
+                            <td>Total Retopup
+                            </td>
+                            <td id="TdLeftTopup" runat="server">0
+                            </td>
+                            <td id="TdRightTopup" runat="server">0
+                            </td>
+                            <td id="TdTotalTopup" runat="server">0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Current Month Repurchase Joining PV
+                            </td>
+                            <td id="tdjrpvleft" runat="server">0
+                            </td>
+                            <td id="tdjrpvright" runat="server">0
+                            </td>
+                            <td id="tdjrtotal" runat="server">0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total Repurchase Joining PV
+                            </td>
+                            <td id="tdjoinpvleft" runat="server">0
+                            </td>
+                            <td id="tdjoinpvright" runat="server">0
+                            </td>
+                            <td id="tdjointotalpv" runat="server">0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Current Month Repurchase PV
+                            </td>
+                            <td id="TdpvSleft" runat="server">0
+                            </td>
+                            <td id="TdpvrightS" runat="server">0
+                            </td>
+                            <td id="tdtotalSpv" runat="server">0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total Repurchase PV
+                            </td>
+                            <td id="Tdpvleft" runat="server">0
+                            </td>
+                            <td id="Tdpvright" runat="server">0
+                            </td>
+                            <td id="tdtotalpv" runat="server">0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Current Month Repurchase BV
+                            </td>
+                            <td id="tdBVL" runat="server">0
+                            </td>
+                            <td id="tdBVR" runat="server">0
+                            </td>
+                            <td id="tdBV" runat="server">0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total Repurchase BV
+                            </td>
+                            <td id="TdBVTL" runat="server">0
+                            </td>
+                            <td id="TdBVTR" runat="server">0
+                            </td>
+                            <td id="TdBVTotal" runat="server">0
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="widget">
+            <div class="widget-title">
+                <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="icon-list-ol"></i>
+                    My Direct
+                </h4>
+                <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
+            </div>
+            <div class="widget-body">
+                <table class="table table-striped table-bordered table-advance table-hover">
+                    <thead>
+                        <tr>
 
-                                                                <tr style="background: #ffffff;">
-                                                                    <th style="padding: 12px 15px;">Sponsor ID</th>
-                                                                    <td style="padding: 12px 15px;">
-                                                                        <asp:Label ID="LblSponsorID" runat="server" Text=""></asp:Label></td>
-                                                                    <th style="padding: 12px 15px;">Sponsor Name</th>
-                                                                    <td style="padding: 12px 15px; font-weight: 600;">
-                                                                        <asp:Label ID="LblSponsorName" runat="server" Text=""></asp:Label></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                            <th><i class="icon-user"></i>User Name </th>
+                            <th><i class="icon-user-md"></i>Name </th>
+                            <th><i class="icon-tags"></i>Date </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <asp:Repeater ID="RptDirects" runat="server">
+                            <ItemTemplate>
+                                <tr>
+                                    <%--  <td><%#Eval("SNo")%></td>--%>
+                                    <td><%#Eval("idno")%></td>
+                                    <td><%#Eval("MemName")%></td>
+                                    <td><%#Eval("DOA")%></td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:Repeater>
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span8 column sortable">
-                                        <div class="widget">
-                                            <div class="widget-title">
-                                                <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="fa fa-envelope"></i>Latest News</h4>
-                                                <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-                                            </div>
-                                            <div class="widget-body">
-
-                                                <marquee direction="up" scrollamount="3" style="height: 165px;">
-                                                    <asp:Repeater runat="server" ID="RptNews">
-                                                        <ItemTemplate>
-                                                            <p><%#Eval("NewHeding")%></p>
-                                                            <p><%#Eval("NewsDetail")%></p>
-                                                            <p><%#Eval("NewsDate")%></p>
-                                                            <hr>
-                                                        </ItemTemplate>
-                                                    </asp:Repeater>
-
-                                                </marquee>
-
-                                                <div class="space7"></div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    </tbody>
+                </table>
+                <div class="space7"></div>
+                <%-- <div class="clearfix"><a href="#" class="btn btn-mini pull-right btn-danger">More</a> </div>--%>
+            </div>
+        </div>
+    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -349,238 +520,71 @@
                         <div class="span12">
                             <div id="ctl00_ContentPlaceHolder1_Distributor1_TbBoard">
                                 <div class="row-fluid">
-                                    <div class="span6">
-                                        <div class="widget">
-                                            <div class="widget-title">
-                                                <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="icon-list-ol"></i>
-                                                    My Team Detail
-                                                </h4>
-                                                <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-                                            </div>
-                                            <div class="widget-body">
-                                                <table id="table" class="table table-hover table-mc-light-blue table-bordered">
-                                                    <tbody>
-                                                        <tr class="infoclr">
-                                                            <th></th>
-                                                            <th>Left
-                                                            </th>
-                                                            <th>Right
-                                                            </th>
-                                                            <th>Total
-                                                            </th>
-                                                        </tr>
-                                                        <tr class="backclr">
-                                                            <td>Current Month Registration
-                                                            </td>
+                                    <div class="span4">
+    <div class="widget">
+        <div class="widget-title">
+            <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="icon-list-ol"></i>Self Repurchase BV</h4>
+            <span class="tools">
+                <a href="javascript:;" class="icon-chevron-down"></a>
+            </span>
+        </div>
 
-                                                            <td id="crntmonthjoinleft" runat="server">0
-                                                            </td>
-                                                            <td id="crntmonthjoinright" runat="server">0
-                                                            </td>
-                                                            <td id="currentmonthtotaljoin" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Current Month Activation
-                                                            </td>
-                                                            <td id="curntmothactiveleft" runat="server">0
-                                                            </td>
-                                                            <td id="curentmonthactiveright" runat="server">0
-                                                            </td>
-                                                            <td id="crntmonthtotalactive" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="backclr" style="display: none;">
-                                                            <td>Current Month Retopup
-                                                            </td>
-                                                            <td id="curntmothretopupleft" runat="server">0
-                                                            </td>
-                                                            <td id="curntmothretopupRight" runat="server">0
-                                                            </td>
-                                                            <td id="curntmothretopupTotal" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Today's Activation
-                                                            </td>
-                                                            <td id="TodayDirectActive" runat="server">0
-                                                            </td>
-                                                            <td id="TodayIndirectActive" runat="server">0
-                                                            </td>
-                                                            <td id="TodayTotalActive" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="backclr">
-                                                            <td>Total Activation
-                                                            </td>
-                                                            <td id="TotalDirectActivation" runat="server">0
-                                                            </td>
-                                                            <td id="TotalIndirectActivation" runat="server">0
-                                                            </td>
-                                                            <td id="TotalActivation" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Total Direct Active
-                                                            </td>
-                                                            <td id="TdLeftDirectActive" runat="server">0
-                                                            </td>
-                                                            <td id="TdRightIndirectActive" runat="server">0
-                                                            </td>
-                                                            <td id="TdTotalDirectActive" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="backclr" style="display: none;">
-                                                            <td>Total Retopup
-                                                            </td>
-                                                            <td id="TdLeftTopup" runat="server">0
-                                                            </td>
-                                                            <td id="TdRightTopup" runat="server">0
-                                                            </td>
-                                                            <td id="TdTotalTopup" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Current Month Repurchase Joining PV
-                                                            </td>
-                                                            <td id="tdjrpvleft" runat="server">0
-                                                            </td>
-                                                            <td id="tdjrpvright" runat="server">0
-                                                            </td>
-                                                            <td id="tdjrtotal" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Total Repurchase Joining PV
-                                                            </td>
-                                                            <td id="tdjoinpvleft" runat="server">0
-                                                            </td>
-                                                            <td id="tdjoinpvright" runat="server">0
-                                                            </td>
-                                                            <td id="tdjointotalpv" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Current Month Repurchase PV
-                                                            </td>
-                                                            <td id="TdpvSleft" runat="server">0
-                                                            </td>
-                                                            <td id="TdpvrightS" runat="server">0
-                                                            </td>
-                                                            <td id="tdtotalSpv" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Total Repurchase PV
-                                                            </td>
-                                                            <td id="Tdpvleft" runat="server">0
-                                                            </td>
-                                                            <td id="Tdpvright" runat="server">0
-                                                            </td>
-                                                            <td id="tdtotalpv" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Current Month Repurchase BV
-                                                            </td>
-                                                            <td id="tdBVL" runat="server">0
-                                                            </td>
-                                                            <td id="tdBVR" runat="server">0
-                                                            </td>
-                                                            <td id="tdBV" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Total Repurchase BV
-                                                            </td>
-                                                            <td id="TdBVTL" runat="server">0
-                                                            </td>
-                                                            <td id="TdBVTR" runat="server">0
-                                                            </td>
-                                                            <td id="TdBVTotal" runat="server">0
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="span6">
-                                        <div class="widget">
-                                            <div class="widget-title">
-                                                <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="icon-list-ol"></i>
-                                                    My Direct
-                                                </h4>
-                                                <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-                                            </div>
-                                            <div class="widget-body">
-                                                <table class="table table-striped table-bordered table-advance table-hover">
-                                                    <thead>
-                                                        <tr>
+        <div class="widget-body">
+            <table class="table table-striped table-bordered table-advance table-hover">
+                <thead>
+                    <tr>
+                        <th>BV Type</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Current Month BV</td>
+                        <td id="sptotalbv" runat="server">0</td>
 
-                                                            <th><i class="icon-user"></i>User Name </th>
-                                                            <th><i class="icon-user-md"></i>Name </th>
-                                                            <th><i class="icon-tags"></i>Date </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <asp:Repeater ID="RptDirects" runat="server">
-                                                            <ItemTemplate>
-                                                                <tr>
-                                                                    <%--  <td><%#Eval("SNo")%></td>--%>
-                                                                    <td><%#Eval("idno")%></td>
-                                                                    <td><%#Eval("MemName")%></td>
-                                                                    <td><%#Eval("DOA")%></td>
-                                                                </tr>
-                                                            </ItemTemplate>
-                                                        </asp:Repeater>
+                    </tr>
+                    <tr>
+                        <td>Total BV</td>
+                        <td id="spselfbv" runat="server">0</td>
+                    </tr>
+                </tbody>
+            </table>
 
-                                                    </tbody>
-                                                </table>
-                                                <div class="space7"></div>
-                                                <%-- <div class="clearfix"><a href="#" class="btn btn-mini pull-right btn-danger">More</a> </div>--%>
-                                            </div>
-                                        </div>
-                                    </div>
+        </div>
+    </div>
+</div>
+                                <div class="span8 column sortable">
+    <div class="widget">
+        <div class="widget-title">
+            <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="fa fa-envelope"></i>Latest News</h4>
+            <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
+        </div>
+        <div class="widget-body">
+
+            <marquee direction="up" scrollamount="3" style="height: 165px;">
+                <asp:Repeater runat="server" ID="RptNews">
+                    <ItemTemplate>
+                        <p><%#Eval("NewHeding")%></p>
+                        <p><%#Eval("NewsDetail")%></p>
+                        <p><%#Eval("NewsDate")%></p>
+                        <hr>
+                    </ItemTemplate>
+                </asp:Repeater>
+
+            </marquee>
+
+            <div class="space7"></div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row-fluid">
-                        <div class="span6">
-                            <div class="widget">
-                                <div class="widget-title">
-                                    <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="icon-list-ol"></i>Self Repurchase BV</h4>
-                                    <span class="tools">
-                                        <a href="javascript:;" class="icon-chevron-down"></a>
-                                    </span>
-                                </div>
-
-                                <div class="widget-body">
-                                    <table class="table table-striped table-bordered table-advance table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>BV Type</th>
-                                                <th>Value</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Current Month BV</td>
-                                                <td id="sptotalbv" runat="server">0</td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>Total BV</td>
-                                                <td id="spselfbv" runat="server">0</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                            </div>
-                        </div>
+                        
 
                     </div>
 

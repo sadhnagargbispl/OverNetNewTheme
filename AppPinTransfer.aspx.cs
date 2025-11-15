@@ -22,11 +22,12 @@ public partial class AppPinTransfer : System.Web.UI.Page
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     string IsoStart;
     string IsoEnd;
+    DAL Objdal = new DAL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 //cmdSave1.Attributes.Add("onclick", DisableTheButton(this.Page, this.cmdSave1));
                 if (!Page.IsPostBack)
@@ -53,9 +54,9 @@ public partial class AppPinTransfer : System.Web.UI.Page
         try
         {
             string str = "";
-            str = IsoStart + "select KitId, (Cast(KitName as varchar)) as KitName from " + ObjDAL.dBName + "..M_KitMaster where Kitid In( " +
+            str = Objdal.Isostart + "select KitId, (Cast(KitName as varchar)) as KitName from " + ObjDAL.dBName + "..M_KitMaster where Kitid In( " +
                   " select distinct(ProdId) from " + ObjDAL.dBName + "..M_FormGeneration where " +
-                  " FCode='" + Request["id"] + "' and IsIssued='N') and RowStatus='Y' " + IsoEnd;
+                  " FCode='" + Session["formno"] + "' and IsIssued='N') and RowStatus='Y' " + Objdal.IsoEnd;
 
             DataTable dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             cmbFillItem.DataSource = dt1;
@@ -98,10 +99,10 @@ public partial class AppPinTransfer : System.Web.UI.Page
             DataTable dt = new DataTable();
             string str = "";
 
-            if (TxtSerialno.Text.Trim().ToUpper() != Request["id"].ToString().ToUpper())
+            if (TxtSerialno.Text.Trim().ToUpper() != Session["formno"].ToString().ToUpper())
             {
-                str = IsoStart + "Select Formno, MemFirstName + MemLastName as MemName from " +
-                      ObjDAL.dBName + "..M_Membermaster where IdNo='" + TxtSerialno.Text + "'" + IsoEnd;
+                str = Objdal.Isostart + "Select Formno, MemFirstName + MemLastName as MemName from " +
+                      ObjDAL.dBName + "..M_Membermaster where IdNo='" + TxtSerialno.Text + "'" + Objdal.IsoEnd;
 
                 dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
 
@@ -160,7 +161,7 @@ public partial class AppPinTransfer : System.Web.UI.Page
                 return;
             }
 
-            if (Request["id"] != null && Request["id"].ToString() == TxtSerialno.Text)
+            if (Session["formno"] != null && Session["formno"].ToString() == TxtSerialno.Text)
             {
                 scrname = "<SCRIPT language='javascript'>alert('You Can\'t Transfer Pin on Your Account');</SCRIPT>";
                 this.RegisterStartupScript("MyAlert", scrname);
@@ -171,8 +172,8 @@ public partial class AppPinTransfer : System.Web.UI.Page
             DataTable Dt1 = new DataTable();
             DAL ObjDal = new DAL();
 
-            string str = IsoStart + "select * from " + ObjDal.dBName + "..M_MemberMaster where Epassw='" + TransPassw +
-                         "' and Formno=" + Request["id"] + " " + IsoEnd;
+            string str = Objdal.Isostart + "select * from " + ObjDal.dBName + "..M_MemberMaster where Epassw='" + TransPassw +
+                         "' and Formno=" + Session["formno"] + " " + Objdal.IsoEnd;
 
             DataSet ds = new DataSet();
             Dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
@@ -202,9 +203,9 @@ public partial class AppPinTransfer : System.Web.UI.Page
             string str = "";
             try
             {
-                str = IsoStart + "select Formno, Mobl from " + ObjDAL.dBName +
+                str = Objdal.Isostart + "select Formno, Mobl from " + ObjDAL.dBName +
                       "..M_Membermaster where Formno In (Select Formno from " + ObjDAL.dBName +
-                      "..M_Membermaster Where IdNo='" + TxtSerialno.Text + "')" + IsoEnd;
+                      "..M_Membermaster Where IdNo='" + TxtSerialno.Text + "')" + Objdal.IsoEnd;
 
                 DataTable dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
 
@@ -224,10 +225,10 @@ public partial class AppPinTransfer : System.Web.UI.Page
                 if (Convert.ToDouble(txtNormalPin.Text) > 0)
                 {
                     Session["Qty"] = txtNormalPin.Text;
-                    str = IsoStart + "select count(formno) as TotalPin from " + ObjDAL.dBName +
-                          "..M_Formgeneration where FCode='" + Request["id"] +
+                    str = Objdal.Isostart + "select count(formno) as TotalPin from " + ObjDAL.dBName +
+                          "..M_Formgeneration where FCode='" + Session["formno"] +
                           "' and Prodid=" + cmbFillItem.SelectedItem.Value +
-                          " and ActiveStatus='Y' And IsIssued='N'" + IsoEnd;
+                          " and ActiveStatus='Y' And IsIssued='N'" + Objdal.IsoEnd;
 
                     dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
 
@@ -243,14 +244,14 @@ public partial class AppPinTransfer : System.Web.UI.Page
                 }
 
                 double I = 0;
-                string query = "Exec PinTransfer '" + Request["id"] + "','" + TxtSerialno.Text + "'," +
+                string query = "Exec PinTransfer '" + Session["formno"] + "','" + TxtSerialno.Text + "'," +
                                txtNormalPin.Text + ",'" + cmbFillItem.SelectedValue + "','" +
                                TxtRemarks.Text.Replace("'", "") + "'";
 
                 string Remark = "Pin Transfer To " + TxtSerialno.Text;
                 query += " insert into UserHistory(UserId,UserName,PageName,Activity,ModifiedFlds,RecTimeStamp,MemberId) Values " +
                          "(0,'','EPin Transfer','Pin Transfer','" + Remark +
-                         "',Getdate(),'" + Request["id"] + "')";
+                         "',Getdate(),'" + Session["formno"] + "')";
 
                 I = ObjDAL.SaveData(query);
 

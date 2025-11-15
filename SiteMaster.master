@@ -373,62 +373,62 @@
             <div class="scroll-bar-wrap">
                 <div id="sidebar" class="nav-collapse collapse">
                     <ul class="sidebar-menu blueclr">
-                        <li class=""><a href="AppDashboard.aspx?id=223344" class=""><span class="icon-box"><i class="icon-arrow"></i></span>Dashboard</a></li>
+                        <li class=""><a href="AppDashboard.aspx" class=""><span class="icon-box"><i class="icon-arrow"></i></span>Dashboard</a></li>
 
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>My Team<span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="AppMydirects.aspx?id=223344">Level Wise Report</a></li>
-                                <li><a href="ApprefTree.aspx?s=d1vjBiMr1BS94sE7qxyDt3mfUnvU9NyrCd5CllQnd3RB4tcVNs9h7w==rm">My Direct Tree </a></li>
-                                <li><a href="AppTree.aspx?s=d1vjBiMr1BS94sE7qxyDt3mfUnvU9NyrCd5CllQnd3RB4tcVNs9h7w==tm">Geneology</a></li>
-                                <li><a href="AppDownline.aspx?id=223344">Downline Detail</a></li>
-                                <li><a href="AppEverestTree.aspx?id=223344">My Everest Detail</a></li>
-                                <li><a href="AppBusinessReport.aspx?id=223344">My Everest Table</a></li>
+                                <li><a href="AppMydirects.aspx">Level Wise Report</a></li>
+                                <li><a href="ApprefTree.aspx">My Direct Tree </a></li>
+                                <li><a href="AppTree.aspx">Geneology</a></li>
+                                <li><a href="AppDownline.aspx">Downline Detail</a></li>
+                                <li><a href="AppEverestTree.aspx">My Everest Detail</a></li>
+                                <li><a href="AppBusinessReport.aspx">My Everest Table</a></li>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Profile<span class="arrow"></span></a>
                             <ul class="sub">
                                 <%--  <li><a href="NewJoiningBackup.aspx">New Registration</a> </li>--%>
-                                <li><a href="Appprofile.aspx?id=223344">Profile</a></li>
-                                <li><a href="AppChangePass.aspx?id=223344">Change Password</a></li>
-                                <li><a href="AppChangeTransPass.aspx?id=223344">Change Transaction Password</a></li>
+                                <li><a href="Appprofile.aspx">Profile</a></li>
+                                <li><a href="AppChangePass.aspx">Change Password</a></li>
+                                <li><a href="AppChangeTransPass.aspx">Change Transaction Password</a></li>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Upload KYC<span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="Appiddetail.aspx?id=223344">Address Proof </a></li>
-                                <li><a href="AppKycbankDetail.aspx?id=223344">Bank Detail </a></li>
-                                <li><a href="AppPancard.aspx?id=223344">Pan Card </a></li>
+                                <li><a href="Appiddetail.aspx">Address Proof </a></li>
+                                <li><a href="AppKycbankDetail.aspx">Bank Detail </a></li>
+                                <li><a href="AppPancard.aspx">Pan Card </a></li>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Documents<span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="welcomeletter.aspx?id=223344">Welcome Letter</a></li>
+                                <li><a href="welcomeletter.aspx">Welcome Letter</a></li>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Epin<span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="AppPinTransfer.aspx?id=223344">Pin Transfer</a> </li>
-                                <li><a href="AppPinTransferDetails.aspx?id=223344">Send Pin Detail</a> </li>
-                                <li><a href="AppPinReceivedDetails.aspx?id=223344">Received Pin Detail</a> </li>
-                                <li><a href="AppProductrequestDetail.aspx?id=223344">Shopping</a> </li>
+                                <li><a href="AppPinTransfer.aspx">Pin Transfer</a> </li>
+                                <li><a href="AppPinTransferDetails.aspx">Send Pin Detail</a> </li>
+                                <li><a href="AppPinReceivedDetails.aspx">Received Pin Detail</a> </li>
+                                <li><a href="AppProductrequestDetail.aspx">Shopping</a> </li>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Income<span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="AppMonthlyincome.aspx?id=223344">Monthly Payout Detail</a></li>
-                                <li><a href="Appdailyeverestincome.aspx?id=223344">Daily Income Detail</a></li>
+                                <li><a href="AppMonthlyincome.aspx">Monthly Payout Detail</a></li>
+                                <li><a href="Appdailyeverestincome.aspx">Daily Income Detail</a></li>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Wallet<span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="AppAllWalletReport.aspx?id=223344">Wallet Report</a></li>
-                                <li><a href="AppServiceWalletTransfer.aspx?id=223344">Wallet Transfer</a></li>
+                                <li><a href="AppAllWalletReport.aspx">Wallet Report</a></li>
+                                <li><a href="AppServiceWalletTransfer.aspx">Wallet Transfer</a></li>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Complaint<span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="AppComplain.aspx?id=223344">Raise Ticket</a></li>
-                                <li><a href="AppComplainSolution.aspx?id=223344">Ticket Status</a></li>
+                                <li><a href="AppComplain.aspx">Raise Ticket</a></li>
+                                <li><a href="AppComplainSolution.aspx">Ticket Status</a></li>
                             </ul>
                         </li>
                     </ul>

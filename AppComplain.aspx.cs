@@ -29,7 +29,7 @@ public partial class AppComplain : System.Web.UI.Page
         {
             BtnSubMit.Attributes.Add("onclick", DisableTheButton(this.Page, BtnSubMit));
 
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -81,7 +81,7 @@ public partial class AppComplain : System.Web.UI.Page
             {
                 DataTable dt = new DataTable();
                 SqlDataReader Dr;
-                string strSql = ObjDal.Isostart + " select MemFirstName,MemLastName,Mobl,Email,IDNo from " + ObjDal.dBName + "..m_membermaster where formno = '" + Request["id"] + "'" + ObjDal.IsoEnd;
+                string strSql = ObjDal.Isostart + " select MemFirstName,MemLastName,Mobl,Email,IDNo from " + ObjDal.dBName + "..m_membermaster where formno = '" + Session["formno"] + "'" + ObjDal.IsoEnd;
                 DataSet ds = new DataSet();
                 ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
                 dt = ds.Tables[0];
@@ -134,7 +134,7 @@ public partial class AppComplain : System.Web.UI.Page
         {
             DataTable dt = new DataTable();
             SqlDataReader Dr;
-            string strSql = ObjDal.Isostart + " select MemFirstName,MemLastName,Mobl,Email,IDNo from " + ObjDal.dBName + "..m_membermaster where formno = '" + Request["id"] + "'" + ObjDal.IsoEnd;
+            string strSql = ObjDal.Isostart + " select MemFirstName,MemLastName,Mobl,Email,IDNo from " + ObjDal.dBName + "..m_membermaster where formno = '" + Session["formno"] + "'" + ObjDal.IsoEnd;
             DataSet ds = new DataSet();
             ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = ds.Tables[0];

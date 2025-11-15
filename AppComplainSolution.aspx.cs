@@ -19,7 +19,7 @@ public partial class AppComplainSolution : System.Web.UI.Page
     {
         try
         {
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -50,7 +50,7 @@ public partial class AppComplainSolution : System.Web.UI.Page
     "CASE WHEN a.ComplaintStatus = 'O' THEN 'Open' ELSE 'Close' END as Status " +
     "FROM " + ObjDal.dBName + "..M_ComplaintMaster as a, " +
     ObjDal.dBName + "..M_MemberMaster as b WHERE a.IDNo = b.IDNo AND a.IDNo = '" +
-    Request["id"] + "') as M LEFT JOIN " + ObjDal.dBName + "..M_SolutionMaster as S " +
+    Session["formno"] + "') as M LEFT JOIN " + ObjDal.dBName + "..M_SolutionMaster as S " +
     "ON M.CID = S.CID WHERE 1 = 1 ORDER BY M.RecTimeStamp DESC" + ObjDal.IsoEnd;
             ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str);
             dt = new DataTable();

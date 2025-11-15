@@ -17,7 +17,7 @@ public partial class AppBusinessReport : System.Web.UI.Page
         try
         {
 
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -42,7 +42,7 @@ public partial class AppBusinessReport : System.Web.UI.Page
         {
             string str = "";
             DataSet Ds = new DataSet();
-            str = Objdal.Isostart + " exec Sp_LevelWiseBusinessReport '" + Request["id"] + "' " + Objdal.IsoEnd;
+            str = Objdal.Isostart + " exec Sp_LevelWiseBusinessReport '" + Session["formno"] + "' " + Objdal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             Session["BusinessReport"] = dt;
             if (dt.Rows.Count > 0)

@@ -17,7 +17,7 @@ public partial class AppProductrequestDetail : System.Web.UI.Page
         try
         {
 
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
 
             }
@@ -54,15 +54,15 @@ public partial class AppProductrequestDetail : System.Web.UI.Page
     "Case when ActiveStatus='Y' and DispatchStatus='C' then 'Dispatched' when ActiveStatus='D' then 'Rejected' else 'Pending' end as status, " +
     "Case when Ordertype='T' then 'Activation' else 'Repurchase' end as OrderType, " +
     "bv, '#' as Website, '' as CourierName, '' as DocketNo, '' as DocketDate " +
-    "from " + Objdal.dBName + "..TrnOrder where Formno='" + Convert.ToInt32(Request["id"]) + "' and DispatchStatus <>'C' " +
+    "from " + Objdal.dBName + "..TrnOrder where Formno='" + Convert.ToInt32(Session["formno"]) + "' and DispatchStatus <>'C' " +
     "Union All " +
     "Select Cast(billno as varchar) as Orderno, replace(convert(varchar,BillDate,106),' ','-') as orderdate, repurchincome as OrderAmount, " +
     "repurchincome as OrderQty, 0 as Pinwallet, 0 as OtherAmt, " +
     "'Dispatched' as status, Case when Billtype='B' then 'Activation' else 'Repurchase' end as OrderType, " +
     "repurchincome as bv, '' as Website, '' as CourierName, '' as DocketNo, '' as DocketDate " +
-    "from " + Objdal.dBName + "..repurchincome as a Where Formno='" + Convert.ToInt32(Request["id"]) + "' " +
+    "from " + Objdal.dBName + "..repurchincome as a Where Formno='" + Convert.ToInt32(Session["formno"]) + "' " +
     ") as x ORDER BY try_convert(datetime, x.orderdate, 106) DESC" + Objdal.IsoEnd;
-            //str = Objdal.Isostart + " exec Sp_GetEverestDataDeatil '" + Session["FormNo"] + "' " + Objdal.IsoEnd;
+            //str = Objdal.Isostart + " exec Sp_GetEverestDataDeatil '" + Session["formno"] + "' " + Objdal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strquery).Tables[0];
             Session["ProductrequestDetail"] = dt;
             if (dt.Rows.Count > 0)

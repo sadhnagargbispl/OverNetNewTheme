@@ -17,7 +17,7 @@ public partial class AppEverestTree : System.Web.UI.Page
         try
         {
 
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -48,7 +48,7 @@ public partial class AppEverestTree : System.Web.UI.Page
         {
             string str = "";
             DataSet Ds = new DataSet();
-            str = Objdal.Isostart + " exec Sp_GetEverestDataDeatil '" + Request["id"] + "' " + Objdal.IsoEnd;
+            str = Objdal.Isostart + " exec Sp_GetEverestDataDeatil '" + Session["formno"] + "' " + Objdal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             Session["EverestTree"] = dt;
             if (dt.Rows.Count > 0)

@@ -24,6 +24,7 @@ public partial class AppPinReceivedDetails : System.Web.UI.Page
     DataTable Dt = new DataTable();
     string IsoStart;
     string IsoEnd;
+    DAL Objdal = new DAL();
     private int CurrentPage
     {
         get
@@ -44,7 +45,7 @@ public partial class AppPinReceivedDetails : System.Web.UI.Page
     {
         try
         {
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -71,7 +72,7 @@ public partial class AppPinReceivedDetails : System.Web.UI.Page
         try
         {
             // Construct the SQL to call your stored procedure
-            string sql = IsoStart + "Exec sp_GetKitDetails" + IsoEnd;
+            string sql = Objdal.Isostart + "Exec sp_GetKitDetails" + Objdal.IsoEnd;
 
             // Execute the query using SqlHelper (from Microsoft.ApplicationBlocks.Data)
             DataSet ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql);
@@ -93,7 +94,7 @@ public partial class AppPinReceivedDetails : System.Web.UI.Page
         try
         {
             SqlParameter[] prms = new SqlParameter[5];
-            prms[0] = new SqlParameter("@IDNo", Convert.ToString(Request["id"]).ToLower());
+            prms[0] = new SqlParameter("@IDNo", Convert.ToString(Session["formno"]).ToLower());
             prms[1] = new SqlParameter("@KitId", CmbKit.SelectedValue);
             prms[2] = new SqlParameter("@PageIndex", pageIndex);
             prms[3] = new SqlParameter("@PageSize", 1000000);

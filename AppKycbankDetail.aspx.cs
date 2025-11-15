@@ -30,7 +30,7 @@ public partial class AppKycbankDetail : System.Web.UI.Page
         try
         {
             BtnIdentity.Attributes.Add("onclick", DisableTheButton(Page, BtnIdentity));
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -123,9 +123,9 @@ public partial class AppKycbankDetail : System.Web.UI.Page
             "FROM " + ObjDal.dBName + "..M_MemberMaster AS a " +
             "INNER JOIN " + ObjDal.dBName + "..KycVerify AS b ON a.FormNo = b.FormNo " +
             "LEFT JOIN " + ObjDal.dBName + "..M_KycReject AS f ON b.BankRejectId = f.Kid " +
-            "WHERE a.FormNo = '" + Request["id"] + "'" + ObjDal.IsoEnd;
+            "WHERE a.FormNo = '" + Session["formno"] + "'" + ObjDal.IsoEnd;
 
-            //str = ObjDal.Isostart + "Exec sp_FillKyc " + Convert.ToInt32(Request["id"]) + "" + ObjDal.IsoEnd;
+            //str = ObjDal.Isostart + "Exec sp_FillKyc " + Convert.ToInt32(Session["formno"]) + "" + ObjDal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             if (dt.Rows.Count > 0)
             {
@@ -366,7 +366,7 @@ public partial class AppKycbankDetail : System.Web.UI.Page
                     }
                     else
                     {
-                        string FlBank = "Bank" + DateTime.Now.ToString("yyMMddhhmmssfff") + Request["id"].ToString() + System.IO.Path.GetExtension(BankKYCFileUpload3.PostedFile.FileName);
+                        string FlBank = "Bank" + DateTime.Now.ToString("yyMMddhhmmssfff") + Session["formno"].ToString() + System.IO.Path.GetExtension(BankKYCFileUpload3.PostedFile.FileName);
                         //BankKYCFileUpload3.PostedFile.SaveAs(Server.MapPath("images/UploadImage/") + FlBank);
                         string savePath4 = Server.MapPath("images/UploadImage/") + FlBank;
                         BankKYCFileUpload3.PostedFile.SaveAs(savePath4);
@@ -398,8 +398,8 @@ public partial class AppKycbankDetail : System.Web.UI.Page
                     if (dt.Rows.Count == 0)
                     {
                         q1 = "INSERT INTO M_BankMaster (BankCode, BankName, AcNo, IFSCode, Remarks, ActiveStatus, LastModified, UserCode, UserId, IPAdrs, RowStatus) " +
-                             "SELECT ISNULL(MAX(BankCode), '1') + 1 AS BankCode, @BankName, '0', '0','', 'Y', 'Add by " + Request["id"].ToString() + " at " + DateTime.Now.ToString() + "', " +
-                             "'', '" + Convert.ToInt32(Request["id"]).ToString() + "', '', 'Y' FROM M_BankMaster";
+                             "SELECT ISNULL(MAX(BankCode), '1') + 1 AS BankCode, @BankName, '0', '0','', 'Y', 'Add by " + Session["formno"].ToString() + " at " + DateTime.Now.ToString() + "', " +
+                             "'', '" + Convert.ToInt32(Session["formno"]).ToString() + "', '', 'Y' FROM M_BankMaster";
                         int i = obj.SaveData(q1);
                         if (i > 0)
                         {
@@ -448,7 +448,7 @@ public partial class AppKycbankDetail : System.Web.UI.Page
             }
 
 
-            string strSq = ObjDal.Isostart + "Exec sp_FillKyc '" + Request["id"] + "'" + ObjDal.IsoEnd;
+            string strSq = ObjDal.Isostart + "Exec sp_FillKyc '" + Session["formno"] + "'" + ObjDal.IsoEnd;
             dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSq).Tables[0];
             string Remark = "";
             if (dt1.Rows.Count > 0)
@@ -482,14 +482,14 @@ public partial class AppKycbankDetail : System.Web.UI.Page
             int AreaCode = 0;
             string q = "";
             string Qry = "Insert Into TempMemberMaster Select *, 'Update BankProof - " + Context.Request.UserHostAddress.ToString() +
-             "', GetDate(), 'U' From M_MemberMaster Where FormNo='" + Convert.ToInt32(Request["id"]) + "';";
+             "', GetDate(), 'U' From M_MemberMaster Where FormNo='" + Convert.ToInt32(Session["formno"]) + "';";
 
-            Qry += "Insert Into TempKycVerify Select *, GetDate(), '" + Request["id"] +
-                   "' From KycVerify Where FormNo='" + Convert.ToInt32(Request["id"]) + "';";
+            Qry += "Insert Into TempKycVerify Select *, GetDate(), '" + Session["formno"] +
+                   "' From KycVerify Where FormNo='" + Convert.ToInt32(Session["formno"]) + "';";
 
             Qry += "Insert Into UserHistory(UserId, UserName, PageName, Activity, ModifiedFlds, RecTimeStamp, MemberId) Values " +
                    "(0, '" + Session["MemName"] + "', 'BankProof', 'Bank Detail Update', '" + Remark +
-                   "', GetDate(), '" + Request["id"] + "');";
+                   "', GetDate(), '" + Session["formno"] + "');";
 
             string sql = Qry + "Update M_MemberMaster SET " +
                              "Acno='" + Txtacno.Text + "', " +
@@ -497,15 +497,15 @@ public partial class AppKycbankDetail : System.Web.UI.Page
                              "IFscode='" + Txtcode.Text.ToUpper() + "', " +
                              "Branchname='" + Txtbranch.Text.ToUpper() + "', " +
                              "Fax='" + DDLAccountType.SelectedItem.Text + "' " +
-                             "WHERE FormNo='" + Request["id"] + "';";
+                             "WHERE FormNo='" + Session["formno"] + "';";
 
             sql += "Update KycVerify SET " +
                    "BankProof='" + bankProof + "', " +
                    "BankProofDate=GetDate(), " +
                    "IsBankVerified='P' " +
-                   "WHERE FormNo='" + Request["id"] + "';";
+                   "WHERE FormNo='" + Session["formno"] + "';";
 
-            //string qry = " Exec Sp_SaveKYCDetails '" + Request["id"] + "','" + Session["MemName"] + "','" + Remark + "','" + txtaddrs.Text.ToUpper() + "','" + Txtcity.Text.ToUpper() + "','" + Txtcity.Text.ToUpper() + "',";
+            //string qry = " Exec Sp_SaveKYCDetails '" + Session["formno"] + "','" + Session["MemName"] + "','" + Remark + "','" + txtaddrs.Text.ToUpper() + "','" + Txtcity.Text.ToUpper() + "','" + Txtcity.Text.ToUpper() + "',";
             //qry += "'" + Txtdistrict.Text.ToUpper() + "','" + StateCode.Value + "','" + Txtpincode.Text + "','" + AreaCode + "','" + DDLAccountType.SelectedItem.Text + "','" + HCityCode.Value + "','" + HDistrictCode.Value + "',";
             //qry += "'" + txtpan.Text.ToUpper() + "','" + Txtacno.Text + "','" + dblBank + "','" + Txtcode.Text.ToUpper() + "','" + Txtbranch.Text.ToUpper() + "','" + DDLAddressProof.SelectedValue + "','" + TxtIdProofNo.Text.Trim().ToUpper() + "',";
             //qry += "'" + adrsProof + "','" + backAdrsProof + "','" + panProof + "','" + bankProof + "'";

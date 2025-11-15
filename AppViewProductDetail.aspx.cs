@@ -48,9 +48,9 @@ public partial class AppViewProductDetail : System.Web.UI.Page
             string sql = Objdal.Isostart + "SELECT *, (Rate * Qty) AS TotalAmount " +
                          "FROM ZenexInv..trnbillDetails " +
                          "WHERE CONVERT(VARCHAR, BillNo) = '" + Request["ReqNo"] + "' " +
-                         "AND FormNo = '" + Request["id"] + "' " +
+                         "AND FormNo = '" + Session["formno"] + "' " +
                          "AND Qty <> 0" + Objdal.IsoEnd;
-            //str = Objdal.Isostart + " exec Sp_GetEverestDataDeatil '" + Session["FormNo"] + "' " + Objdal.IsoEnd;
+            //str = Objdal.Isostart + " exec Sp_GetEverestDataDeatil '" + Session["formno"] + "' " + Objdal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql).Tables[0];
             Session["DirectIncome"] = dt;
             if (dt.Rows.Count > 0)

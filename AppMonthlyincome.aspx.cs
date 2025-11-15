@@ -33,7 +33,7 @@ public partial class AppMonthlyincome : System.Web.UI.Page
         try
         {
 
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -70,7 +70,7 @@ public partial class AppMonthlyincome : System.Web.UI.Page
                   "Deduction AS [Total Deduction], PrevBal AS [Previous Balance], chqAmt AS [Net Income], ClsBal AS [Carry Forward Balance], " +
                   "ClubIncome, Wdeduct AS [Re Topup Deduction] " +
                   "FROM " + Objdal.dBName + "..V#Monthlyincome " +
-                  "WHERE Formno='" + Request["id"].ToString() + "' AND Onwebsite='Y' " + Objdal.IsoEnd;
+                  "WHERE Formno='" + Session["formno"].ToString() + "' AND Onwebsite='Y' " + Objdal.IsoEnd;
             
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             Session["Monthlyincome"] = dt;

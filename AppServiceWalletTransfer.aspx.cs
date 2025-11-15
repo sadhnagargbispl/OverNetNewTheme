@@ -21,7 +21,7 @@ public partial class AppServiceWalletTransfer : System.Web.UI.Page
     {
         try
         {
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 cmdSave1.Attributes.Add("onclick", DisableTheButton(this.Page, this.cmdSave1));
                 if (!Page.IsPostBack)
@@ -70,7 +70,7 @@ public partial class AppServiceWalletTransfer : System.Web.UI.Page
         SqlDataReader ds;
         SqlConnection conn = new SqlConnection(constr1);
         conn.Open();
-        if (TxtMemId.Text.Trim().ToLower() == Request["id"].ToString().ToLower())
+        if (TxtMemId.Text.Trim().ToLower() == Session["formno"].ToString().ToLower())
         {
             scrName = "<SCRIPT language='javascript'>alert('Cannot transfer Main Wallet Amount to your own ID');</SCRIPT>";
             this.RegisterStartupScript("MyAlert", scrName);
@@ -146,7 +146,7 @@ public partial class AppServiceWalletTransfer : System.Web.UI.Page
         try
         {
             DataTable dt = new DataTable();
-            string str = objDal.Isostart + " Select * From dbo.ufnGetBalance('" + Convert.ToInt32(Request["id"]) + "','M')" + objDal.IsoEnd;
+            string str = objDal.Isostart + " Select * From dbo.ufnGetBalance('" + Convert.ToInt32(Session["formno"]) + "','M')" + objDal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             if (dt.Rows.Count > 0)
             {
@@ -182,7 +182,7 @@ public partial class AppServiceWalletTransfer : System.Web.UI.Page
         else
         {
             DataTable Dt;
-            string str = objDal.Isostart + "Select * From dbo.ufnGetBalance('" + Convert.ToDouble(Request["id"]) + "','M')" + objDal.IsoEnd;
+            string str = objDal.Isostart + "Select * From dbo.ufnGetBalance('" + Convert.ToDouble(Session["formno"]) + "','M')" + objDal.IsoEnd;
             Dt = new DataTable();
             Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
 
@@ -302,7 +302,7 @@ public partial class AppServiceWalletTransfer : System.Web.UI.Page
                 return;
             }
             // Generate OTPs
-            string str = objDal.Isostart + "select * from " + objDal.dBName + "..M_MemberMaster where Formno=" + Request["id"] + objDal.IsoEnd;
+            string str = objDal.Isostart + "select * from " + objDal.dBName + "..M_MemberMaster where Formno=" + Session["formno"] + objDal.IsoEnd;
             Dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             if (Dt1.Rows.Count > 0)
             {
@@ -398,7 +398,7 @@ public partial class AppServiceWalletTransfer : System.Web.UI.Page
             DataTable Dt1 = new DataTable();
             string scrName;
             objDal = new DAL();
-            string str = objDal.Isostart + "select * from " + objDal.dBName + "..M_MemberMaster where Epassw='" + TransPassw + "' and Formno=" + Request["id"] + objDal.IsoEnd;
+            string str = objDal.Isostart + "select * from " + objDal.dBName + "..M_MemberMaster where Epassw='" + TransPassw + "' and Formno=" + Session["formno"] + objDal.IsoEnd;
             Dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             if (Dt1.Rows.Count > 0)
             {
@@ -422,7 +422,7 @@ public partial class AppServiceWalletTransfer : System.Web.UI.Page
 
             objDal = new DAL();
 
-            string str = objDal.Isostart + "select * from " + objDal.dBName + "..M_MemberMaster where Formno=" + Request["id"] + objDal.IsoEnd;
+            string str = objDal.Isostart + "select * from " + objDal.dBName + "..M_MemberMaster where Formno=" + Session["formno"] + objDal.IsoEnd;
             Dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             if (Dt1.Rows.Count > 0)
             {
@@ -519,7 +519,7 @@ public partial class AppServiceWalletTransfer : System.Web.UI.Page
         string VoucherNo2 = "";
         string scrName;
 
-        if (TxtMemId.Text.Trim().ToLower() == Request["id"].ToString().ToLower())
+        if (TxtMemId.Text.Trim().ToLower() == Session["formno"].ToString().ToLower())
         {
             scrName = "<SCRIPT language='javascript'>alert('Can Not Transfer Main Wallet Amount to Self ID');</SCRIPT>";
             this.RegisterStartupScript("MyAlert", scrName);
@@ -567,17 +567,17 @@ public partial class AppServiceWalletTransfer : System.Web.UI.Page
                 VoucherNo2 = (Convert.ToInt32(voucherNo) + 1).ToString();
             }
             Session["MemName"] = "";
-            string Remarks = "Main Wallet Amount Transfer To " + TxtMemId.Text + " from " + Request["id"] + "";
+            string Remarks = "Main Wallet Amount Transfer To " + TxtMemId.Text + " from " + Session["formno"] + "";
             string Remark2 = "Main Wallet Amount Transfer To " + TxtMemId.Text + " (" + TxtRemark.Text + ")";
-            string Remark1 = "Main Wallet Amount Received From " + Request["id"] + " " + Session["MemName"] + " (" + TxtRemark.Text + ")";
+            string Remark1 = "Main Wallet Amount Received From " + Session["formno"] + " " + Session["MemName"] + " (" + TxtRemark.Text + ")";
             query = "insert into TrnVoucher(VoucherNo,VoucherDate,DrTo,CrTo,Amount,Narration,RefNo,AcType,RecTimeStamp,VType,SessID,WSessID) values " +
-                    "('" + voucherNo + "',Getdate(),'" + Convert.ToInt32(Request["id"]) + "',0,'" + Convert.ToDecimal(txtAmount.Text) + "','" + Remark2 + "','" + voucherNo + "/" + Request["id"] + "/" + LblFormno.Text + "','M',GetDate(),'D',Convert(Varchar,GetDate(),112)," + Session["CurrentSessn"] + ")";
+                    "('" + voucherNo + "',Getdate(),'" + Convert.ToInt32(Session["formno"]) + "',0,'" + Convert.ToDecimal(txtAmount.Text) + "','" + Remark2 + "','" + voucherNo + "/" + Session["formno"] + "/" + LblFormno.Text + "','M',GetDate(),'D',Convert(Varchar,GetDate(),112)," + Session["CurrentSessn"] + ")";
 
             query += "insert into TrnVoucher(VoucherNo,VoucherDate,DrTo,CrTo,Amount,Narration,RefNo,AcType,RecTimeStamp,VType,SessID,WSessID) values " +
-                     "('" + VoucherNo2 + "',Getdate(),0,'" + Convert.ToInt32(LblFormno.Text) + "','" + Convert.ToDecimal(txtAmount.Text) + "','" + Remark1 + "','" + VoucherNo2 + "/" + Request["id"] + "/" + LblFormno.Text + "','M',GetDate(),'C',Convert(Varchar,GetDate(),112)," + Session["CurrentSessn"] + ")";
+                     "('" + VoucherNo2 + "',Getdate(),0,'" + Convert.ToInt32(LblFormno.Text) + "','" + Convert.ToDecimal(txtAmount.Text) + "','" + Remark1 + "','" + VoucherNo2 + "/" + Session["formno"] + "/" + LblFormno.Text + "','M',GetDate(),'C',Convert(Varchar,GetDate(),112)," + Session["CurrentSessn"] + ")";
 
             query += "insert into UserHistory(UserId,UserName,PageName,Activity,ModifiedFlds,RecTimeStamp,MemberId) values " +
-                     "(0,'','Main Wallet Transfer','Main Wallet Transfer To Other Id','" + Remarks + "',Getdate(),'" + Request["id"] + "')";
+                     "(0,'','Main Wallet Transfer','Main Wallet Transfer To Other Id','" + Remarks + "',Getdate(),'" + Session["formno"] + "')";
 
             CheckAmount();
             if (Convert.ToDecimal(Session["ServiceWallet"]) >= Convert.ToDecimal(txtAmount.Text))

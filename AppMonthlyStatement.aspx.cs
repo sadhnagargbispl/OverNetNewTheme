@@ -22,14 +22,14 @@ public partial class AppMonthlyStatement : System.Web.UI.Page
         //{
         //    Response.Redirect("logout.aspx");
         //}
-        if (Request["id"] != null)
+        if (Session["Status"] != null && Session["Status"].ToString() == "OK")
         {
             using (SqlConnection conn = new SqlConnection(constr1))
             {
                 conn.Open();
 
                 string strQuery = Objdal.Isostart + "SELECT * FROM " + Objdal.dBName + "..V#Monthlyincome " +
-                                  "WHERE FormNo = " + Convert.ToInt32(Request["id"]) +
+                                  "WHERE FormNo = " + Convert.ToInt32(Session["formno"]) +
                                   " AND SessId = " + Convert.ToInt32(Request["PayoutNo"]) +
                                   " AND OnWebsite = 'Y'" + Objdal.IsoEnd;
 

@@ -28,7 +28,7 @@ public partial class AppChangePass : System.Web.UI.Page
         try
         {
             this.BtnUpdate.Attributes.Add("onclick", DisableTheButton(this.Page, this.BtnUpdate));
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
 
             {
                 //BtnUpdate.Attributes.Add("OnClick", "return ValidForm();")
@@ -117,12 +117,12 @@ public partial class AppChangePass : System.Web.UI.Page
                     {
                         string str = objDal.Isostart +"Select IdNo from " + objDal.dBName + ".. M_MemberMaster " +
                                      " Where " +
-                                     " FormNo='" + Request["id"] + "' and " +
+                                     " FormNo='" + Session["formno"] + "' and " +
                                      " passw ='" + oldpass.Text.Trim() + "' " + objDal.IsoEnd ;
                         tmptbl = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
                         if (tmptbl.Rows.Count == 1)
                         {
-                            strQry = "Update M_MemberMaster Set Passw='" + pass1.Text + "',E_MainPassw='" + pass1.Text + "' Where FormNo=" + Request["id"] + ";";
+                            strQry = "Update M_MemberMaster Set Passw='" + pass1.Text + "',E_MainPassw='" + pass1.Text + "' Where FormNo=" + Session["formno"] + ";";
                             int i = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, strQry));
                             if (i != 0)
                             {

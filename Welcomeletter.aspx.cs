@@ -26,9 +26,9 @@ public partial class Welcomeletter : System.Web.UI.Page
                 string str = "";
                 DataTable dt = new DataTable();
 
-                if (Request["id"] != null)
+                if (Session["Status"] != null && Session["Status"].ToString() == "OK")
                 {
-                    strcondition = " and mMst.IDNo=''" + Request["id"] + "''";
+                    strcondition = " and mMst.IDNo=''" + Session["formno"] + "''";
                     BtnHome.Visible = false;
                     //BtnPrint.Visible = false;
                 }
@@ -41,7 +41,7 @@ public partial class Welcomeletter : System.Web.UI.Page
                     }
                     else if (Session["Status"] != null && Session["Status"].ToString() == "OK")
                     {
-                        strcondition = " and mMst.FormNo=''" + Convert.ToInt32(Session["Formno"]) + "''";
+                        strcondition = " and mMst.FormNo=''" + Convert.ToInt32(Session["formno"]) + "''";
                     }
                    
                 }
@@ -87,11 +87,11 @@ public partial class Welcomeletter : System.Web.UI.Page
 
     protected void BtnHome_ServerClick(object sender, EventArgs e)
     {
-        Response.Redirect("Index.aspx");
+        Response.Redirect("AppDashboard.aspx");
     }
 
     protected void BtnNewJoin_ServerClick(object sender, EventArgs e)
     {
-        Response.Redirect("NewJoiningBackup.aspx", false);
+        //Response.Redirect("NewJoiningBackup.aspx", false);
     }
 }

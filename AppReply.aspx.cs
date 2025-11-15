@@ -24,7 +24,7 @@ public partial class AppReply : System.Web.UI.Page
 
             if (!IsPostBack)
             {
-                if (Request["id"] != null)
+                if (Session["formno"] != null)
                 {
                     if (string.IsNullOrEmpty(Request.QueryString["CId"]) == false)
                     {
@@ -43,7 +43,7 @@ public partial class AppReply : System.Web.UI.Page
     {
         try
         {
-            if (Request["id"] == null)
+            if (Session["formno"] == null)
             {
                
             }

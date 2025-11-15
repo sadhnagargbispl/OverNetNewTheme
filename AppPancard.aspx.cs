@@ -30,7 +30,7 @@ public partial class AppPancard : System.Web.UI.Page
         try
         {
             BtnIdentity.Attributes.Add("onclick", DisableTheButton(Page, BtnIdentity));
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -86,9 +86,9 @@ public partial class AppPancard : System.Web.UI.Page
              "FROM " + ObjDal.dBName + "..M_MemberMaster AS a " +
              "INNER JOIN " + ObjDal.dBName + "..KycVerify AS b ON a.FormNo = b.FormNo " +
              "LEFT JOIN " + ObjDal.dBName + "..M_KycReject AS f ON b.PanRejectId = f.Kid " +
-             "WHERE a.FormNo = '" + Request["id"] + "'" + ObjDal.IsoEnd;
+             "WHERE a.FormNo = '" + Session["formno"] + "'" + ObjDal.IsoEnd;
 
-            //str = ObjDal.Isostart + "Exec sp_FillKyc " + Convert.ToInt32(Request["id"]) + "" + ObjDal.IsoEnd;
+            //str = ObjDal.Isostart + "Exec sp_FillKyc " + Convert.ToInt32(Session["formno"]) + "" + ObjDal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             if (dt.Rows.Count > 0)
             {
@@ -233,7 +233,7 @@ public partial class AppPancard : System.Web.UI.Page
                     }
                     else
                     {
-                        string FlPan = "PAN" + DateTime.Now.ToString("yyMMddhhmmssfff") + Request["id"].ToString() + System.IO.Path.GetExtension(PanKYCFileUpload.PostedFile.FileName);
+                        string FlPan = "PAN" + DateTime.Now.ToString("yyMMddhhmmssfff") + Session["formno"].ToString() + System.IO.Path.GetExtension(PanKYCFileUpload.PostedFile.FileName);
                         PanKYCFileUpload.PostedFile.SaveAs(Server.MapPath("images/UploadImage/") + FlPan);
                         string savePath3 = Server.MapPath("images/UploadImage/") + FlPan;
                         PanKYCFileUpload.PostedFile.SaveAs(savePath3);
@@ -253,7 +253,7 @@ public partial class AppPancard : System.Web.UI.Page
                 panProof = LblPanImage.Text;
             }
             DataTable dt;
-            string strSq = ObjDal.Isostart + "Exec sp_FillKyc '" + Request["id"] + "'" + ObjDal.IsoEnd;
+            string strSq = ObjDal.Isostart + "Exec sp_FillKyc '" + Session["formno"] + "'" + ObjDal.IsoEnd;
             dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSq).Tables[0];
             string Remark = "";
             if (dt1.Rows.Count > 0)
@@ -271,24 +271,24 @@ public partial class AppPancard : System.Web.UI.Page
             int AreaCode = 0;
             string q = "";
             string Qry = "Insert Into TempMemberMaster Select *, 'Update PanCard - " + Context.Request.UserHostAddress.ToString() +
-             "', GetDate(), 'U' From M_MemberMaster Where FormNo='" + Convert.ToInt32(Request["id"]) + "';";
+             "', GetDate(), 'U' From M_MemberMaster Where FormNo='" + Convert.ToInt32(Session["formno"]) + "';";
 
-            Qry += "Insert Into TempKycVerify Select *, GetDate(), '" + Request["id"] +
-                   "' From KycVerify Where FormNo='" + Convert.ToInt32(Request["id"]) + "';";
+            Qry += "Insert Into TempKycVerify Select *, GetDate(), '" + Session["formno"] +
+                   "' From KycVerify Where FormNo='" + Convert.ToInt32(Session["formno"]) + "';";
 
             Qry += "Insert Into UserHistory(UserId, UserName, PageName, Activity, ModifiedFlds, RecTimeStamp, MemberId) Values " +
                    "(0, '" + Session["MemName"] + "', 'Pancard', 'PanCard Update', '" + Remark +
-                   "', GetDate(), '" + Request["id"] + "');";
+                   "', GetDate(), '" + Session["formno"] + "');";
 
             string sql = Qry + "Update M_MemberMaster SET " +
                              "Panno='" + txtpan.Text.ToUpper() + "' " +
-                             "WHERE FormNo='" + Request["id"] + "';";
+                             "WHERE FormNo='" + Session["formno"] + "';";
 
             sql += "Update KycVerify SET " +
                    "PanImg='" + panProof + "', " +
                    "PANImgDate=GetDate(), " +
                    "IsPanVerified='P' " +
-                   "WHERE FormNo='" + Request["id"] + "';";
+                   "WHERE FormNo='" + Session["formno"] + "';";
             string strTrnFun_Query = "BEGIN TRY BEGIN TRANSACTION " + sql + " COMMIT TRANSACTION END TRY BEGIN CATCH ROLLBACK TRANSACTION END CATCH";
             int result = SqlHelper.ExecuteNonQuery(constr, CommandType.Text, strTrnFun_Query);
             if (result > 0)

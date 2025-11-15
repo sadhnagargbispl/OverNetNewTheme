@@ -33,7 +33,7 @@ public partial class Appprofile : System.Web.UI.Page
     string IsoEnd;
     string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
-
+    DAL Objdal = new DAL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -42,7 +42,7 @@ public partial class Appprofile : System.Web.UI.Page
             this.BtnOtp.Attributes.Add("onclick", DisableTheButton(this.Page, this.BtnOtp));
             this.ResendOtp.Attributes.Add("onclick", DisableTheButton(this.Page, this.ResendOtp));
             txtReferalId.ReadOnly = true;
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -74,7 +74,7 @@ public partial class Appprofile : System.Web.UI.Page
         try
         {
             DataTable dt = new DataTable();
-            strQuery = IsoStart + " SELECT CId, StdCode FROM " + Obj.dBName + "..M_CountryMaster WHERE ACTIVESTATUS = 'Y' and CId = '" + ddlCountryName.SelectedValue + "' ORDER BY StdCode" + IsoEnd;
+            strQuery = Objdal.Isostart + " SELECT CId, StdCode FROM " + Obj.dBName + "..M_CountryMaster WHERE ACTIVESTATUS = 'Y' and CId = '" + ddlCountryName.SelectedValue + "' ORDER BY StdCode" + Objdal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQuery).Tables[0];
 
             if (dt.Rows.Count > 0)
@@ -93,7 +93,7 @@ public partial class Appprofile : System.Web.UI.Page
         {
             string idverified = "";
 
-            string sql = IsoStart + "exec sp_MemDtl ' and mMst.Formno=''" + Request["id"] + "'''" + IsoEnd;
+            string sql = Objdal.Isostart + "exec sp_MemDtl ' and mMst.Formno=''" + Session["formno"] + "'''" + Objdal.IsoEnd;
             DataTable dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql).Tables[0];
             if (dt.Rows.Count > 0)
             {
@@ -271,7 +271,7 @@ public partial class Appprofile : System.Web.UI.Page
         //{
         //    DataTable DtEmail = new DataTable();
         //    DataSet DsEmail = new DataSet();
-        //    string strSql = IsoStart + "SELECT CASE WHEN EXISTS (SELECT 1 FROM Sriverse..M_Membermaster WHERE walletaddress = '" + TxtWalletAddress.Text.Trim() + "' AND formno = '" + Request["id"] + "') THEN 0 ";
+        //    string strSql = IsoStart + "SELECT CASE WHEN EXISTS (SELECT 1 FROM Sriverse..M_Membermaster WHERE walletaddress = '" + TxtWalletAddress.Text.Trim() + "' AND formno = '" + Session["formno"] + "') THEN 0 ";
         //    strSql += " ELSE (SELECT COUNT(walletaddress) FROM Sriverse..M_Membermaster WHERE walletaddress = '" + TxtWalletAddress.Text.Trim() + "') END AS walletaddress " + IsoEnd;
         //    DsEmail = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
         //    DtEmail = DsEmail.Tables[0];
@@ -298,7 +298,7 @@ public partial class Appprofile : System.Web.UI.Page
         //                int i = 0;
         //                string query = "";
         //                query = "INSERT INTO AdminLogin (UserID, Username, Passw, MobileNo, OTP, LoginTime, emailotp, EmailID, ForType) ";
-        //                query += "VALUES ('" + Request["id"] + "', '" + Session["MemName"] + "', '" + TxtOtp.Text + "', '0', '" + OTP_ + "', GETDATE(), '" + OTP_ + "', ";
+        //                query += "VALUES ('" + Session["formno"] + "', '" + Session["MemName"] + "', '" + TxtOtp.Text + "', '0', '" + OTP_ + "', GETDATE(), '" + OTP_ + "', ";
         //                query += "'" + Session["EMail"].ToString().Trim() + "', 'Profile')";
         //                i = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, query));
         //                if (i > 0)
@@ -501,7 +501,7 @@ public partial class Appprofile : System.Web.UI.Page
 
 
                 txtPhNo.Text = string.IsNullOrEmpty(txtPhNo.Text) ? "0" : txtPhNo.Text;
-                str = IsoStart + "select * from " + Obj.dBName + "..M_MemberMaster where Formno='" + Request["id"] + "'" + IsoEnd;
+                str = Objdal.Isostart + "select * from " + Obj.dBName + "..M_MemberMaster where Formno='" + Session["formno"] + "'" + Objdal.IsoEnd;
                 dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
                 if (dt1.Rows.Count > 0)
                 {
@@ -589,14 +589,14 @@ public partial class Appprofile : System.Web.UI.Page
                                    "EMail = '" + ClearInject(txtEMailId.Text) + "', " +
                                    "NomineeName = '" + ClearInject(txtNominee.Text.ToUpper()) + "', " +
                                    "Relation = '" + ClearInject(txtRelation.Text.ToUpper()) + "' " +
-                                   "WHERE FormNo = " + Request["id"];
+                                   "WHERE FormNo = " + Session["formno"];
                 // Backup and history insert
                 string Qry = "INSERT INTO TempMemberMaster " +
                              "SELECT *, 'Update Profile - " + Context.Request.UserHostAddress.ToString() + "', GETDATE(), 'U' " +
-                             "FROM M_MemberMaster WHERE FormNo = '" + Request["id"] + "';";
+                             "FROM M_MemberMaster WHERE FormNo = '" + Session["formno"] + "';";
 
                 Qry += " INSERT INTO UserHistory(UserId, UserName, PageName, Activity, ModifiedFlds, RecTimeStamp, MemberId) VALUES " +
-                       "(0, '', 'Profile', 'Profile Update', '" + Remark + "', GETDATE(), '" + Request["id"] + "');";
+                       "(0, '', 'Profile', 'Profile Update', '" + Remark + "', GETDATE(), '" + Session["formno"] + "');";
 
                 // Combine both queries
                 Qry += sqlUpdate;

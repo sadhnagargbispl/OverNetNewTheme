@@ -30,7 +30,7 @@ public partial class Appiddetail : System.Web.UI.Page
         try
         {
             BtnIdentity.Attributes.Add("onclick", DisableTheButton(Page, BtnIdentity));
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -127,9 +127,9 @@ public partial class Appiddetail : System.Web.UI.Page
             "INNER JOIN " + ObjDal.dBName + "..KycVerify AS b ON a.FormNo = b.FormNo " +
             "LEFT JOIN " + ObjDal.dBName + "..M_KycReject AS f ON f.Kid = b.AddressRejectId " +
             "INNER JOIN " + ObjDal.dBName + "..M_IdTypeMaster AS c ON b.IdType = c.Id AND c.ActiveStatus = 'Y' " +
-            "WHERE b.FormNo = '" + Request["id"] + "'" + ObjDal.IsoEnd;
+            "WHERE b.FormNo = '" + Session["formno"] + "'" + ObjDal.IsoEnd;
 
-            //str = ObjDal.Isostart + "Exec sp_FillKyc " + Convert.ToInt32(Request["id"]) + "" + ObjDal.IsoEnd;
+            //str = ObjDal.Isostart + "Exec sp_FillKyc " + Convert.ToInt32(Session["formno"]) + "" + ObjDal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             if (dt.Rows.Count > 0)
             {
@@ -511,7 +511,7 @@ public partial class Appiddetail : System.Web.UI.Page
                     }
                     else
                     {
-                        flAddrs = "FA" + DateTime.Now.ToString("yyMMddhhmmssfff") + Request["id"].ToString() + System.IO.Path.GetExtension(Fuidentity.PostedFile.FileName);
+                        flAddrs = "FA" + DateTime.Now.ToString("yyMMddhhmmssfff") + Session["formno"].ToString() + System.IO.Path.GetExtension(Fuidentity.PostedFile.FileName);
                         //Fuidentity.PostedFile.SaveAs(Server.MapPath("images/UploadImage/") + flAddrs);
                         string savePath = Server.MapPath("images/UploadImage/") + flAddrs;
                         Fuidentity.PostedFile.SaveAs(savePath);
@@ -557,7 +557,7 @@ public partial class Appiddetail : System.Web.UI.Page
                     }
                     else
                     {
-                        string FlBackAddrs = "BA" + DateTime.Now.ToString("yyMMddhhmmssfff") + Request["id"].ToString() + System.IO.Path.GetExtension(FileUpload1.PostedFile.FileName);
+                        string FlBackAddrs = "BA" + DateTime.Now.ToString("yyMMddhhmmssfff") + Session["formno"].ToString() + System.IO.Path.GetExtension(FileUpload1.PostedFile.FileName);
                         //FileUpload1.PostedFile.SaveAs(Server.MapPath("images/UploadImage/") + FlBackAddrs);
                         string savePath2 = Server.MapPath("images/UploadImage/") + FlBackAddrs;
                         FileUpload1.PostedFile.SaveAs(savePath2);
@@ -579,7 +579,7 @@ public partial class Appiddetail : System.Web.UI.Page
 
 
             DataTable dt;
-            string strSq = ObjDal.Isostart + "Exec sp_FillKyc '" + Request["id"] + "'" + ObjDal.IsoEnd;
+            string strSq = ObjDal.Isostart + "Exec sp_FillKyc '" + Session["formno"] + "'" + ObjDal.IsoEnd;
             dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSq).Tables[0];
             string Remark = "";
             if (dt1.Rows.Count > 0)
@@ -625,14 +625,14 @@ public partial class Appiddetail : System.Web.UI.Page
             string q = "";
            
             string Qry = "Insert Into TempMemberMaster Select *,'Update Address Proof - " + Context.Request.UserHostAddress.ToString() +
-             "',GetDate(),'U' From M_MemberMaster Where FormNo='" + Convert.ToInt32(Request["id"]) + "';";
+             "',GetDate(),'U' From M_MemberMaster Where FormNo='" + Convert.ToInt32(Session["formno"]) + "';";
 
-            Qry += "Insert Into TempKycVerify Select *,GetDate(),'" + Request["id"] +
-                   "' From KycVerify Where FormNo='" + Convert.ToInt32(Request["id"]) + "';";
+            Qry += "Insert Into TempKycVerify Select *,GetDate(),'" + Session["formno"] +
+                   "' From KycVerify Where FormNo='" + Convert.ToInt32(Session["formno"]) + "';";
 
             Qry += "Insert Into UserHistory(UserId,UserName,PageName,Activity,ModifiedFlds,RecTimeStamp,MemberId) Values " +
                    "(0,'" + Session["MemName"] + "','AddressProof Detail','AddressProof Detail Update','" + Remark +
-                   "',GetDate(),'" + Request["id"] + "');";
+                   "',GetDate(),'" + Session["formno"] + "');";
 
             string sql = Qry + " Update m_MemberMaster SET " +
                           "Address1='" + txtaddrs.Text.ToUpper() + "'," +
@@ -644,7 +644,7 @@ public partial class Appiddetail : System.Web.UI.Page
                           "AreaCode='" + AreaCode + "'," +
                           "CityCode='" + HCityCode.Value + "'," +
                           "DistrictCode='" + HDistrictCode.Value + "' " +
-                          "WHERE FormNo='" + Request["id"] + "';";
+                          "WHERE FormNo='" + Session["formno"] + "';";
 
             sql += " Update KycVerify SET " +
                    "Idtype='" + DDLAddressProof.SelectedValue + "'," +
@@ -653,7 +653,7 @@ public partial class Appiddetail : System.Web.UI.Page
                    "BackAddressProof='" + backAdrsProof + "'," +
                    "BackAddressDate=GetDate()," +
                    "IsaddrssVerified='P' " +
-                   "WHERE FormNo='" + Request["id"] + "';";
+                   "WHERE FormNo='" + Session["formno"] + "';";
             string strTrnFun_Query = "BEGIN TRY BEGIN TRANSACTION " + sql + " COMMIT TRANSACTION END TRY BEGIN CATCH ROLLBACK TRANSACTION END CATCH";
             int result = SqlHelper.ExecuteNonQuery(constr, CommandType.Text, strTrnFun_Query);
             if (result > 0)

@@ -47,7 +47,7 @@ public partial class AppMyDirects : System.Web.UI.Page
         {
             if (!Page.IsPostBack)
             {
-                if (Request["id"] != null)
+                if (Session["Status"] != null && Session["Status"].ToString() == "OK")
                 {
                     FillLevel();
                     DdlLevel.SelectedValue = "0";
@@ -66,8 +66,8 @@ public partial class AppMyDirects : System.Web.UI.Page
     {
         try
         {
-            //string sql = IsoStart + "Exec sp_GetLevel '" + Session["FormNo"] + "','N'" + IsoEnd;
-            string sql = ObjDAL.Isostart + "Exec sp_GetLevel '" + Request["id"] + "','N'" + ObjDAL.IsoEnd;
+            //string sql = IsoStart + "Exec sp_GetLevel '" + Session["formno"] + "','N'" + IsoEnd;
+            string sql = ObjDAL.Isostart + "Exec sp_GetLevel '" + Session["formno"] + "','N'" + ObjDAL.IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql);
 
             DdlLevel.DataSource = Ds.Tables[0];
@@ -101,7 +101,7 @@ public partial class AppMyDirects : System.Web.UI.Page
                 level = "1";
             }
 
-            string StrQuery = ObjDAL.Isostart + "Exec sp_GetLevelDetailUpdate '" + level + "','" + legno + "','" + DDlSearchby.SelectedValue + "','" + Request["id"] + "'" + ObjDAL.IsoEnd;
+            string StrQuery = ObjDAL.Isostart + "Exec sp_GetLevelDetailUpdate '" + level + "','" + legno + "','" + DDlSearchby.SelectedValue + "','" + Session["formno"] + "'" + ObjDAL.IsoEnd;
             DataSet ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, StrQuery);
 
             int recordCount = Convert.ToInt32(ds.Tables[1].Rows[0]["RecordCount"]);
@@ -139,7 +139,7 @@ public partial class AppMyDirects : System.Web.UI.Page
         {
             DataTable dt = new DataTable();
             DataSet Ds = new DataSet();
-            string strSql = ObjDAL.Isostart + " Select * from " + ObjDAL.dBName + "..V#ReferalDownlineinfo where Formno=" + Request["id"] + " " + ObjDAL.IsoEnd;
+            string strSql = ObjDAL.Isostart + " Select * from " + ObjDAL.dBName + "..V#ReferalDownlineinfo where Formno=" + Session["formno"] + " " + ObjDAL.IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = Ds.Tables[0];
 

@@ -23,11 +23,12 @@ public partial class AppDashboard : System.Web.UI.Page
     SqlDataReader dr;
     string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
+    DAL Objdal = new DAL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
-            if (Request["id"] != null)
+            if (Session["Status"] != null && Session["Status"].ToString() == "OK")
             {
                 if (!Page.IsPostBack)
                 {
@@ -49,7 +50,7 @@ public partial class AppDashboard : System.Web.UI.Page
         {
             DataSet Ds = new DataSet();
             string strquery = string.Empty;
-            strquery = IsoStart + " Exec sp_LoadTeamNewUpdateUpdate '" + Request["id"].ToString() + "' " + IsoEnd;
+            strquery = Objdal.Isostart + " Exec sp_LoadTeamNewUpdateUpdate '" + Session["formno"].ToString() + "' " + Objdal.IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strquery);
             Session["LoadTeam"] = Ds;
             if (Ds.Tables[0].Rows.Count > 0)
