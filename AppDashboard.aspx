@@ -111,498 +111,548 @@
         }
 
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .income-box {
+            width: 100%;
+        }
 
+
+        .income-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            border: 1px solid #dcdcdc;
+        }
+
+
+        .income-left {
+            width: 60%;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 13px;
+            color: white;
+            background: linear-gradient(90deg, #4b4b4b, #b1b1b1);
+            text-transform: uppercase;
+        }
+
+
+        .income-right {
+            width: 40%;
+            padding: 10px 15px;
+            text-align: right;
+            background: #ffffff;
+            font-size: 15px;
+            font-weight: bold;
+            color: #001a70;
+        }
+
+
+        .income-row.total .income-left {
+            background: linear-gradient(90deg, #4b4b4b, #b1b1b1);
+        }
+
+        .profile-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(90deg, #5c1515, #3a0a0a);
+            padding: 13px;
+            border-radius: 14px;
+            color: white;
+            margin: 10px;
+        }
+
+        /* Avatar */
+        .avatar {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.20);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 38px;
+            border: 4px solid rgba(255,255,255,0.15);
+        }
+
+        /* Table */
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .profile-table td {
+                padding: 4px 0;
+            }
+
+            .profile-table .labelupdate {
+                font-weight: 600;
+                color: #ffe7b3;
+                font-size: 14px;
+                text-align: left;
+                width: 40%;
+            }
+
+            .profile-table .value {
+                font-weight: 700;
+                font-size: 14px;
+                text-align: left;
+                color: #ffffff;
+            }
+
+
+
+        :root {
+            --bg: #f7f8fb;
+            --card: #fff;
+            --accent: #3a0a0a; /* deep maroon */
+            --accent-2: #5c1515;
+            --muted: #8a8a8a;
+            --success: #0b84a5;
+            --shadow: 0 6px 18px rgba(22,20,20,0.08);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html, body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: "Open Sans";
+            background: linear-gradient(180deg,#fafbfc 0%,var(--bg) 100%);
+            color: #222;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: 0px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 5px;
+        }
+
+        /* Profile header */
+        .profile-card {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            background: linear-gradient(90deg,var(--accent-2), var(--accent));
+            color: #fef3df;
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+        }
+
+        .avatar {
+            flex: 0 0 88px;
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: #fff3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            color: #fff;
+            border: 6px solid rgba(255,255,255,0.06);
+        }
+
+        .meta {
+            flex: 1;
+            display: flow;
+            gap: 20px;
+            align-items: center;
+            min-width: 220px;
+            flex-wrap: wrap;
+        }
+
+            .meta .item {
+                min-width: 140px;
+            }
+
+            .meta .labelupdate {
+                font-weight: 600;
+                color: #f6e5a4;
+                font-size: 13px;
+                letter-spacing: 0.6px
+            }
+
+            .meta .value {
+                font-weight: 700;
+                font-size: 14px;
+                color: #fff;
+                margin-top: 6px
+            }
+
+        /* Brand area */
+        .brand {
+            text-align: center;
+            padding: 8px 0 6px;
+        }
+
+            .brand h1 {
+                margin: 8px 0 2px;
+                font-family: 'Montserrat',sans-serif;
+                letter-spacing: 1px;
+                color: #0c1c4a;
+                font-size: 28px;
+            }
+
+        .tag {
+            color: var(--muted);
+            font-size: 12px;
+            letter-spacing: 0.6px;
+        }
+
+        /* Actions grid */
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(68px,1fr));
+            gap: 14px;
+            align-items: stretch;
+            margin: 10px;
+        }
+
+        .action-card {
+            background: var(--card);
+            border-radius: 10px;
+            padding: 5px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 8px;
+            transition: transform .18s ease, box-shadow .18s ease;
+            border: 1px solid #efefef;
+        }
+
+            .action-card:hover {
+                transform: translateY(-6px)
+            }
+
+        .action-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+            color: var(--accent-2);
+            background: linear-gradient(180deg, #fff, #fbfbfb);
+            border: 1px solid #eee;
+        }
+
+        .action-title {
+            font-size: 13px;
+            color: #333;
+            font-weight: 600
+        }
+
+        .cta-row {
+            display: flex;
+            justify-content: center;
+            margin: 6px 0 0;
+        }
+
+        .btn-primary {
+            background: var(--accent-2);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(89,15,15,0.2);
+        }
+
+        /* Wallet table */
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 13px;
+            border: 1px solid #eee;
+            margin: 5px;
+        }
+
+        .wallet-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+            .wallet-table th, .wallet-table td {
+                text-align: left;
+                padding: 10px 12px;
+                border-bottom: 1px solid #f2f2f2;
+            }
+
+            .wallet-table th {
+                background: linear-gradient(90deg,#6b1111,#3f0a0a);
+                color: #fff;
+                font-weight: 600;
+                font-size: 14px;
+                border-bottom: none;
+            }
+
+
+            .wallet-table td {
+                font-weight: 700;
+                color: #222
+            }
+
+
+        /* Income list */
+        .income-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .income-item {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(90deg,#fff,#fbfbfb);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #eaeaea;
+        }
+
+        .income-left {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+
+
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            background: linear-gradient(90deg,#cfcfcf,#999);
+            opacity: 0.95;
+        }
+
+        .income-name {
+            font-weight: 700;
+            color: #222
+        }
+
+        .income-value {
+            font-weight: 800;
+            color: #09356a
+        }
+
+        /* small screens adjustments */
+        @media (max-width:720px) {
+            .profile-card {
+                padding: 14px
+            }
+
+            .meta .item {
+                min-width: 110px
+            }
+
+            .brand h1 {
+                font-size: 22px
+            }
+
+            .action-card {
+                padding: 3px
+            }
+        }
+
+
+
+
+
+        /* utility */
+        .muted {
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .section-title {
+            font-weight: 700;
+            margin: 0 0 10px;
+            color: #2b2b2b
+        }
+
+        .grid-two {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 18px;
+        }
+
+
+        @media (max-width:980px) {
+            .grid-two {
+                grid-template-columns: 1fr
+            }
+
+            .table-responsive {
+                width: 100%;
+                /* max-width: 310px;*/
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="container-fluid">
 
-        <div class="row-fluid">
-            <div class="span12">
-                <h5 class="page-title">DASHBOARD </h5>
-                <hr>
-            </div>
-        </div>
+    <div class="container">
 
-        <div class="panelpart">
+        <div class="row">
 
-            <div class="row">
+            <!-- Top profile -->
+            <div class="profile-box">
 
-                <div class="userprofile">
-                    <h3>User Profile</h3>
+                <div class="avatar">👤</div>
 
-                    <div class="user-info">
-                        <div class="info-item">
-                            <label>Member ID</label>
-                            <span><b>
-                                <asp:Label ID="LblUserNo" runat="server" Text=""></asp:Label></b></span>
-                        </div>
+                <table class="profile-table">
+                    <tr>
+                        <td class="labelupdate">ID NO :</td>
+                        <td class="value">
+                            <asp:Label ID="LblUserNo" runat="server" Text=""></asp:Label></td>
+                    </tr>
 
-                        <div class="info-item">
-                            <label>Member Name</label>
-                            <span><b>
-                                <asp:Label ID="LblLUserName" runat="server" Text=""></asp:Label></b></span>
-                        </div>
+                    <tr>
+                        <td class="labelupdate">NAME :</td>
+                        <td class="value">
+                            <asp:Label ID="LblLUserName" runat="server" Text=""></asp:Label></td>
+                    </tr>
 
-                        <div class="info-item">
-                            <label>Date Of Activation</label>
-                            <span><b>
-                                <asp:Label ID="Lbldateofjoiningg" runat="server" Text=""></asp:Label></b></span>
-                        </div>
+                    <tr>
+                        <td class="labelupdate">DOJ :</td>
+                        <td class="value">
+                            <asp:Label ID="LbldateOfJoining" runat="server" Text=""></asp:Label></td>
+                    </tr>
 
-                        <div class="info-item">
-                            <label>Rank</label>
-                            <span><b>
-                                <asp:Label ID="LblRank" runat="server" Text=""></asp:Label></b></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <asp:Repeater runat="server" ID="RptDirectList">
-                        <ItemTemplate>
-                            <%#Eval("div")%>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                </div>
-                <div class="row-fluid panelpart">
-                    <asp:Repeater ID="gvBalance" runat="server">
-                        <ItemTemplate>
-                            <div class="span6">
-                                <div class="box box-widget widget-user-2">
-                                    <a href="#">
-                                        <div class="widget-user-header bg-green gradientclr">
-                                            <div class="widget-user-image"><i class="fa fa-gift" aria-hidden="true"></i></div>
-                                            <h3 class="widget-user-username" style="text-transform: uppercase; font-weight: bolder;"><%#Eval("WalletName")%></h3>
-                                        </div>
-                                    </a>
-                                    <div class="widgetleftright barset">
-                                        <div class="span4 border-right">
-                                            <div class="description-block">
-                                                <h5 class="description-header"><span><span><%#Eval("Credit")%></span> </span></h5>
-                                                <span class="description-text" style="text-transform: uppercase;">Credit</span>
-                                            </div>
-                                        </div>
-                                        <div class="span4 border-right">
-                                            <div class="description-block">
-                                                <h5 class="description-header"><span><span><%#Eval("Debit")%></span></span></h5>
-                                                <span class="description-text" style="text-transform: uppercase;">Debit </span>
-                                            </div>
-                                        </div>
-                                        <div class="span4">
-                                            <div class="description-block">
-                                                <h5 class="description-header"><span><span><%#Eval("Balance")%></span></span></h5>
-                                                <span class="description-text" style="text-transform: uppercase;">Balance</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                    <div class="span6">
-    <div class="widget">
-        <div class="widget-title">
-            <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="icon-user"></i>Distributor Details</h4>
-            <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-        </div>
-        <div class="widget-body">
-            <div class="row-fluid">
-                <div class="span12" style="display: block; margin-top: 20px;">
-                    <table class="table table-striped table-bordered table-hover">
-                        <tbody>
-                            <tr style="background: #f9f9f9; color: #333; text-align: left;">
-                                <th style="padding: 12px 15px; width: 15%;">Member ID</th>
-                                <td style="padding: 12px 15px; width: 35%; font-weight: 600;">
-                                    <asp:Label ID="LblUserID" runat="server" Text=""></asp:Label></td>
-                                <th style="padding: 12px 15px; width: 15%;">Member Name</th>
-                                <td style="padding: 12px 15px; width: 35%; font-weight: 600;">
-                                    <asp:Label ID="LblUserName" runat="server" Text=""></asp:Label></td>
-                            </tr>
-
-                            <tr style="background: #f9f9f9;">
-                                <th style="padding: 12px 15px;">DOJ</th>
-                                <td style="padding: 12px 15px;">
-                                    <asp:Label ID="LbldateOfJoining" runat="server" Text=""></asp:Label></td>
-                                <th style="padding: 12px 15px;">Status</th>
-                                <td style="padding: 12px 15px; color: green; font-weight: 600;">
-                                    <asp:Label ID="Lblstatus" runat="server" Text=""></asp:Label></td>
-                            </tr>
-
-                            <tr style="background: #ffffff;">
-                                <th style="padding: 12px 15px;">Sponsor ID</th>
-                                <td style="padding: 12px 15px;">
-                                    <asp:Label ID="LblSponsorID" runat="server" Text=""></asp:Label></td>
-                                <th style="padding: 12px 15px;">Sponsor Name</th>
-                                <td style="padding: 12px 15px; font-weight: 600;">
-                                    <asp:Label ID="LblSponsorName" runat="server" Text=""></asp:Label></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-                    <div class="span8" style="display: none;">
-                        <div class="box box-widget widget-user-2">
-                            <div class="widget-user-header  gradientclr">
-                                <div class="widget-user-image">
-                                    <i class="fa fa-user" aria-hidden="true" style="font-size: 60px; color: rgb(247, 247, 248); background: #2f90d9; padding: 10px 20px; position: absolute; top: -41px; left: 38%; border-radius: 50%; border: 2px solid rgba(48, 95, 182, 0.14); opacity: .8;"></i>
-                                </div>
-                                <h3 class="widget-user-username" style="text-transform: uppercase; font-weight: bolder;">MY REFERRAL LINK </h3>
-                            </div>
-
-                            <div class="widgetleftright barset">
-                                <div class="span9 border-right">
-                                    <div class="description-block">
-                                        <h5 class="description-header">
-                                            <span id="ctl00_ContentPlaceHolder1_lblleftgroup">Left: 
-                                      <a runat="server" target="_blank" id="aRfLink">
-                                          <span>
-                                              <asp:Label ID="lblLink" Style="color: blue;" runat="server"></asp:Label>
-                                          </span>
-                                      </a>
-                                        </span>
-
-                                        </h5>
-                                    </div>
-                                </div>
-
-                                <div class="span3 border-right">
-                                    <div class="description-block">
-                                        <h5 class="description-header">
-                                            <span id="ctl00_ContentPlaceHolder1_lblrightgroup">
-                                                <span id="ctl00_ContentPlaceHolder1_lblrightgroup">
-                                                    <asp:Button ID="btncopy" class="btn btn-danger" OnClientClick="return copyText();"
-                                                        runat="server" Text="Copy URL" />
-                                                    <%--<input type="submit" name="ctl00$ContentPlaceHolder1$btncopy" value="Copy URL" onclick="return copyText();" id="ContentPlaceHolder1_btncopy" class="btn btn-danger">--%>
-                                                </span>
-                                            </span>
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="widgetleftright barset">
-                                <div class="span9 border-right">
-                                    <div class="description-block">
-                                        <h5 class="description-header"><span id="ctl00_ContentPlaceHolder1_lblleftgroup">Right: 
-                                          <%--  <a href="#" id="ContentPlaceHolder1_aRfLinkClient" target="_blank">
-                                            <span id="ContentPlaceHolder1_lblLink">................... </span></a>--%>
-                                            <a runat="server" target="_blank" id="aRfLinkClient">
-                                                <span>
-                                                    <asp:Label ID="lblLinkClient" Style="color: blue;" runat="server"></asp:Label></span></a>
-                                        </span></h5>
-                                    </div>
-                                </div>
-                                <div class="span3 border-right">
-                                    <div class="description-block">
-                                        <h5 class="description-header">
-                                            <span id="ctl00_ContentPlaceHolder1_lblrightgroup">
-                                                <span id="ctl00_ContentPlaceHolder1_lblrightgroup">
-                                                    <asp:Button ID="Button2" class="btn btn-danger" OnClientClick="return copyText1();"
-                                                        runat="server" Text="Copy URL" />
-                                                    <%--  <input type="submit" name="ctl00$ContentPlaceHolder1$Button2" value="Copy URL" onclick="return copyText1();" id="ContentPlaceHolder1_Button2" class="btn btn-danger">--%>
-                                                </span>
-                                            </span>
-                                        </h5>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="row-fluid panelpart">
-                        <div class="span12">
-                            <div id="ctl00_ContentPlaceHolder1_Distributor1_TbBoard">
-                                <div class="row-fluid">
-                                        <div class="span6">
-        <div class="widget">
-            <div class="widget-title">
-                <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="icon-list-ol"></i>
-                    My Team Detail
-                </h4>
-                <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-            </div>
-            <div class="widget-body">
-                <table id="table" class="table table-hover table-mc-light-blue table-bordered">
-                    <tbody>
-                        <tr class="infoclr">
-                            <th></th>
-                            <th>Left
-                            </th>
-                            <th>Right
-                            </th>
-                            <th>Total
-                            </th>
-                        </tr>
-                        <tr class="backclr">
-                            <td>Current Month Registration
-                            </td>
-
-                            <td id="crntmonthjoinleft" runat="server">0
-                            </td>
-                            <td id="crntmonthjoinright" runat="server">0
-                            </td>
-                            <td id="currentmonthtotaljoin" runat="server">0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Current Month Activation
-                            </td>
-                            <td id="curntmothactiveleft" runat="server">0
-                            </td>
-                            <td id="curentmonthactiveright" runat="server">0
-                            </td>
-                            <td id="crntmonthtotalactive" runat="server">0
-                            </td>
-                        </tr>
-                        <tr class="backclr" style="display: none;">
-                            <td>Current Month Retopup
-                            </td>
-                            <td id="curntmothretopupleft" runat="server">0
-                            </td>
-                            <td id="curntmothretopupRight" runat="server">0
-                            </td>
-                            <td id="curntmothretopupTotal" runat="server">0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Today's Activation
-                            </td>
-                            <td id="TodayDirectActive" runat="server">0
-                            </td>
-                            <td id="TodayIndirectActive" runat="server">0
-                            </td>
-                            <td id="TodayTotalActive" runat="server">0
-                            </td>
-                        </tr>
-                        <tr class="backclr">
-                            <td>Total Activation
-                            </td>
-                            <td id="TotalDirectActivation" runat="server">0
-                            </td>
-                            <td id="TotalIndirectActivation" runat="server">0
-                            </td>
-                            <td id="TotalActivation" runat="server">0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Total Direct Active
-                            </td>
-                            <td id="TdLeftDirectActive" runat="server">0
-                            </td>
-                            <td id="TdRightIndirectActive" runat="server">0
-                            </td>
-                            <td id="TdTotalDirectActive" runat="server">0
-                            </td>
-                        </tr>
-                        <tr class="backclr" style="display: none;">
-                            <td>Total Retopup
-                            </td>
-                            <td id="TdLeftTopup" runat="server">0
-                            </td>
-                            <td id="TdRightTopup" runat="server">0
-                            </td>
-                            <td id="TdTotalTopup" runat="server">0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Current Month Repurchase Joining PV
-                            </td>
-                            <td id="tdjrpvleft" runat="server">0
-                            </td>
-                            <td id="tdjrpvright" runat="server">0
-                            </td>
-                            <td id="tdjrtotal" runat="server">0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Total Repurchase Joining PV
-                            </td>
-                            <td id="tdjoinpvleft" runat="server">0
-                            </td>
-                            <td id="tdjoinpvright" runat="server">0
-                            </td>
-                            <td id="tdjointotalpv" runat="server">0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Current Month Repurchase PV
-                            </td>
-                            <td id="TdpvSleft" runat="server">0
-                            </td>
-                            <td id="TdpvrightS" runat="server">0
-                            </td>
-                            <td id="tdtotalSpv" runat="server">0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Total Repurchase PV
-                            </td>
-                            <td id="Tdpvleft" runat="server">0
-                            </td>
-                            <td id="Tdpvright" runat="server">0
-                            </td>
-                            <td id="tdtotalpv" runat="server">0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Current Month Repurchase BV
-                            </td>
-                            <td id="tdBVL" runat="server">0
-                            </td>
-                            <td id="tdBVR" runat="server">0
-                            </td>
-                            <td id="tdBV" runat="server">0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Total Repurchase BV
-                            </td>
-                            <td id="TdBVTL" runat="server">0
-                            </td>
-                            <td id="TdBVTR" runat="server">0
-                            </td>
-                            <td id="TdBVTotal" runat="server">0
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <td class="labelupdate">RANK :</td>
+                        <td class="value">
+                            <asp:Label ID="LblRank" runat="server" Text=""></asp:Label></td>
+                    </tr>
                 </table>
-            </div>
-        </div>
-    </div>
-    <div class="span6">
-        <div class="widget">
-            <div class="widget-title">
-                <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="icon-list-ol"></i>
-                    My Direct
-                </h4>
-                <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-            </div>
-            <div class="widget-body">
-                <table class="table table-striped table-bordered table-advance table-hover">
-                    <thead>
-                        <tr>
 
-                            <th><i class="icon-user"></i>User Name </th>
-                            <th><i class="icon-user-md"></i>Name </th>
-                            <th><i class="icon-tags"></i>Date </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <asp:Repeater ID="RptDirects" runat="server">
-                            <ItemTemplate>
+            </div>
+
+            <!-- Brand -->
+            <div class="brand" role="banner">
+                <h1>OVERNET TRADDING</h1>
+                <div class="tag">ALL OUR DREAMS CAN COME TRUE</div>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions" aria-label="quick actions">
+                <div class="action-card" role="button" tabindex="0">
+                    <img src="appimg/appicon_1.png" alt="">
+                </div>
+                <div class="action-card" role="button" tabindex="0">
+                    <img src="appimg/appicon_2.png" alt="">
+                </div>
+                <div class="action-card" role="button" tabindex="0">
+                    <img src="appimg/appicon_3.png" alt="">
+                </div>
+                <div class="action-card" role="button" tabindex="0">
+                    <img src="appimg/appicon_4.png" alt="">
+                </div>
+                <div class="action-card" role="button" tabindex="0">
+                    <img src="appimg/appicon_5.png" alt="">
+                </div>
+                <div class="action-card" role="button" tabindex="0">
+                    <img src="appimg/appicon_6.png" alt="">
+                </div>
+                <div class="action-card" role="button" tabindex="0">
+                    <img src="appimg/appicon_7.png" alt="">
+                </div>
+                <div class="action-card" role="button" tabindex="0">
+                    <img src="appimg/appicon_8.png" alt="">
+                </div>
+
+
+            </div>
+
+            <div class="grid-two">
+
+                <div class="card" aria-labelledby="wallet-title">
+                    <h2 id="wallet-title" class="section-title">Main Wallet</h2>
+
+
+
+
+                    <div class="table-responsive">
+                        <table class="wallet-table" role="table" aria-label="main wallet balances">
+                            <thead>
                                 <tr>
-                                    <%--  <td><%#Eval("SNo")%></td>--%>
-                                    <td><%#Eval("idno")%></td>
-                                    <td><%#Eval("MemName")%></td>
-                                    <td><%#Eval("DOA")%></td>
+                                    <th scope="col">Credit</th>
+                                    <th scope="col">Debit</th>
+                                    <th scope="col">Balance</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                <asp:Repeater ID="gvBalance" runat="server">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td><%#Eval("Credit")%></td>
+                                            <td><%#Eval("Debit")%></td>
+                                            <td><%#Eval("Balance")%></td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+
+
+
+                <aside class="card" aria-labelledby="income-title">
+                    <h2 id="income-title" class="section-title">My Income</h2>
+
+                    <div class="income-box">
+                        <asp:Repeater runat="server" ID="RptDirectList">
+                            <ItemTemplate>
+                                <%#Eval("AppDiv")%>
                             </ItemTemplate>
                         </asp:Repeater>
 
-                    </tbody>
-                </table>
-                <div class="space7"></div>
-                <%-- <div class="clearfix"><a href="#" class="btn btn-mini pull-right btn-danger">More</a> </div>--%>
-            </div>
-        </div>
-    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <div id="ctl00_ContentPlaceHolder1_Distributor1_TbBoard">
-                                <div class="row-fluid">
-                                    <div class="span4">
-    <div class="widget">
-        <div class="widget-title">
-            <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="icon-list-ol"></i>Self Repurchase BV</h4>
-            <span class="tools">
-                <a href="javascript:;" class="icon-chevron-down"></a>
-            </span>
-        </div>
+                </aside>
 
-        <div class="widget-body">
-            <table class="table table-striped table-bordered table-advance table-hover">
-                <thead>
-                    <tr>
-                        <th>BV Type</th>
-                        <th>Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Current Month BV</td>
-                        <td id="sptotalbv" runat="server">0</td>
 
-                    </tr>
-                    <tr>
-                        <td>Total BV</td>
-                        <td id="spselfbv" runat="server">0</td>
-                    </tr>
-                </tbody>
-            </table>
 
-        </div>
-    </div>
-</div>
-                                <div class="span8 column sortable">
-    <div class="widget">
-        <div class="widget-title">
-            <h4 style="text-transform: uppercase; font-weight: bolder;"><i class="fa fa-envelope"></i>Latest News</h4>
-            <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-        </div>
-        <div class="widget-body">
 
-            <marquee direction="up" scrollamount="3" style="height: 165px;">
-                <asp:Repeater runat="server" ID="RptNews">
-                    <ItemTemplate>
-                        <p><%#Eval("NewHeding")%></p>
-                        <p><%#Eval("NewsDetail")%></p>
-                        <p><%#Eval("NewsDate")%></p>
-                        <hr>
-                    </ItemTemplate>
-                </asp:Repeater>
-
-            </marquee>
-
-            <div class="space7"></div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row-fluid">
-                        
-
-                    </div>
-
-                    <div class="row-fluid" style="display: none;">
-                        <div class="span12">
-                            <div class="widget ">
-                                <div class="widget-title">
-                                    <h4><i class="icon-globe"></i>Announcement</h4>
-                                    <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </div>
     </div>
+
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"981d59f2217245c4acd469967980a90a","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+
+
+    
 </asp:Content>
 
 
