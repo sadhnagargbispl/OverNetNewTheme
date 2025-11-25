@@ -222,3 +222,6 @@ Object reference not set to an instance of an object.
 http://localhost:51126/AppServiceWalletTransfer.aspx:  14-Nov-2025 05:55:51:686 
 Thread was being aborted.
 --------------------------------------------------------
+http://localhost:51126/AppPinTransferDetails.aspx:  25-Nov-2025 03:21:15:487 
+A connection was successfully established with the server, but then an error occurred during the login process. (provider: SSL Provider, error: 0 - The specified network name is no longer available.)
+--------------------------------------------------------

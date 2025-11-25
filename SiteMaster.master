@@ -1,214 +1,14 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="SiteMaster.master.cs" Inherits="SiteMaster" %>
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head runat="server">
-    <script type="text/javascript">
-        window.history.forward();
-        function noBack() {
-            window.history.forward();
-        }
-    </script>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="description">
-    <meta name="author">
-    <title>
-        <%=Session["Title"].ToString ()%></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title><%= (Session["Title"] ?? "My Application") %></title>
+
     <!-- -------------------- Start CSS Files --------------------  -->
-    <link href="assets/cssfile/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/cssfile/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="assets/cssfile/font-awesome.css" rel="stylesheet">
-    <link href="assets/cssfile/style.css?v=1.5" rel="stylesheet">
-    <link id="ctl00_style_color" href="assets/cssfile/style_navy-blue.css?v=1.5" rel="stylesheet">
-    <link rel="stylesheet" href="assets/cssfile/font-awesome.min.css">
-    <link href="assets/cssfile/jquery.fancybox.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="assets/cssfile/uniform.default.css">
-    <link rel="stylesheet" type="text/css" href="assets/cssfile/jquery.gritter.css">
-    <link rel="stylesheet" href="assets/cssfile/font-awesome.min.css">
-
-    <link href="assets/cssfile/style_responsive.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link href="assets/cssfile/added_css_rohit.css" rel="stylesheet">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=El+Messiri&display=swap" rel="stylesheet">
-
-    <script src="assets/jsfile/jquery-1.8.3.min.js"></script>
-    <script src="assets/jsfile/bootstrap.min.js"></script>
-    <script src="assets/jsfile/jquery.blockui.js"></script>
-    <script src="assets/jsfile/progress.js"></script>
-    <script src="assets/jsfile/SearchJScript.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        function dothis() {
-            alert('You can not request e-Pin, first purchasing/retailing a package !');
-        }
-        function dothis1() {
-            alert('You activation request is pending !');
-        }
-    </script>
-
-    <script>
-        var loginid = null;
-        jQuery(document).ready(function () {
-            App.init();
-            loginid = 'companyid'
-
-        });
-        $(document).ready(function () {
-            var url = window.location.pathname,
-                urlRegExp = new RegExp(url.replace(/\/$/, '') + "$");
-            $('.has-sub li a').each(function () {
-                if (urlRegExp.test(this.href.replace(/\/$/, ''))) {
-                    var _pagename = url.substring(url.lastIndexOf('/') + 1);
-                    $('a[href="' + _pagename + '"]').parent('li').parent('ul').parent('li').removeClass().addClass('has-sub active');
-                    $('a[href="' + _pagename + '"]').parent('li').addClass('active');
-
-                }
-            });
-        })
-    </script>
-
-    <script>
-        function link_changepassword() {
-            document.getElementById("btSubmit").disabled = false;
-            $('#ErrorDiv_Popup').html("<button data-dismiss='alert' class='close'>Ã—</button> Are You Sure Change Paswssword to this user '<strong>" + ViewstateUsername + "<strong>'  ?");
-            $('#ErrorDiv_Popup').removeClass().addClass("alert alert-warning");
-            $('#ErrorDiv_Popup').show();
-        }
-
-        function changepassword() {
-            if ($("span").hasClass("input-error")) {
-                $('#ErrorDiv_Popup').html(" <button data-dismiss='alert' class='close'>Ã—</button> * Please  Fill Correct Information. !");
-                $('#ErrorDiv_Popup').removeClass().addClass("alert alert-error");
-                $('#ErrorDiv_Popup').show();
-            }
-            else {
-                $('#ErrorDiv_Popup').hide();
-                updatePassword();
-            }
-
-        }
-        function updatePassword() {
-            var oldpassword = $("#ctl00_txt_p_old").val();
-            var newPassword = $("#ctl00_txt_p_new").val();
-            $.ajax({
-                type: "POST",
-                url: "Getdata_member.asmx/UpdatePasswordMember",
-                data: "{loginid:'" + loginid + "',oldpassword:'" + oldpassword + "' ,newpassword:'" + newPassword + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: updatepasswordSuccess,
-                error: function (xhr, status, error) {
-                    $('#ErrorDiv_Popup').html("<button data-dismiss='alert' class='close'>Ã—</button> Sorry, There are techinical error please try again. !!");
-                    $('#ErrorDiv_Popup').removeClass().addClass("alert alert-error");
-                    $('#ErrorDiv_Popup').show();
-                    alert("UpdatePasswordMember");
-                }
-            });
-        }
-        function updatepasswordSuccess(ResultUpdatePassword) {
-            var jsonData = ResultUpdatePassword.d;
-            $('#ErrorDiv_Popup').html("<button data-dismiss='alert' class='close'>Ã—</button>  Congratulations,   Your Password Successfully Changed. !!");
-            $('#ErrorDiv_Popup').removeClass().addClass("alert alert-success");
-            $('#ErrorDiv_Popup').show();
-            switch (ResultUpdatePassword.d) {
-                case "false":
-                    $('#ErrorDiv_Popup').html("<button data-dismiss='alert' class='close'>Ã—</button> Failed, Password Not Changed. !!");
-                    $('#ErrorDiv_Popup').removeClass().addClass("alert alert-error");
-                    $('#ErrorDiv_Popup').show();
-                    break;
-                case "true":
-                    document.getElementById("btSubmit").disabled = true;
-                    $('#ErrorDiv_Popup').html("<button data-dismiss='alert' class='close'>Ã—</button> Congratulations, <strong>" + loginid + "</strong> Your Password Successfully Changed. !!");
-                    $('#ErrorDiv_Popup').removeClass().addClass("alert alert-success");
-                    $('#ErrorDiv_Popup').show();
-                    break;
-            }
-        }
-
-        function NewPassword() {
-            pass = $("#ctl00_txt_p_new").val();
-            if (pass == "") {
-                $('#div1_new').removeClass().addClass("control-group error");
-                $('#span1_new').removeClass().addClass("input-error tooltips");
-                $('#i1_new').removeClass().addClass("icon-exclamation-sign");
-                return false;
-            }
-            if (pass.length <= 3) {
-                $('#div1_new').removeClass().addClass("control-group warning");
-                $('#span1_new').removeClass().addClass("input-warning tooltips");
-                $('#i1_new').removeClass().addClass("icon-warning-sign");
-                return false;
-            }
-            else {
-                $('#div1_new').removeClass().addClass("control-group success");
-                $('#span1_new').removeClass().addClass("input-success tooltips");
-                $('#i1_new').removeClass().addClass("icon-ok");
-                return false;
-            }
-        }
-
-        function checkoldPassword() {
-            var old_password = $("#ctl00_txt_p_old").val();
-            $.ajax({
-                type: "POST",
-                url: "Getdata_member.asmx/CheckOldPassword",
-                data: "{ loginid:'" + loginid + "',oldpassword:'" + old_password + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: checkoldPasswordSuccess,
-                error: function (xhr, status, error) {
-                    alert("CheckOldPassword");
-                }
-
-            });
-        }
-        function checkoldPasswordSuccess(Resultold) {
-            var jsonData = Resultold.d;
-            switch (Resultold.d) {
-                case "true":
-                    $('#div1_old').removeClass().addClass("control-group success");
-                    $('#span1_old').removeClass().addClass("input-success tooltips");
-                    $('#i1_old').removeClass().addClass("icon-ok");
-
-                    break;
-                case "false":
-                    $('#div1_old').removeClass().addClass("control-group error");
-                    $('#span1_old').removeClass().addClass("input-error tooltips");
-                    $('#i1_old').removeClass().addClass("icon-exclamation-sign");
-
-                    break;
-            }
-
-        }
-
-        function RepasswordP() {
-            repa = $("#ctl00_txt_p_re").val();
-            pass = $("#ctl00_txt_p_new").val();
-            if (pass != repa) {
-                $('#div1_repassword').removeClass().addClass("control-group error");
-                $('#span1_repassword').removeClass().addClass("input-error tooltips");
-                $('#i1_repassword').removeClass().addClass("icon-exclamation-sign");
-                return false;
-            }
-            if (repa.length <= 3) {
-                $('#div1_repassword').removeClass().addClass("control-group warning");
-                $('#span1_repassword').removeClass().addClass("input-warning tooltips");
-                $('#i1_repassword').removeClass().addClass("icon-warning-sign");
-                return false;
-            }
-            else {
-                $('#div1_repassword').removeClass().addClass("control-group success");
-                $('#span1_repassword').removeClass().addClass("input-success tooltips");
-                $('#i1_repassword').removeClass().addClass("icon-ok");
-                return false;
-            }
-        }
-
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
 
     <script type="text/javascript" src="highslide/highslide-full.js"></script>
 
@@ -238,235 +38,250 @@
         // Add the slideshow providing the controlbar and the thumbstrip
 
     </script>
+    <link rel="stylesheet" href="appstyle.css?=1.5" />
 
-    <link href="assets/cssfile/newstyle.css" rel="stylesheet">
-
-    <link href="assets/cssfile/style.css?v=2.7" rel="stylesheet">
-
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
-<body class="fixed-top" data-new-gr-c-s-check-loaded="14.996.0" data-gr-ext-installed="" cz-shortcut-listen="true">
+<body>
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-        <!-- Header Start -->
-        <div id="header" class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
 
-                    <!-- Logo -->
-                    <a class="brand" href="#">
-                        <img src="assets/images/logo.png" alt="Logo" width="150">
-                    </a>
+        <div class="container">
+            <div class="row">
+                <div class="user">
+                    <div class="dwaericon">
+                        <!-- role=button + aria-controls improve accessibility -->
+                        <button id="drawerToggle" class="drawer-toggle"
+                            aria-label="Open drawer"
+                            aria-expanded="false"
+                            aria-controls="side-drawer"
+                            type="button"
+                            style="background: transparent; border: none; padding: 8px; display: inline-flex; align-items: center; cursor: pointer; color: #fff;">
+                            <svg width="34" height="24" viewBox="0 0 34 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                <rect x="2" y="3" width="30" height="2" rx="1" fill="currentColor" />
+                                <rect x="2" y="11" width="30" height="2" rx="1" fill="currentColor" />
+                                <rect x="2" y="19" width="30" height="2" rx="1" fill="currentColor" />
+                            </svg>
+                        </button>
+                    </div>
 
-                    <!-- Mobile Toggle Button -->
-                    <a class="btn btn-navbar collapsed" id="main_menu_trigger" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="arrow"></span>
-                    </a>
+                    <!-- Drawer overlay and panel -->
+                    <div id="drawer-overlay" class="drawer-overlay" hidden aria-hidden="true"></div>
 
-                    <!-- Notification Row -->
-                    <div id="top_menu" class="nav notify-row">
-                        <ul class="nav top-menu">
+                    <nav id="side-drawer" class="side-drawer" aria-hidden="true" role="navigation" tabindex="-1">
+                        <div class="drawer-header" style="margin-top: 25px;">
+                            <button id="drawerClose" class="drawer-close" aria-label="Close drawer" type="button">&times;</button>
+                            <!-- <div class="drawer-brand"><img src="appimg/logo_white.png" alt="Logo" style="height:36px"></div> -->
+                        </div>
+                        <% if (Session["Status"] != null && Session["Status"].ToString() == "OK")
+                            { %>
+                        <ul class="drawer-menu" role="menu" aria-label="Main menu">
 
-                            <!-- Currency Dropdown -->
-                            <li class="dropdown hidden">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-cog"></i>
+                            <li class="has-sub" role="none">
+                                <a href="AppDashboard.aspx" role="menuitem" class="menu-link">Dashboard
                                 </a>
-                                <ul class="dropdown-menu extended inbox">
-                                    <li>
-                                        <p>You have # <span id="ctl00_lblCurrencyCount">4</span> Currency</p>
-                                    </li>
+                            </li>
+
+                            <li class="has-sub" role="none">
+                                <a href="#" class="menu-link submenu-toggle" role="menuitem" aria-expanded="false">My Team <span class="arrow">▾</span>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="AppMydirects.aspx">Level Wise Report</a></li>
+                                    <li><a href="ApprefTree.aspx">My Direct Tree </a></li>
+                                    <li><a href="AppTree.aspx">Geneology</a></li>
+                                    <li><a href="AppDownline.aspx">Downline Detail</a></li>
+                                    <li><a href="AppEverestTree.aspx">My Everest Detail</a></li>
+                                    <li><a href="AppBusinessReport.aspx">My Everest Table</a></li>
                                 </ul>
                             </li>
 
-                            <!-- Inbox -->
-                            <li class="dropdown hidden" id="header_inbox_bar">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-envelope-alt"></i>
-                                    <span class="badge badge-important" style="position: absolute;">
-                                        <span id="ctl00_lblNewMessage">0</span>
-                                    </span>
+                            <li class="has-sub" role="none">
+                                <a href="#" class="menu-link submenu-toggle" role="menuitem" aria-expanded="false">Profile <span class="arrow">▾</span>
                                 </a>
-                                <ul class="dropdown-menu extended inbox">
-                                    <li>
-                                        <p>You have #<span id="ctl00_lblMessageCount">0</span> new messages</p>
-                                    </li>
+                                <ul class="submenu">
+                                    <li><a href="Appprofile.aspx">Profile</a></li>
+                                    <li><a href="AppChangePass.aspx">Change Password</a></li>
+                                    <li><a href="AppChangeTransPass.aspx">Change Transaction Password</a></li>
                                 </ul>
                             </li>
 
-                            <!-- Notifications -->
-                            <li class="dropdown hidden" id="header_notification_bar">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-bell-alt"></i>
-                                    <span class="badge badge-warning" style="position: absolute;">
-                                        <span id="ctl00_notificationlebel_count1">3</span>
-                                    </span>
+                            <li class="has-sub" role="none">
+                                <a href="#" class="menu-link submenu-toggle" role="menuitem" aria-expanded="false">Upload KYC <span class="arrow">▾</span>
                                 </a>
-                                <ul class="dropdown-menu extended notification">
-                                    <li>
-                                        <p>You have #<span id="ctl00_notificationlebel_count2">3</span> new notifications</p>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="label label-success"><i class="icon-bolt"></i></span>
-                                            Balance Deposit
-                  <span class="badge badge-success">1</span>
-                                            <span class="small italic">34 mins</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="label label-success"><i class="icon-bolt"></i></span>
-                                            Balance Deduct
-                  <span class="badge badge-success">1</span>
-                                            <span class="small italic">34 mins</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="label label-success"><i class="icon-bolt"></i></span>
-                                            Primary Board income
-                  <span class="badge badge-success">1</span>
-                                            <span class="small italic">34 mins</span>
-                                        </a>
-                                    </li>
-                                    <li><a href="#">See all notifications</a></li>
+                                <ul class="submenu">
+                                    <li><a href="Appiddetail.aspx">Address Proof </a></li>
+                                    <li><a href="AppKycbankDetail.aspx">Bank Detail </a></li>
+                                    <li><a href="AppPancard.aspx">Pan Card </a></li>
                                 </ul>
                             </li>
 
+                            <li class="has-sub" role="none">
+                                <a href="#" class="menu-link submenu-toggle" role="menuitem" aria-expanded="false">Epin <span class="arrow">▾</span>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="AppPinTransfer.aspx">Pin Transfer</a> </li>
+                                    <li><a href="AppPinTransferDetails.aspx">Send Pin Detail</a> </li>
+                                    <li><a href="AppPinReceivedDetails.aspx">Received Pin Detail</a> </li>
+                                    <li><a href="AppProductrequestDetail.aspx">Shopping</a> </li>
+                                </ul>
+                            </li>
+                            <li class="has-sub" role="none">
+                                <a href="#" class="menu-link submenu-toggle" role="menuitem" aria-expanded="false">Income <span class="arrow">▾</span>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="AppMonthlyincome.aspx">Monthly Payout Detail</a></li>
+                                    <li><a href="Appdailyeverestincome.aspx">Daily Income Detail</a></li>
+                                </ul>
+                            </li>
+                            <li class="has-sub" role="none">
+                                <a href="#" class="menu-link submenu-toggle" role="menuitem" aria-expanded="false">Wallet <span class="arrow">▾</span>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="AppAllWalletReport.aspx">Wallet Report</a></li>
+                                    <li><a href="AppServiceWalletTransfer.aspx">Wallet Transfer</a></li>
+                                </ul>
+                            </li>
+                            <li class="has-sub" role="none">
+                                <a href="#" class="menu-link submenu-toggle" role="menuitem" aria-expanded="false">Complaint <span class="arrow">▾</span>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="AppComplain.aspx">Raise Ticket</a></li>
+                                    <li><a href="AppComplainSolution.aspx">Ticket Status</a></li>
+                                </ul>
+                            </li>
+                            <%--  <li role="none">
+                                <a href="Applogout.aspx" role="menuitem">Logout</a>
+                            </li>--%>
                         </ul>
-                    </div>
+                        <% }
+                            else
+                            { %>
+                        <ul class="drawer-menu" role="menu" aria-label="Main menu">
+                        </ul>
+                        <% }%>
+                    </nav>
 
-                    <!-- Top Right Menu -->
-                    <div class="top-nav">
-                        <%--   <ul class="nav pull-right top-menu">
-
-
-                         
-
-
-                            <li class="">
-
-                                <button type="bg-white bg-white" class="btn btn-danger"><i class="icon-signout" style="margin-right: 8px; font-size: 13px; color: #ffffff;"></i><a href="logout.aspx" style="color: #ffffff;">LOGOUT </a></button>
-
-
-                            </li>
-
-                        </ul>--%>
+                    <div class="logo">
+                        <img src="appimg/logo_white.png" alt="Site logo" />
                     </div>
 
                 </div>
             </div>
         </div>
-        <!-- Header End -->
 
-
-
-
-        <div id="container" class="row-fluid blueclr">
-
-            <!-- BEGIN SIDEBAR -->
-            <div class="scroll-bar-wrap">
-                <div id="sidebar" class="nav-collapse collapse">
-                    <ul class="sidebar-menu blueclr">
-                        <li class=""><a href="AppDashboard.aspx" class=""><span class="icon-box"><i class="icon-arrow"></i></span>Dashboard</a></li>
-
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>My Team<span class="arrow"></span></a>
-                            <ul class="sub">
-                                <li><a href="AppMydirects.aspx">Level Wise Report</a></li>
-                                <li><a href="ApprefTree.aspx">My Direct Tree </a></li>
-                                <li><a href="AppTree.aspx">Geneology</a></li>
-                                <li><a href="AppDownline.aspx">Downline Detail</a></li>
-                                <li><a href="AppEverestTree.aspx">My Everest Detail</a></li>
-                                <li><a href="AppBusinessReport.aspx">My Everest Table</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Profile<span class="arrow"></span></a>
-                            <ul class="sub">
-                                <%--  <li><a href="NewJoiningBackup.aspx">New Registration</a> </li>--%>
-                                <li><a href="Appprofile.aspx">Profile</a></li>
-                                <li><a href="AppChangePass.aspx">Change Password</a></li>
-                                <li><a href="AppChangeTransPass.aspx">Change Transaction Password</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Upload KYC<span class="arrow"></span></a>
-                            <ul class="sub">
-                                <li><a href="Appiddetail.aspx">Address Proof </a></li>
-                                <li><a href="AppKycbankDetail.aspx">Bank Detail </a></li>
-                                <li><a href="AppPancard.aspx">Pan Card </a></li>
-                            </ul>
-                        </li>
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Documents<span class="arrow"></span></a>
-                            <ul class="sub">
-                                <li><a href="welcomeletter.aspx">Welcome Letter</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Epin<span class="arrow"></span></a>
-                            <ul class="sub">
-                                <li><a href="AppPinTransfer.aspx">Pin Transfer</a> </li>
-                                <li><a href="AppPinTransferDetails.aspx">Send Pin Detail</a> </li>
-                                <li><a href="AppPinReceivedDetails.aspx">Received Pin Detail</a> </li>
-                                <li><a href="AppProductrequestDetail.aspx">Shopping</a> </li>
-                            </ul>
-                        </li>
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Income<span class="arrow"></span></a>
-                            <ul class="sub">
-                                <li><a href="AppMonthlyincome.aspx">Monthly Payout Detail</a></li>
-                                <li><a href="Appdailyeverestincome.aspx">Daily Income Detail</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Wallet<span class="arrow"></span></a>
-                            <ul class="sub">
-                                <li><a href="AppAllWalletReport.aspx">Wallet Report</a></li>
-                                <li><a href="AppServiceWalletTransfer.aspx">Wallet Transfer</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Complaint<span class="arrow"></span></a>
-                            <ul class="sub">
-                                <li><a href="AppComplain.aspx">Raise Ticket</a></li>
-                                <li><a href="AppComplainSolution.aspx">Ticket Status</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="cover-bar"></div>
-            </div>
-
-            <!-- END SIDEBAR -->
-
-            <!-- MAIN CONTENT -->
-            <div id="main-content">
-                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                </asp:ContentPlaceHolder>
-            </div>
-            <!-- MAIN CONTENT -->
-
-            <!-- BEGIN FOOTER -->
-            <%--          <div id="footer">
-                © 2025 | <%=Session["Title"].ToString ()%>
-                <div class="span pull-right"><span class="go-top"><i class="icon-arrow-up"></i></span></div>
-            </div>--%>
-            <!-- END FOOTER -->
-
-            <!-- BEGIN FOOTER -->
-            <div id="footer" style="text-transform: uppercase;">
-                © 2025 | <%=Session["Title"].ToString ()%>
-                <div class="span pull-right">
-                    <span class="go-top"><i class="icon-arrow-up"></i></span>
-                </div>
-            </div>
-            <!-- END FOOTER -->
-
-            <div id="GOOGLE_INPUT_CHEXT_FLAG" input="" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:true,&quot;ss&quot;:true}" style="display: none;"></div>
-
-            <script type="text/jsfile/javascript" src="assets/jsfile/jquery.gritter.js"></script>
-            <script src="assets/jsfile/scripts.js"></script>
-
-        </div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
     </form>
+
+    <!-- Script: drawer open/close & focus management -->
+    <script>
+        (function () {
+            var toggle = document.getElementById('drawerToggle');
+            var closeBtn = document.getElementById('drawerClose');
+            var drawer = document.getElementById('side-drawer');
+            var overlay = document.getElementById('drawer-overlay');
+
+            // utility: find focusable elements inside the drawer
+            function getFocusable(container) {
+                return container.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+            }
+
+            function openDrawer() {
+                drawer.classList.add('open');
+                overlay.classList.add('open');
+                overlay.hidden = false;
+                overlay.setAttribute('aria-hidden', 'false');
+                drawer.setAttribute('aria-hidden', 'false');
+                toggle.setAttribute('aria-expanded', 'true');
+
+                // move focus into drawer (first focusable)
+                var focusables = getFocusable(drawer);
+                if (focusables.length) {
+                    focusables[0].focus();
+                } else {
+                    drawer.focus();
+                }
+
+                // simple tab wrap to keep keyboard inside drawer
+                document.addEventListener('keydown', trapTabKey);
+            }
+
+            function closeDrawer() {
+                drawer.classList.remove('open');
+                overlay.classList.remove('open');
+                drawer.setAttribute('aria-hidden', 'true');
+                toggle.setAttribute('aria-expanded', 'false');
+
+                // hide overlay after transition for screen readers
+                setTimeout(function () {
+                    overlay.hidden = true;
+                    overlay.setAttribute('aria-hidden', 'true');
+                }, 260);
+
+                // remove tab trap and return focus
+                document.removeEventListener('keydown', trapTabKey);
+                toggle.focus();
+            }
+
+            function trapTabKey(e) {
+                if (e.key !== 'Tab') return;
+                var focusables = Array.prototype.slice.call(getFocusable(drawer));
+                if (!focusables.length) return;
+
+                var first = focusables[0], last = focusables[focusables.length - 1];
+
+                if (e.shiftKey) {
+                    if (document.activeElement === first) {
+                        e.preventDefault();
+                        last.focus();
+                    }
+                } else {
+                    if (document.activeElement === last) {
+                        e.preventDefault();
+                        first.focus();
+                    }
+                }
+            }
+
+            // Event handlers
+            toggle.addEventListener('click', function () {
+                var expanded = this.getAttribute('aria-expanded') === 'true';
+                if (expanded) closeDrawer(); else openDrawer();
+            });
+
+            closeBtn.addEventListener('click', closeDrawer);
+            overlay.addEventListener('click', closeDrawer);
+
+            // close on Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+            });
+        })();
+    </script>
+    <script>
+        document.querySelectorAll('.submenu-toggle').forEach(function (toggleBtn) {
+            toggleBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                let submenu = this.nextElementSibling;
+                let arrow = this.querySelector('.arrow');
+                let isOpen = submenu.classList.contains('open');
+
+                // Close all other submenus
+                document.querySelectorAll('.submenu').forEach(function (s) {
+                    s.classList.remove('open');
+                });
+                document.querySelectorAll('.submenu-toggle .arrow').forEach(function (a) {
+                    a.style.transform = 'rotate(0deg)';
+                });
+
+                // Toggle selected submenu
+                if (!isOpen) {
+                    submenu.classList.add('open');
+                    arrow.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>

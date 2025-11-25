@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dashboard - Overnet Trading</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="appstyle.css?=1.8">
+  
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="user">
+               
+                <div class="dwaericon">
+                    <button id="drawerToggle" class="drawer-toggle" aria-label="Open drawer" aria-expanded="false" style="background:transparent;border:none;padding:8px;display:inline-flex;align-items:center;cursor:pointer;color:#fff;">
+                        <svg width="34" height="24" viewBox="0 0 34 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                            <rect x="2" y="3" width="30" height="2" rx="1" fill="currentColor"/>
+                            <rect x="2" y="11" width="30" height="2" rx="1" fill="currentColor"/>
+                            <rect x="2" y="19" width="30" height="2" rx="1" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Drawer overlay and panel -->
+                <div id="drawer-overlay" class="drawer-overlay" hidden></div>
+
+                <nav id="side-drawer" class="side-drawer" aria-hidden="true" role="navigation">
+                    <div class="drawer-header" style="margin-top: 25px;">
+                        <button id="drawerClose" class="drawer-close" aria-label="Close drawer">&times;</button>
+                        <!-- <div class="drawer-brand"><img src="appimg/logo_white.png" alt="Logo" style="height:36px"></div> -->
+                    </div>
+
+                    <ul class="drawer-menu" role="menu" aria-label="Main menu">
+                        <li role="none"><a role="menuitem" href="#">Dashboard</a></li>
+                        <li role="none"><a role="menuitem" href="#">Profile</a></li>
+                        <li role="none"><a role="menuitem" href="#">Wallet</a></li>
+                        <li role="none"><a role="menuitem" href="#">Income</a></li>
+                        <li role="none"><a role="menuitem" href="#">Settings</a></li>
+                        <li role="none"><a role="menuitem" href="#">Logout</a></li>
+                    </ul>
+                </nav>
+
+            
+               <div class="logo"> <img src="appimg/logo_white.png" alt=""></div>
+                
+            </div>
+
+        <!-- Top profile -->
+        <div class="profile-box">
+
+
+            <div class="avatar">
+            <img id="avatarPreview" src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" alt="">
+            <input type="file" id="avatarUpload" accept="image/*" style="display:none;">
+            </div>
+
+
+            
+            
+
+            <table class="profile-table">
+                <tr>
+                    <td class="label">ID NO :</td>
+                    <td class="value">RK4657981S</td>
+                </tr>
+
+                <tr>
+                    <td class="label">NAME :</td>
+                    <td class="value">ROHIT KUMAR SAHU</td>
+                </tr>
+
+                <tr>
+                    <td class="label">DOJ :</td>
+                    <td class="value">03 November 2025</td>
+                </tr>
+
+                <tr>
+                    <td class="label">PIN LEVEL :</td>
+                    <td class="value">Active</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <!-- Brand -->
+        <div class="brand" role="banner">
+            <h1>OVERNET TRADDING</h1>
+            <div class="tag">ALL OUR DREAMS CAN COME TRUE</div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions" aria-label="quick actions">
+            <div class="action-card" role="button" tabindex="0"> <img src="appimg/appicon_1.png" alt=""> </div>
+            <div class="action-card" role="button" tabindex="0"> <img src="appimg/appicon_2.png" alt=""> </div>
+            <div class="action-card" role="button" tabindex="0"> <img src="appimg/appicon_3.png" alt=""> </div>
+            <div class="action-card" role="button" tabindex="0"> <img src="appimg/appicon_4.png" alt=""> </div>
+            <div class="action-card" role="button" tabindex="0"> <img src="appimg/appicon_5.png" alt=""> </div>
+            <div class="action-card" role="button" tabindex="0"> <img src="appimg/appicon_6.png" alt=""> </div>
+            <div class="action-card" role="button" tabindex="0"> <img src="appimg/appicon_7.png" alt=""> </div>            
+            <div class="action-card" role="button" tabindex="0"> <img src="appimg/appicon_8.png" alt=""> </div>            
+
+             
+        </div>
+
+        <div class="grid-two">
+
+           <div class="card" aria-labelledby="wallet-title">
+    <h5 id="wallet-title" class="section-title">Main Wallet</h5>
+
+    <div class="table-responsive">
+
+        
+        <table class="wallet-table" role="table" aria-label="main wallet balances">
+            <thead>
+                <tr>
+                    <th scope="col">Credit</th>
+                    <th scope="col">Debit</th>
+                    <th scope="col">Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>21,443,488.60</td>
+                    <td>142,769.00</td>
+                    <td>21,300,719.60</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+            <aside class="card" aria-labelledby="income-title">
+    <h5 id="income-title" class="section-title">My Income</h5>
+
+    <div class="income-box">
+
+        <div class="income-row">
+            <div class="income-left">EVEREST INCOME</div>
+            <div class="income-right">3175.00</div>
+        </div>
+
+        <div class="income-row">
+            <div class="income-left">DIRECT SPONSOR INCOME</div>
+            <div class="income-right">196400.00</div>
+        </div>
+
+        <div class="income-row">
+            <div class="income-left">MATCHING INCOME</div>
+            <div class="income-right">37100.00</div>
+        </div>
+
+        <div class="income-row">
+            <div class="income-left">DIAMOND CLUB</div>
+            <div class="income-right">25000.00</div>
+        </div>
+
+        <div class="income-row total">
+            <div class="income-left">TOTAL INCOME</div>
+            <div class="income-right">261675.00</div>
+        </div>
+
+    </div>
+</aside>
+
+
+            
+
+        </div>
+
+        </div>
+    </div>
+
+
+<!-- ----------------script------------------ -->
+
+
+<script>
+(function(){
+    const avatar = document.querySelector(".avatar");
+    const input = document.getElementById("avatarUpload");
+    const preview = document.getElementById("avatarPreview");
+
+    // Apply round/cropped styling to the preview image
+    function stylePreview(){
+        preview.style.width = '96px';
+        preview.style.height = '96px';
+        preview.style.objectFit = 'cover';
+        preview.style.borderRadius = '50%';
+        preview.style.display = 'block';
+    }
+    stylePreview();
+
+    avatar.addEventListener("click", () => input.click());
+
+    input.addEventListener("change", function(){
+        const file = this.files && this.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e){
+            preview.src = e.target.result;
+            // ensure style applied after image load
+            preview.addEventListener('load', function handler(){
+                stylePreview();
+                preview.removeEventListener('load', handler);
+            });
+        };
+        reader.readAsDataURL(file);
+    });
+})();
+</script>
+
+
+
+
+    
+<script>
+                    (function(){
+                        var toggle = document.getElementById('drawerToggle');
+                        var closeBtn = document.getElementById('drawerClose');
+                        var drawer = document.getElementById('side-drawer');
+                        var overlay = document.getElementById('drawer-overlay');
+
+                        function openDrawer(){
+                            drawer.classList.add('open');
+                            overlay.classList.add('open');
+                            overlay.hidden = false;
+                            drawer.setAttribute('aria-hidden','false');
+                            toggle.setAttribute('aria-expanded','true');
+                            // move focus into drawer
+                            var first = drawer.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+                            if(first) first.focus();
+                        }
+
+                        function closeDrawer(){
+                            drawer.classList.remove('open');
+                            overlay.classList.remove('open');
+                            // wait for transition then hide overlay for accessibility
+                            setTimeout(function(){ overlay.hidden = true; }, 260);
+                            drawer.setAttribute('aria-hidden','true');
+                            toggle.setAttribute('aria-expanded','false');
+                            toggle.focus();
+                        }
+
+                        toggle.addEventListener('click', function(){
+                            var expanded = this.getAttribute('aria-expanded') === 'true';
+                            if(expanded) closeDrawer(); else openDrawer();
+                        });
+
+                        closeBtn.addEventListener('click', closeDrawer);
+                        overlay.addEventListener('click', closeDrawer);
+
+                        // close on Escape
+                        document.addEventListener('keydown', function(e){
+                            if(e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+                        });
+                    })();
+                </script>
+            
+<!-- ----------------script------------------ -->
+
+
+</body>
+</html>
+
+
+

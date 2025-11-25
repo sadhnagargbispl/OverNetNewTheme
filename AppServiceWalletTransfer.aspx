@@ -182,158 +182,140 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div class="row-fluid panelpart">
 
-    <div class="container-fluid">
-        <!-- BEGIN PAGE HEADER-->
-        <div class="row-fluid">
+        <div class="row">
+
             <div class="span12">
-                <%-- <h3 class="page-title">Change Password </h3>--%>
-                <ul class="breadcrumb">
-                    <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-                    <li><a href="#">Wallet Transfer</a><span class="divider-last">&nbsp;</span></li>
-                </ul>
-            </div>
-        </div>
-        <div>
 
-            <div class="row-fluid panelpart">
+                <div class="form-card">
+                    <div class="widget-title">
+                        <h4><i class="icon-credit-card"></i>WALLET TRANSFER</h4>
+                        <span class="tools">
+                            <a href="javascript:;" class="icon-chevron-down"></a>
+                        </span>
+                    </div>
+                    <div class="widget-body">
+                        <div class="content-card">
+                            <div class="form-horizontal">
+                                <div class="control-group">
 
-                <div class="row-fluid panelpart">
 
-                    <div class="row">
+                                    <h4>Available Wallet Balance:<span class="red" id="AvailableBal" style="color: Red" runat="server"></span>
+                                    </h4>
 
-                        <div class="span12">
-
-                            <div class="widget">
-                                <div class="widget-title">
-                                    <h4><i class="icon-credit-card"></i>WALLET TRANSFER</h4>
-                                    <span class="tools">
-                                        <a href="javascript:;" class="icon-chevron-down"></a>
-                                    </span>
                                 </div>
-                                <div class="widget-body">
-                                    <div class="form-horizontal">
-                                        <div class="control-group">
 
+                                <div class="control-group">
+                                    <label class="control-label">
+                                        Member Id <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
+                                    <div class="controls">
+                                        <asp:TextBox ID="TxtMemId" runat="server" CssClass="input-xxlarge validate[required]"
+                                            AutoPostBack="true" OnTextChanged="txtMemberId_TextChanged"></asp:TextBox>
+                                        <asp:Label ID="LblFormno" runat="server" Visible="false"></asp:Label>
+                                        <asp:HiddenField ID="hdnMacadrs" runat="server" />
+                                        <asp:HiddenField ID="HdnTopupSeq" runat="server" />
+                                        <asp:HiddenField ID="HdnMemberMacAdrs" runat="server" />
+                                        <asp:HiddenField ID="HdnMemberTopupseq" runat="server" />
+                                        <asp:HiddenField ID="MemberStatus" runat="server" />
+                                        <asp:HiddenField ID="hdnFormno" runat="server" />
+                                        <asp:HiddenField ID="hdnemail" runat="server" />
+                                    </div>
+                                </div>
+                                <div class="control-group " id="DivMemberName" runat="server">
+                                    <label class="control-label">
+                                        Member Name <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
+                                    <div class="controls">
+                                        <asp:Label ID="LblMobile" runat="server" Visible="false"></asp:Label>
+                                        <asp:TextBox ID="TxtMemName" runat="server" CssClass="input-xxlarge" Enabled="false"></asp:TextBox>
+                                        <asp:HiddenField ID="HdnCheckTrnns" runat="server" />
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display: none">
+                                    <label for="inputdefault">
+                                        Payment Type</label>
+                                    <asp:DropDownList ID="DDLPaymode" runat="server" class="input-xxlarge" AutoPostBack="true">
+                                        <asp:ListItem Text="Wallet" Value="1"></asp:ListItem>
 
-                                            <h4>Available Wallet Balance:<span class="red" id="AvailableBal" style="color: Red" runat="server"></span>
-                                            </h4>
+                                    </asp:DropDownList>
+                                </div>
+                                <div class="control-group " id="DivCurrency" runat="server" visible="false">
+                                    <label class="control-label">
+                                        Currency <span class="red">*</span></label>
+                                    <asp:DropDownList ID="ddlcurrency" runat="server" CssClass="input-xxlarge">
+                                    </asp:DropDownList>
+                                </div>
+                                <div class="control-group " id="Div1" runat="server" style="display: none;">
+                                    <label class="control-label">
+                                        Package</label>
+                                    <asp:DropDownList ID="CmbKit" CssClass="input-xxlarge" runat="server" AutoPostBack="true">
+                                    </asp:DropDownList>
+                                </div>
+                                <div class="control-group " runat="server">
+                                    <label class="control-label">
+                                        Amount <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
+                                    <div class="controls">
+                                        <asp:TextBox ID="txtAmount" runat="server" CssClass="input-xxlarge" Text="0" onkeypress="return isNumberKey(event);"></asp:TextBox>
+                                        <asp:Label ID="LblAmount" runat="server" Visible="false"></asp:Label>
+                                        <asp:Label ID="LblAmountUse" runat="server" Visible="false"></asp:Label>
+                                    </div>
+                                </div>
+                                <div class="control-group ">
+                                    <label class="control-label">Remarks <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
+                                    <div class="controls">
+                                        <asp:TextBox ID="TxtRemark" runat="server" CssClass="input-xxlarge"></asp:TextBox>
+                                    </div>
+                                </div>
 
-                                        </div>
+                                <%--  <div class="control-group ">
+                              <asp:Button ID="cmdSave1" runat="server" Text="Submit" class="btn" ValidationGroup="Validation" OnClick="cmdSave1_Click" />
+                              <asp:Label ID="LblError" runat="server" Visible="false"></asp:Label>
+                          </div>--%>
+                                <div class="control-group">
+                                    <div id="DivTerms" runat="server" visible="true">
+                                        <asp:Button ID="CmdSave" runat="server" Text="Send Otp" CssClass="btn"
+                                            TabIndex="54" OnClick="CmdSave_Click" />
+                                        <%-- &nbsp;<asp:Button ID="CmdCancel" runat="server" Text="Cancel" CssClass="btn btn-primary"
+                                      ValidationGroup="eCancel" TabIndex="55" />--%>
+                                    </div>
+                                    <br />
+                                    <div id="divOtp" runat="server" visible="false">
 
-                                        <div class="control-group">
-                                            <label class="control-label">
-                                                Member Id <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
-                                            <div class="controls">
-                                                <asp:TextBox ID="TxtMemId" runat="server" CssClass="input-xxlarge validate[required]"
-                                                    AutoPostBack="true" OnTextChanged="txtMemberId_TextChanged"></asp:TextBox>
-                                                <asp:Label ID="LblFormno" runat="server" Visible="false"></asp:Label>
-                                                <asp:HiddenField ID="hdnMacadrs" runat="server" />
-                                                <asp:HiddenField ID="HdnTopupSeq" runat="server" />
-                                                <asp:HiddenField ID="HdnMemberMacAdrs" runat="server" />
-                                                <asp:HiddenField ID="HdnMemberTopupseq" runat="server" />
-                                                <asp:HiddenField ID="MemberStatus" runat="server" />
-                                                <asp:HiddenField ID="hdnFormno" runat="server" />
-                                                <asp:HiddenField ID="hdnemail" runat="server" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group " id="DivMemberName" runat="server">
-                                            <label class="control-label">
-                                                Member Name <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
-                                            <div class="controls">
-                                                <asp:Label ID="LblMobile" runat="server" Visible="false"></asp:Label>
-                                                <asp:TextBox ID="TxtMemName" runat="server" CssClass="input-xxlarge" Enabled="false"></asp:TextBox>
-                                                <asp:HiddenField ID="HdnCheckTrnns" runat="server" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group" style="display: none">
-                                            <label for="inputdefault">
-                                                Payment Type</label>
-                                            <asp:DropDownList ID="DDLPaymode" runat="server" class="input-xxlarge" AutoPostBack="true">
-                                                <asp:ListItem Text="Wallet" Value="1"></asp:ListItem>
-
-                                            </asp:DropDownList>
-                                        </div>
-                                        <div class="control-group " id="DivCurrency" runat="server" visible="false">
-                                            <label class="control-label">
-                                                Currency <span class="red">*</span></label>
-                                            <asp:DropDownList ID="ddlcurrency" runat="server" CssClass="input-xxlarge">
-                                            </asp:DropDownList>
-                                        </div>
-                                        <div class="control-group " id="Div1" runat="server" style="display: none;">
-                                            <label class="control-label">
-                                                Package</label>
-                                            <asp:DropDownList ID="CmbKit" CssClass="input-xxlarge" runat="server" AutoPostBack="true">
-                                            </asp:DropDownList>
-                                        </div>
-                                        <div class="control-group " runat="server">
-                                            <label class="control-label">
-                                                Amount <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
-                                            <div class="controls">
-                                                <asp:TextBox ID="txtAmount" runat="server" CssClass="input-xxlarge" Text="0" onkeypress="return isNumberKey(event);"></asp:TextBox>
-                                                <asp:Label ID="LblAmount" runat="server" Visible="false"></asp:Label>
-                                                <asp:Label ID="LblAmountUse" runat="server" Visible="false"></asp:Label>
-                                            </div>
-                                        </div>
                                         <div class="control-group ">
-                                            <label class="control-label">Remarks <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
+                                            <label class="control-label">Wallet Password <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
                                             <div class="controls">
-                                                <asp:TextBox ID="TxtRemark" runat="server" CssClass="input-xxlarge"></asp:TextBox>
+                                                <asp:TextBox ID="TxtPassword" runat="server" CssClass="input-xxlarge" TextMode="Password"></asp:TextBox>
                                             </div>
                                         </div>
-
-                                        <%--  <div class="control-group ">
-                                            <asp:Button ID="cmdSave1" runat="server" Text="Submit" class="btn" ValidationGroup="Validation" OnClick="cmdSave1_Click" />
-                                            <asp:Label ID="LblError" runat="server" Visible="false"></asp:Label>
-                                        </div>--%>
                                         <div class="control-group">
-                                            <div id="DivTerms" runat="server" visible="true">
-                                                <asp:Button ID="CmdSave" runat="server" Text="Send Otp" CssClass="btn"
-                                                    TabIndex="54" OnClick="CmdSave_Click" />
-                                               <%-- &nbsp;<asp:Button ID="CmdCancel" runat="server" Text="Cancel" CssClass="btn btn-primary"
-                                                    ValidationGroup="eCancel" TabIndex="55" />--%>
-                                            </div>
+                                            <label class="control-label">
+                                                Enter Mobile OTP <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
                                             <br />
-                                            <div id="divOtp" runat="server" visible="false">
+                                            <asp:TextBox ID="TxtPassword1" autocomplete="off" runat="server"
+                                                CssClass="input-xxlarge"></asp:TextBox>
+                                            <asp:Label ID="lblOTPMsg" runat="server"></asp:Label>
+                                            <asp:RequiredFieldValidator ID="rbtnbsa" runat="server" ControlToValidate="TxtPassword1"
+                                                SetFocusOnError="true" Text="*" ValidationGroup="Submitbtn"></asp:RequiredFieldValidator>
+                                        </div>
 
-                                                <div class="control-group ">
-                                                    <label class="control-label">Wallet Password <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
-                                                    <div class="controls">
-                                                        <asp:TextBox ID="TxtPassword" runat="server" CssClass="input-xxlarge" TextMode="Password"></asp:TextBox>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <label class="control-label">
-                                                        Enter Mobile OTP <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
-                                                    <br />
-                                                    <asp:TextBox ID="TxtPassword1" autocomplete="off" runat="server"
-                                                        CssClass="input-xxlarge"></asp:TextBox>
-                                                    <asp:Label ID="lblOTPMsg" runat="server"></asp:Label>
-                                                    <asp:RequiredFieldValidator ID="rbtnbsa" runat="server" ControlToValidate="TxtPassword1"
-                                                        SetFocusOnError="true" Text="*" ValidationGroup="Submitbtn"></asp:RequiredFieldValidator>
-                                                </div>
-
-                                                <div class="col-lg-12 col-md-12">
-                                                    <asp:Button ID="cmdSave1" runat="server" ValidationGroup="Submitbtn" Text="Submit"
-                                                        class="btn" OnClick="cmdSave1_Click" />
-                                                    <asp:Button ID="btngenerate" runat="server" Text="Generate OTP" class="btn" OnClick="btngenerate_Click" />
-                                                </div>
-                                            </div>
-                                            <%--<asp:Button ID="cmdSave1" runat="server" Text="Submit" class="btn btn-primary" ValidationGroup="Validation" />--%>
+                                        <div class="col-lg-12 col-md-12">
+                                            <asp:Button ID="cmdSave1" runat="server" ValidationGroup="Submitbtn" Text="Submit"
+                                                class="btn" OnClick="cmdSave1_Click" />
+                                            <asp:Button ID="btngenerate" runat="server" Text="Generate OTP" class="btn" OnClick="btngenerate_Click" />
                                         </div>
                                     </div>
+                                    <%--<asp:Button ID="cmdSave1" runat="server" Text="Submit" class="btn btn-primary" ValidationGroup="Validation" />--%>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="clearfix"></div>
-                    <p>&nbsp;</p>
-                    <hr>
-                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
+        <div class="clearfix"></div>
+        <p>&nbsp;</p>
+        <hr>
+        <div class="clearfix"></div>
     </div>
-
 </asp:Content>
 

@@ -5,112 +5,7 @@
 
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
-    <style>
-        .tblpadding {
-            padding-top: 5px !important;
-            padding-bottom: 0px !important;
-        }
 
-        .tblpadding1 {
-            padding-top: 5px !important;
-            padding-bottom: 0px !important;
-            text-align: right;
-        }
-
-        .infocolor {
-            background-color: #ff2b3f;
-        }
-    </style>
-    <style type="text/css">
-        .infoclr {
-            background-color: #ffe3ed;
-        }
-
-        .backclr {
-            background-color: #efefef;
-        }
-
-        .Background {
-            background-color: Black;
-            filter: alpha(opacity=90);
-            opacity: 0.8;
-        }
-
-        .Popup {
-            background-color: #FFFFFF;
-            border-width: 3px;
-            border-style: solid;
-            border-color: black;
-            padding-top: 10px;
-            padding-left: 10px;
-            width: 500px;
-            height: 550px;
-        }
-
-        .lbl {
-            font-size: 16px;
-            font-style: italic;
-            font-weight: bold;
-        }
-    </style>
-
-    <script type="text/javascript">
-        function copyText() {
-
-            var range, selection, worked;
-            var element = document.getElementById("ContentPlaceHolder1_lblLink");
-            if (document.body.createTextRange) {
-                range = document.body.createTextRange();
-                range.moveToElementText(element);
-                range.select();
-            } else if (window.getSelection) {
-                selection = window.getSelection();
-                range = document.createRange();
-                range.selectNodeContents(element);
-                selection.removeAllRanges();
-                selection.addRange(range);
-            }
-
-            try {
-                document.execCommand('copy');
-                alert('link copied');
-            }
-            catch (err) {
-                alert('unable to copy link');
-            }
-            return false;
-        }
-
-    </script>
-
-    <script type="text/javascript">
-        function copyText1() {
-            debugger;
-            var range, selection, worked;
-            var element = document.getElementById("ContentPlaceHolder1_lblLinkClient");
-            if (document.body.createTextRange) {
-                range = document.body.createTextRange();
-                range.moveToElementText(element);
-                range.select();
-            } else if (window.getSelection) {
-                selection = window.getSelection();
-                range = document.createRange();
-                range.selectNodeContents(element);
-                selection.removeAllRanges();
-                selection.addRange(range);
-            }
-
-            try {
-                document.execCommand('copy');
-                alert('link copied');
-            }
-            catch (err) {
-                alert('unable to copy link');
-            }
-            return false;
-        }
-
-    </script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         .income-box {
@@ -563,31 +458,46 @@
 
             <!-- Actions -->
             <div class="actions" aria-label="quick actions">
-                <div class="action-card" role="button" tabindex="0">
-                    <img src="appimg/appicon_1.png" alt="">
-                </div>
-                <div class="action-card" role="button" tabindex="0">
-                    <img src="appimg/appicon_2.png" alt="">
-                </div>
-                <div class="action-card" role="button" tabindex="0">
-                    <img src="appimg/appicon_3.png" alt="">
-                </div>
-                <div class="action-card" role="button" tabindex="0">
-                    <img src="appimg/appicon_4.png" alt="">
-                </div>
-                <div class="action-card" role="button" tabindex="0">
-                    <img src="appimg/appicon_5.png" alt="">
-                </div>
-                <div class="action-card" role="button" tabindex="0">
-                    <img src="appimg/appicon_6.png" alt="">
-                </div>
-                <div class="action-card" role="button" tabindex="0">
-                    <img src="appimg/appicon_7.png" alt="">
-                </div>
-                <div class="action-card" role="button" tabindex="0">
-                    <img src="appimg/appicon_8.png" alt="">
-                </div>
-
+                <a href="Appprofile.aspx">
+                    <div class="action-card" role="button" tabindex="0">
+                        <img src="appimg/appicon_1.png" alt="">
+                    </div>
+                </a>
+                <a href="welcomeletter.aspx">
+                    <div class="action-card" role="button" tabindex="0">
+                        <img src="appimg/appicon_2.png" alt="">
+                    </div>
+                </a>
+                <a href="AppComplain.aspx">
+                    <div class="action-card" role="button" tabindex="0">
+                        <img src="appimg/appicon_3.png" alt="">
+                    </div>
+                </a>
+                <a href="AppComplainSolution.aspx">
+                    <div class="action-card" role="button" tabindex="0">
+                        <img src="appimg/appicon_4.png" alt="">
+                    </div>
+                </a>
+                <a href="AppTree.aspx">
+                    <div class="action-card" role="button" tabindex="0">
+                        <img src="appimg/appicon_5.png" alt="">
+                    </div>
+                </a>
+                <a href="AppPinTransfer.aspx">
+                    <div class="action-card" role="button" tabindex="0">
+                        <img src="appimg/appicon_6.png" alt="">
+                    </div>
+                </a>
+                <a href="AppServiceWalletTransfer.aspx">
+                    <div class="action-card" role="button" tabindex="0">
+                        <img src="appimg/appicon_7.png" alt="">
+                    </div>
+                </a>
+                <a href="AppAllWalletReport.aspx">
+                    <div class="action-card" role="button" tabindex="0">
+                        <img src="appimg/appicon_8.png" alt="">
+                    </div>
+                </a>
 
             </div>
 
@@ -652,7 +562,7 @@
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"981d59f2217245c4acd469967980a90a","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 
 
-    
+
 </asp:Content>
 
 

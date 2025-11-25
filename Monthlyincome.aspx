@@ -77,8 +77,8 @@
                                                                     </th>
                                                                     <th>Closing Income
                                                                     </th>
-                                                                    <th>Statement
-                                                                    </th>
+                                                                  <%--  <th>Statement
+                                                                    </th>--%>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -127,9 +127,9 @@
                                                                             <td>
                                                                                 <%#Eval("Carry Forward Balance")%>
                                                                             </td>
-                                                                            <td>
+                                                                            <%--<td>
                                                                                 <a href="MonthlyStatement.aspx?PayoutNo=<%# Eval("Sessid") %>" target="_blank" style="color: Blue">Statement</a>
-                                                                            </td>
+                                                                            </td>--%>
                                                                         </tr>
                                                                     </ItemTemplate>
                                                                 </asp:Repeater>
