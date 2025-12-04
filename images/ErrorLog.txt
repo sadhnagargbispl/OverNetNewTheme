@@ -225,3 +225,12 @@ Thread was being aborted.
 http://localhost:51126/AppPinTransferDetails.aspx:  25-Nov-2025 03:21:15:487 
 A connection was successfully established with the server, but then an error occurred during the login process. (provider: SSL Provider, error: 0 - The specified network name is no longer available.)
 --------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=203209&scratch=BF8B1:  04-Dec-2025 10:58:23:398 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=201585&scratch=4394189:  04-Dec-2025 01:09:04:981 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=201585&scratch=4394189:  04-Dec-2025 01:10:34:190 
+The method or operation is not implemented.
+--------------------------------------------------------

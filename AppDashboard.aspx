@@ -505,10 +505,6 @@
 
                 <div class="card" aria-labelledby="wallet-title">
                     <h2 id="wallet-title" class="section-title">Main Wallet</h2>
-
-
-
-
                     <div class="table-responsive">
                         <table class="wallet-table" role="table" aria-label="main wallet balances">
                             <thead>
@@ -531,11 +527,185 @@
                             </tbody>
                         </table>
                     </div>
-
-
                 </div>
 
 
+                <div class="card" aria-labelledby="wallet-title">
+                    <h2 id="wallet-title" class="section-title">My Team Detail</h2>
+                    <div class="table-responsive">
+                        <table class="wallet-table" role="table" aria-label="main wallet balances">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Left</th>
+                                    <th scope="col">Right</th>
+                                    <th scope="col">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>Current Month Registration
+                                    </td>
+
+                                    <td id="crntmonthjoinleft" runat="server">0
+                                    </td>
+                                    <td id="crntmonthjoinright" runat="server">0
+                                    </td>
+                                    <td id="currentmonthtotaljoin" runat="server">0
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Current Month Activation
+                                    </td>
+                                    <td id="curntmothactiveleft" runat="server">0
+                                    </td>
+                                    <td id="curentmonthactiveright" runat="server">0
+                                    </td>
+                                    <td id="crntmonthtotalactive" runat="server">0
+                                    </td>
+                                </tr>
+                                <tr style="display: none;">
+                                    <td>Current Month Retopup
+                                    </td>
+                                    <td id="curntmothretopupleft" runat="server">0
+                                    </td>
+                                    <td id="curntmothretopupRight" runat="server">0
+                                    </td>
+                                    <td id="curntmothretopupTotal" runat="server">0
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Today's Activation
+                                    </td>
+                                    <td id="TodayDirectActive" runat="server">0
+                                    </td>
+                                    <td id="TodayIndirectActive" runat="server">0
+                                    </td>
+                                    <td id="TodayTotalActive" runat="server">0
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Total Activation
+                                    </td>
+                                    <td id="TotalDirectActivation" runat="server">0
+                                    </td>
+                                    <td id="TotalIndirectActivation" runat="server">0
+                                    </td>
+                                    <td id="TotalActivation" runat="server">0
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Total Direct Active
+                                    </td>
+                                    <td id="TdLeftDirectActive" runat="server">0
+                                    </td>
+                                    <td id="TdRightIndirectActive" runat="server">0
+                                    </td>
+                                    <td id="TdTotalDirectActive" runat="server">0
+                                    </td>
+                                </tr>
+                                <tr style="display: none;">
+                                    <td>Total Retopup
+                                    </td>
+                                    <td id="TdLeftTopup" runat="server">0
+                                    </td>
+                                    <td id="TdRightTopup" runat="server">0
+                                    </td>
+                                    <td id="TdTotalTopup" runat="server">0
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Current Month Repurchase Joining PV
+                                    </td>
+                                    <td id="tdjrpvleft" runat="server">0
+                                    </td>
+                                    <td id="tdjrpvright" runat="server">0
+                                    </td>
+                                    <td id="tdjrtotal" runat="server">0
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Total Repurchase Joining PV
+                                    </td>
+                                    <td id="tdjoinpvleft" runat="server">0
+                                    </td>
+                                    <td id="tdjoinpvright" runat="server">0
+                                    </td>
+                                    <td id="tdjointotalpv" runat="server">0
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Current Month Repurchase PV
+                                    </td>
+                                    <td id="TdpvSleft" runat="server">0
+                                    </td>
+                                    <td id="TdpvrightS" runat="server">0
+                                    </td>
+                                    <td id="tdtotalSpv" runat="server">0
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Total Repurchase PV
+                                    </td>
+                                    <td id="Tdpvleft" runat="server">0
+                                    </td>
+                                    <td id="Tdpvright" runat="server">0
+                                    </td>
+                                    <td id="tdtotalpv" runat="server">0
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Current Month Repurchase BV
+                                    </td>
+                                    <td id="tdBVL" runat="server">0
+                                    </td>
+                                    <td id="tdBVR" runat="server">0
+                                    </td>
+                                    <td id="tdBV" runat="server">0
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Total Repurchase BV
+                                    </td>
+                                    <td id="TdBVTL" runat="server">0
+                                    </td>
+                                    <td id="TdBVTR" runat="server">0
+                                    </td>
+                                    <td id="TdBVTotal" runat="server">0
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card" aria-labelledby="wallet-title">
+                    <h2 id="wallet-title" class="section-title">Self Repurchase BV</h2>
+                    <div class="table-responsive">
+                        <table class="wallet-table" role="table" aria-label="main wallet balances">
+                            <thead>
+                                <tr>
+                                    <th scope="col">BV Type</th>
+                                    <th scope="col">Value</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Current Month BV</td>
+                                    <td id="sptotalbv" runat="server">0</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Total BV</td>
+                                    <td id="spselfbv" runat="server">0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
 
                 <aside class="card" aria-labelledby="income-title">

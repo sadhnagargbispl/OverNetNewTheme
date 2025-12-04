@@ -58,39 +58,17 @@ public partial class AppDashboard : System.Web.UI.Page
                 RptDirectList.DataSource = Ds.Tables[0];
                 RptDirectList.DataBind();
             }
-            //if (Ds.Tables[1].Rows.Count > 0)
-            //{
-            //    RptDirects.DataSource = Ds.Tables[1];
-            //    RptDirects.DataBind();
-
-            //}
             if (Ds.Tables[2].Rows.Count > 0)
             {
-                //LblUserID.Text = Ds.Tables[2].Rows[0]["IdNo"].ToString();
-               // LblUserName.Text = Ds.Tables[2].Rows[0]["Name"].ToString();
                 LbldateOfJoining.Text = Ds.Tables[2].Rows[0]["DOj"].ToString();
                 LblUserNo.Text = Ds.Tables[2].Rows[0]["IdNo"].ToString();
                 LblLUserName.Text = Ds.Tables[2].Rows[0]["Name"].ToString();
-               // Lbldateofjoiningg.Text = Ds.Tables[2].Rows[0]["ActivationDate"].ToString();
-                //Lblstatus.Text = Ds.Tables[2].Rows[0]["status"].ToString();
-               // LblSponsorID.Text = Ds.Tables[2].Rows[0]["sponsorId"].ToString();
-               // LblSponsorName.Text = Ds.Tables[2].Rows[0]["sponsorName"].ToString();
-                //Image2.ImageUrl = Ds.Tables[2].Rows[0]["ProfilePic"].ToString();
-                //lblLink.Text = "http://" + HttpContext.Current.Request.Url.Host + "/NewJoiningBackup.aspx?ref=" + Crypto.Encrypt(Ds.Tables[2].Rows[0]["mid"].ToString() + "/1");
-                //aRfLink.HRef = lblLink.Text;
-                //lblLinkClient.Text = "http://" + HttpContext.Current.Request.Url.Host + "/NewJoiningBackup.aspx?ref=" + Crypto.Encrypt(Ds.Tables[2].Rows[0]["mid"].ToString() + "/2");
-                //aRfLinkClient.HRef = lblLinkClient.Text;
             }
             if (Ds.Tables[3].Rows.Count > 0)
             {
                 gvBalance.DataSource = Ds.Tables[3];
                 gvBalance.DataBind();
             }
-            //if (Ds.Tables[4].Rows.Count > 0)
-            //{
-            //    RptNews.DataSource = Ds.Tables[4];
-            //    RptNews.DataBind();
-            //}
             if (Ds.Tables[5].Rows.Count > 0)
             {
                 LblRank.Text = Ds.Tables[5].Rows[0]["Rank"].ToString();
@@ -99,77 +77,77 @@ public partial class AppDashboard : System.Web.UI.Page
             {
                 LblRank.Text = "Not Achieved";
             }
-            //if (Ds.Tables[7].Rows.Count > 0)
-            //{
-            //    crntmonthjoinleft.InnerText = Ds.Tables[7].Rows[0]["Crntmonthleftjoin"].ToString();
-            //    crntmonthjoinright.InnerText = Ds.Tables[7].Rows[0]["Crntmonthrightjoin"].ToString();
-            //    currentmonthtotaljoin.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["Crntmonthleftjoin"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["Crntmonthrightjoin"])).ToString();
+            if (Ds.Tables[7].Rows.Count > 0)
+            {
+                crntmonthjoinleft.InnerText = Ds.Tables[7].Rows[0]["Crntmonthleftjoin"].ToString();
+                crntmonthjoinright.InnerText = Ds.Tables[7].Rows[0]["Crntmonthrightjoin"].ToString();
+                currentmonthtotaljoin.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["Crntmonthleftjoin"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["Crntmonthrightjoin"])).ToString();
 
-            //    curntmothactiveleft.InnerText = Ds.Tables[7].Rows[0]["CrntmonthleftActive"].ToString();
-            //    curentmonthactiveright.InnerText = Ds.Tables[7].Rows[0]["CrntmonthrightActive"].ToString();
-            //    crntmonthtotalactive.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["CrntmonthleftActive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["CrntmonthrightActive"])).ToString();
+                curntmothactiveleft.InnerText = Ds.Tables[7].Rows[0]["CrntmonthleftActive"].ToString();
+                curentmonthactiveright.InnerText = Ds.Tables[7].Rows[0]["CrntmonthrightActive"].ToString();
+                crntmonthtotalactive.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["CrntmonthleftActive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["CrntmonthrightActive"])).ToString();
 
-            //    TodayDirectActive.InnerText = Ds.Tables[7].Rows[0]["LeftTodayActive"].ToString();
-            //    TodayIndirectActive.InnerText = Ds.Tables[7].Rows[0]["RightTodayActive"].ToString();
-            //    TodayTotalActive.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["LeftTodayActive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["RightTodayActive"])).ToString();
+                TodayDirectActive.InnerText = Ds.Tables[7].Rows[0]["LeftTodayActive"].ToString();
+                TodayIndirectActive.InnerText = Ds.Tables[7].Rows[0]["RightTodayActive"].ToString();
+                TodayTotalActive.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["LeftTodayActive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["RightTodayActive"])).ToString();
 
-            //    TotalDirectActivation.InnerText = Ds.Tables[7].Rows[0]["Leftactive"].ToString();
-            //    TotalIndirectActivation.InnerText = Ds.Tables[7].Rows[0]["RightActive"].ToString();
-            //    TotalActivation.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["Leftactive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["RightActive"])).ToString();
+                TotalDirectActivation.InnerText = Ds.Tables[7].Rows[0]["Leftactive"].ToString();
+                TotalIndirectActivation.InnerText = Ds.Tables[7].Rows[0]["RightActive"].ToString();
+                TotalActivation.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["Leftactive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["RightActive"])).ToString();
 
-            //    TdLeftDirectActive.InnerText = Ds.Tables[7].Rows[0]["Directactive"].ToString();
-            //    TdRightIndirectActive.InnerText = Ds.Tables[7].Rows[0]["InDirectactive"].ToString();
-            //    TdTotalDirectActive.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["Directactive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["InDirectactive"])).ToString();
+                TdLeftDirectActive.InnerText = Ds.Tables[7].Rows[0]["Directactive"].ToString();
+                TdRightIndirectActive.InnerText = Ds.Tables[7].Rows[0]["InDirectactive"].ToString();
+                TdTotalDirectActive.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["Directactive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["InDirectactive"])).ToString();
 
-            //    TdLeftTopup.InnerText = Ds.Tables[7].Rows[0]["LeftTopup"].ToString();
-            //    TdRightTopup.InnerText = Ds.Tables[7].Rows[0]["RightTopup"].ToString();
-            //    TdTotalTopup.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["LeftTopup"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["RightTopup"])).ToString();
+                TdLeftTopup.InnerText = Ds.Tables[7].Rows[0]["LeftTopup"].ToString();
+                TdRightTopup.InnerText = Ds.Tables[7].Rows[0]["RightTopup"].ToString();
+                TdTotalTopup.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["LeftTopup"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["RightTopup"])).ToString();
 
-            //    curntmothretopupleft.InnerText = Ds.Tables[7].Rows[0]["CurrentLeftReTopup"].ToString();
-            //    curntmothretopupRight.InnerText = Ds.Tables[7].Rows[0]["CurrentRightReTopup"].ToString();
-            //    curntmothretopupTotal.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["CurrentLeftReTopup"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["CurrentRightReTopup"])).ToString();
+                curntmothretopupleft.InnerText = Ds.Tables[7].Rows[0]["CurrentLeftReTopup"].ToString();
+                curntmothretopupRight.InnerText = Ds.Tables[7].Rows[0]["CurrentRightReTopup"].ToString();
+                curntmothretopupTotal.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["CurrentLeftReTopup"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["CurrentRightReTopup"])).ToString();
 
-            //    Tdpvleft.InnerText = Ds.Tables[7].Rows[0]["PVL"].ToString();
-            //    Tdpvright.InnerText = Ds.Tables[7].Rows[0]["PVR"].ToString();
-            //    tdtotalpv.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVR"])).ToString();
+                Tdpvleft.InnerText = Ds.Tables[7].Rows[0]["PVL"].ToString();
+                Tdpvright.InnerText = Ds.Tables[7].Rows[0]["PVR"].ToString();
+                tdtotalpv.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVR"])).ToString();
 
-            //    TdpvSleft.InnerText = Ds.Tables[7].Rows[0]["PVSL"].ToString();
-            //    TdpvrightS.InnerText = Ds.Tables[7].Rows[0]["PVSR"].ToString();
-            //    tdtotalSpv.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSR"])).ToString();
+                TdpvSleft.InnerText = Ds.Tables[7].Rows[0]["PVSL"].ToString();
+                TdpvrightS.InnerText = Ds.Tables[7].Rows[0]["PVSR"].ToString();
+                tdtotalSpv.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSR"])).ToString();
 
-            //    tdjoinpvleft.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["Leftactive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVL"])).ToString();
-            //    tdjoinpvright.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["RightActive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVR"])).ToString();
-            //    tdjointotalpv.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["Leftactive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["RightActive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVR"])).ToString();
+                tdjoinpvleft.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["Leftactive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVL"])).ToString();
+                tdjoinpvright.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["RightActive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVR"])).ToString();
+                tdjointotalpv.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["Leftactive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["RightActive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVR"])).ToString();
 
-            //    tdjrpvleft.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["CrntmonthleftActive"])).ToString();
-            //    tdjrpvright.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSR"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["CrntmonthrightActive"])).ToString();
-            //    tdjrtotal.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["CrntmonthleftActive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSR"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["CrntmonthrightActive"])).ToString();
+                tdjrpvleft.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["CrntmonthleftActive"])).ToString();
+                tdjrpvright.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSR"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["CrntmonthrightActive"])).ToString();
+                tdjrtotal.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["CrntmonthleftActive"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSR"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["CrntmonthrightActive"])).ToString();
 
-            //    tdBVL.InnerText = Ds.Tables[7].Rows[0]["BVL"].ToString();
-            //    tdBVR.InnerText = Ds.Tables[7].Rows[0]["BVR"].ToString();
-            //    tdBV.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["BVL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["BVR"])).ToString();
+                tdBVL.InnerText = Ds.Tables[7].Rows[0]["BVL"].ToString();
+                tdBVR.InnerText = Ds.Tables[7].Rows[0]["BVR"].ToString();
+                tdBV.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["BVL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["BVR"])).ToString();
 
-            //    TdBVTL.InnerText = Ds.Tables[7].Rows[0]["BVTL"].ToString();
-            //    TdBVTR.InnerText = Ds.Tables[7].Rows[0]["BVTR"].ToString();
-            //    TdBVTotal.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["BVTL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["BVTR"])).ToString();
-            //}
-            //if (Ds.Tables[8].Rows.Count > 0)
-            //{
-            //    spselfbv.InnerText = Ds.Tables[8].Rows[0]["SelfBv"].ToString();
-            //}
-            //else
-            //{
-            //    spselfbv.InnerText = "0.00";
-            //}
+                TdBVTL.InnerText = Ds.Tables[7].Rows[0]["BVTL"].ToString();
+                TdBVTR.InnerText = Ds.Tables[7].Rows[0]["BVTR"].ToString();
+                TdBVTotal.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["BVTL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["BVTR"])).ToString();
+            }
+            if (Ds.Tables[8].Rows.Count > 0)
+            {
+                spselfbv.InnerText = Ds.Tables[8].Rows[0]["SelfBv"].ToString();
+            }
+            else
+            {
+                spselfbv.InnerText = "0.00";
+            }
 
-            //if (Ds.Tables[9].Rows.Count > 0)
-            //{
-            //    sptotalbv.InnerText = Ds.Tables[9].Rows[0]["totalBV"].ToString();
-            //}
-            //else
-            //{
-            //    sptotalbv.InnerText = "0.00";
-            //}
+            if (Ds.Tables[9].Rows.Count > 0)
+            {
+                sptotalbv.InnerText = Ds.Tables[9].Rows[0]["totalBV"].ToString();
+            }
+            else
+            {
+                sptotalbv.InnerText = "0.00";
+            }
 
         }
         catch (Exception ex)
