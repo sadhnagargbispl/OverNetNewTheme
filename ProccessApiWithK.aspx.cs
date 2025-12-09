@@ -214,6 +214,71 @@ public partial class ProccessApiWithK : System.Web.UI.Page
         }
         Response.End();
     }
+    private string ShowUpline(string RefFormno)
+    {
+        string RtrVal = "False";
+        DataTable tmpTable = new DataTable();
+        string str = ObjDAL.Isostart + "select Count(1) As Cnt From " + ObjDAL.dBName + "..M_MemberMaster Where RefFormno = '" + RefFormno + "'" + ObjDAL.IsoEnd;
+        DataSet dsCh = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str);
+        tmpTable = dsCh.Tables[0];
+        if (Convert.ToInt32(tmpTable.Rows[0]["Cnt"]) >= 2)
+        {
+            RtrVal = "True";
+        }
+        else
+        {
+            RtrVal = "False";
+        }
+
+        return RtrVal;
+    }
+    private string CheckSponsor(string userid, string passwd, string sponsorid)
+    {
+        bool isValid = false;
+
+        if (userid == "" && passwd == "")
+        {
+            isValid = true;
+        }
+        else
+        {
+            isValid = UserExists(userid, passwd);
+        }
+
+        string _output = "";
+
+        if (isValid == true)
+        {
+            string sponsorname = "";
+            string formno = GetFormNo(sponsorid).ToString();
+            string UplnFormno = "";
+            string Sqlstr = ObjDAL.Isostart + "Select idno,(MemfirstName+' '+memlastName) as MemberName,formno from " + ObjDAL.dBName + "..M_MemberMaster where Idno = '" + sponsorid.Trim() + "' " + ObjDAL.IsoEnd;
+            DataTable Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, Sqlstr).Tables[0];
+            if (Dt.Rows.Count > 0)
+            {
+                sponsorname = Dt.Rows[0]["MemberName"].ToString();
+                UplnFormno = Dt.Rows[0]["formno"].ToString();
+                if (ShowUpline(UplnFormno.ToString()) == "True")
+                {
+                    _output = "{\"response\":\"OK\",\"sponsorname\":\"" + sponsorname + "\",\"showupline\":\"true\",\"msg\":\"success\"}";
+                }
+                else
+                {
+                    _output = "{\"response\":\"OK\",\"sponsorname\":\"" + sponsorname + "\",\"showupline\":\"false\",\"msg\":\"success\"}";
+                }
+            }
+            else
+            {
+                _output = "{\"response\":\"FAILED\",\"sponsorname\":\"\",\"showupline\":\"false\",\"msg\":\"This ID Not Valid For Sponsor.!\"}";
+            }
+        }
+        else
+        {
+            _output = "{\"response\":\"FAILED\",\"sponsorname\":\"\",\"showupline\":\"false\",\"msg\":\"Invalid Login Details.\"}";
+        }
+
+        return _output;
+    }
     public void Process(string _Reqtype, Dictionary<string, string> dict)
     {
         try
@@ -224,6 +289,32 @@ public partial class ProccessApiWithK : System.Web.UI.Page
                 string _ReqPassw = ClearInject(dict["passwd"]);
                 string Result_Json = checklogin(_ReqUser, _ReqPassw);
                 string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'reqlogin' WHERE ReqID = '" + sResult.Trim() + "'";
+                int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
+                Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.Write(Result_Json);
+            }
+            else if (_ReqType == "checksponsor")
+            {
+                string _ReqMobileNo = "";
+                try
+                {
+                    _ReqMobileNo = ClearInject(dict["userid"]);
+                }
+                catch (Exception) { }
+
+                string _ReqOtpCode = "";
+                try
+                {
+                    _ReqOtpCode = ClearInject(dict["passwd"]);
+                }
+                catch (Exception) { }
+
+                string _ReqSponsor = ClearInject(dict["sponsorid"]);
+
+                string Result_Json = CheckSponsor(_ReqMobileNo, _ReqOtpCode, _ReqSponsor);
+                string sql_res = "UPDATE Tbl_ApiRequest_ResponseQrCode SET Response = '" + Result_Json.Trim() + "',ForType = 'checksponsor' WHERE ReqID = '" + sResult.Trim() + "'";
                 int x_res = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sql_res));
                 Result_Json = Result_Json.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
                 Response.Clear();
@@ -576,7 +667,7 @@ public partial class ProccessApiWithK : System.Web.UI.Page
                 Response.ContentType = "application/json";
                 Response.Write(Result_Json);
             }
-            
+
             else if (_Reqtype == "pincode")
             {
                 string _ReqUser = ClearInject(dict["userid"]);
@@ -4276,7 +4367,7 @@ public partial class ProccessApiWithK : System.Web.UI.Page
                     "productname as [Product Name],IssuedDate as [Issue Date],Status as [Epin Status],UsedBy as [Used By]," +
                     "MemName as Name,UsedDate as [Used Date] FROM " + ObjDAL.dBName + "..V#EpinStatus WHERE ReqFormNo='" + userid + "'" + WhereCondition;
                 strQry = IsoStart + "SELECT * FROM (" + strQry + ") AS b WHERE SNo >= " + FromNo + " AND SNo <= " + ToNo + IsoEnd;
-                DataSet ds1 = SqlHelper.ExecuteDataset(constr1,CommandType.Text,strQry);
+                DataSet ds1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQry);
                 DataTable dt = new DataTable();
                 if (ds1.Tables[0].Rows.Count > 0)
                 {

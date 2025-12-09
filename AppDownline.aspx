@@ -53,7 +53,7 @@
                                     </div>
 
                                 </div>
-                 
+
                                 <div class="wallet-table-wrapper">
                                     <table class="table table-bordered table-striped">
                                         <tbody>
@@ -109,7 +109,7 @@
                                 <div id="DivSideA" runat="server" class="wallet-table-wrapper">
                                     <h4>Left Downline</h4>
                                     <div class="form-group ">
-                                        <asp:Button ID="BtnExportA" runat="server" Text="Export" class="btn" />
+                                        <asp:Button ID="BtnExportA" runat="server" Text="Export" class="btn" OnClick="BtnExportA_Click" />
                                     </div>
                                     <asp:Label ID="Label1" runat="server" Text="Total Records"></asp:Label>
                                     <asp:Label ID="lbltotal" runat="server"></asp:Label>
@@ -192,7 +192,7 @@
                                     <h4>Right Downline <span></span>
                                     </h4>
                                     <div class="form-group">
-                                        <asp:Button ID="BtnExportB" runat="server" Text="Export" class="btn" />
+                                        <asp:Button ID="BtnExportB" runat="server" Text="Export" class="btn" OnClick="BtnExportB_Click" />
                                     </div>
                                     <asp:Label ID="Label2" runat="server" Text="Total Records"></asp:Label>
                                     <asp:Label ID="lbltotal2" runat="server"></asp:Label>

@@ -321,9 +321,8 @@ public partial class ServiceWalletTransfer : System.Web.UI.Page
 
                 objDal = new DAL();
                 int i = 0;
-                string R = "INSERT into AdminLogin(UserID, Username, Passw, MobileNo, Otp) " +
-                           "VALUES ('0','" + membername + "','0','" + mobileno + "','" + OTP_ + "')";
-
+                string R = "update adminlogin SET Expired = 1 where ForType = 'APP' AND MobileNo = '" + mobileno + "' AND Expired = '0';" +
+                           "INSERT into AdminLogin(UserID,Username,Passw,MobileNo,Otp,Expired,ForType) VALUES ('0','" + membername + "','0','" + mobileno + "','" + OTP_ + "','0','WEB')";
                 i = objDal.SaveData(R);
 
                 if (i > 0)
@@ -444,9 +443,8 @@ public partial class ServiceWalletTransfer : System.Web.UI.Page
 
                 objDal = new DAL();
                 int i = 0;
-                string R = "INSERT into AdminLogin(UserID, Username, Passw, MobileNo, Otp) " +
-                           "VALUES ('0','" + membername + "','0','" + mobileno + "','" + OTP_ + "')";
-
+                string R = "update adminlogin SET Expired = 1 where ForType = 'APP' AND MobileNo = '" + mobileno + "' AND Expired = '0';" +
+                           "INSERT into AdminLogin(UserID,Username,Passw,MobileNo,Otp,Expired,ForType) VALUES ('0','" + membername + "','0','" + mobileno + "','" + OTP_ + "','0','WEB')";
                 i = objDal.SaveData(R);
 
                 if (i > 0)
@@ -485,9 +483,8 @@ public partial class ServiceWalletTransfer : System.Web.UI.Page
             DAL objDal = new DAL();
 
             string strr = objDal.Isostart + "Select TOP 1 * from " + objDal.dBName + "..AdminLogin as a where " +
-                          "UserName='" + username + "' and Mobileno='" + Convert.ToInt64(userMobile) + "' AND OTP = '" + otpcode + "'" +
-                          "and Cast(logintime as date) = cast(getdate() as date) ORDER BY AID DESC" + objDal.IsoEnd;
-
+                          "UserName='" + username + "' and Mobileno='" + Convert.ToInt64(userMobile) + "' AND OTP = '" + otpcode + "' AND Expired = 0 AND ForType = 'WEB' " +
+                          " and Cast(logintime as date) = cast(getdate() as date) ORDER BY AID DESC" + objDal.IsoEnd;
             Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strr).Tables[0];
 
             if (Dt.Rows.Count > 0)

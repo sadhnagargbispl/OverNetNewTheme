@@ -25,27 +25,18 @@ public partial class Welcomeletter : System.Web.UI.Page
                 string strcondition = "";
                 string str = "";
                 DataTable dt = new DataTable();
-
-                if (Session["Status"] != null && Session["Status"].ToString() == "OK")
+                string k = "";
+                if (Request["id"] != null)
                 {
-                    strcondition = " and mMst.IDNo=''" + Session["formno"] + "''";
-                    BtnHome.Visible = false;
-                    //BtnPrint.Visible = false;
+                    k = Request["id"];
+                    k = k.Replace(" ", "+");
+                    string[] sbstr;
+                    string s = "";
+                    s = Crypto.Decrypt(k);
+                    sbstr = s.Split('/');
+                    // Formno = sbstr[0]
+                    strcondition = " and mMst.FormNo=''" + Request["id"] + "''";
                 }
-                else
-                {
-                    if (Session["JOIN"] != null && Session["JOIN"].ToString() == "YES")
-                    {
-                        strcondition = " and mMst.IDNo=''" + Session["LASTID"] + "''";
-                        Session["JOIN"] = "FINISH";
-                    }
-                    else if (Session["Status"] != null && Session["Status"].ToString() == "OK")
-                    {
-                        strcondition = " and mMst.FormNo=''" + Convert.ToInt32(Session["formno"]) + "''";
-                    }
-                   
-                }
-
                 str = ObjDal.Isostart + "exec sp_MemDtl '" + strcondition + "'" + ObjDal.IsoEnd;
                 DataSet ds = new DataSet();
                 dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];

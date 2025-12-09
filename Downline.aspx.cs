@@ -233,22 +233,19 @@ public partial class Downline : System.Web.UI.Page
         try
         {
             string strquery = ObjDAL.Isostart + " exec sp_ShowDownline " + Session["Formno"] + "," +
-                              (isSideA ? 1 : 2) +
-                              (string.IsNullOrEmpty(condition) ? "" : "," + condition) + ObjDAL.IsoEnd;
-
+                                  (isSideA ? "1" : "2") +
+                                  (string.IsNullOrEmpty(condition) ? "" : "," + condition) + ObjDAL.IsoEnd;
             DataTable dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strquery).Tables[0];
             DataTable dtTemp = new DataTable();
             DataGrid dg = new DataGrid();
-
             dtTemp.Columns.Add("<b>Id No</b>");
             dtTemp.Columns.Add("<b>Member Name</b>");
             dtTemp.Columns.Add("<b>Sponsor Id</b>");
             dtTemp.Columns.Add("<b>Date Of Joining</b>");
-            dtTemp.Columns.Add("<b>Package</b>");
-            dtTemp.Columns.Add("<b>Topup Date</b>");
+            dtTemp.Columns.Add("<b>Activation Date</b>");
+            dtTemp.Columns.Add("<b>Package Name</b>");
             dtTemp.Columns.Add("<b>Package MRP</b>");
-            dtTemp.Columns.Add("<b>PV</b>");
-
+            dtTemp.Columns.Add("<b>BV</b>");
             for (int rCnt = 0; rCnt < dt.Rows.Count; rCnt++)
             {
                 DataRow drAddItem = dtTemp.NewRow();
