@@ -491,6 +491,7 @@
                                 <li><a href="PinTransferDetails.aspx">Send Pin Detail</a> </li>
                                 <li><a href="PinReceivedDetails.aspx">Received Pin Detail</a> </li>
                                 <li><a href="ProductrequestDetail.aspx">Shopping</a> </li>
+                                <li><a href="PinGenerate.aspx">Pin Generate</a> </li>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Income<span class="arrow"></span></a>

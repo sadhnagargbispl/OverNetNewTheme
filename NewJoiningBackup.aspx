@@ -77,7 +77,7 @@
                 <!-- BEGIN THEME CUSTOMIZER-->
                 <!-- END THEME CUSTOMIZER-->
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-               <%-- <h3 class="page-title">Registration </h3>--%>
+                <%-- <h3 class="page-title">Registration </h3>--%>
                 <ul class="breadcrumb">
                     <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
                     <li><a href="#">Registration</a><span class="divider-last">&nbsp;</span></li>
@@ -150,7 +150,7 @@
                                             <asp:Label ID="Label1" runat="server" ForeColor="#D11F7B"></asp:Label>
                                             <asp:Label ID="LblUseName" runat="server" CssClass="error" Visible="false" ForeColor="OrangeRed"></asp:Label>
                                         </div>
-                                        <div class="control-group " id="rwSpnsr" runat="server" visible="false">
+                                        <div class="control-group " id="rwSpnsr" runat="server" visible="false" style="display: none;">
                                             <label class="control-label ">
                                                 Upliner ID<span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
                                             <asp:TextBox ID="txtUplinerId" class="input-xxlarge" runat="server" AutoPostBack="True"

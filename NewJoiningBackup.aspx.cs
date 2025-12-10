@@ -16,6 +16,7 @@ using System.ServiceModel.Activities;
 using DocumentFormat.OpenXml.Presentation;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Text.RegularExpressions;
+using System.Drawing;
 public partial class NewJoiningBackup : System.Web.UI.Page
 {
 
@@ -1181,6 +1182,17 @@ public partial class NewJoiningBackup : System.Web.UI.Page
                         }
                         if (UpdateData1 == 0)
                         {
+
+
+                            string query = ObjDAL.Isostart + "EXEC dbo.GetExtreme_SP @RefFormNo, @LegNo;" + ObjDAL.IsoEnd;
+                            using (SqlCommand cmd = new SqlCommand(query, dbConnectSelect.cnnObject))
+                            {
+                                cmd.Parameters.AddWithValue("@RefFormNo", refValue);
+                                cmd.Parameters.AddWithValue("@LegNo", iLeg);
+                                object result = cmd.ExecuteScalar();
+                                string Uplnformno = (result == null || result == DBNull.Value) ? refValue : result.ToString();
+                                Session["Uplnr"] = Uplnformno;
+                            }
                             strQry = "INSERT INTO m_memberMaster (" +
     "SessId,IdNo,CardNo,FormNo,KitId," +
     "UpLnFormNo,RefId,LegNo,RefLegNo,RefFormNo," +
@@ -1292,7 +1304,7 @@ public partial class NewJoiningBackup : System.Web.UI.Page
                 {
                     string scrname = "<SCRIPT language='javascript'>alert('" + e.Message + "');</SCRIPT>";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + e.Message + "');", true);
-                    return; 
+                    return;
                 }
             }
             else

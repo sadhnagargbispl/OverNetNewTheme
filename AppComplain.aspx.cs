@@ -225,7 +225,7 @@ public partial class AppComplain : System.Web.UI.Page
         try
         {
             string scrname;
-            //string StrSql1 = "Insert into TrncomplainUniqe (Transid,Rectimestamp) values(" + HdnCheckTrnns.Value + ",getdate())";
+            //string StrSql1 = "Insert into Trnactivecadmin (Transid,Rectimestamp) values(" + HdnCheckTrnns.Value + ",getdate())";
             int updateeffect = 0;
             if (updateeffect == 0)
             {
