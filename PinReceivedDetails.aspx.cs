@@ -92,32 +92,17 @@ public partial class PinReceivedDetails : System.Web.UI.Page
     {
         try
         {
-            SqlParameter[] prms = new SqlParameter[5];
-            prms[0] = new SqlParameter("@IDNo", Convert.ToString(Session["IdNo"]).ToLower());
-            prms[1] = new SqlParameter("@KitId", CmbKit.SelectedValue);
-            prms[2] = new SqlParameter("@PageIndex", pageIndex);
-            prms[3] = new SqlParameter("@PageSize", 1000000);
-            prms[4] = new SqlParameter("@RecordCount", SqlDbType.Int)
-            {
-                Direction = ParameterDirection.Output
-            };
-
-            // Execute stored procedure
-            DataSet ds = SqlHelper.ExecuteDataset(constr1, "sp_GetEpinReceivedDetail", prms);
-
-            // Store full dataset in session
-            Session["pindetails"] = ds.Tables[0];
-
-            // Get total record count from second table
-            int recordCount = Convert.ToInt32(ds.Tables[1].Rows[0]["RecordCount"]);
-            lbltotal.Text = recordCount.ToString();
-
+            DataTable dt = new DataTable();
+            string str = "";
+            DataSet Ds = new DataSet();
+            str = ObjDal.Isostart + " exec Sp_GetTotalReceivedPin '" + Session["FormNo"] + "','" + CmbKit.SelectedValue + "' " + ObjDal.IsoEnd;
+            Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str);
+            Session["pindetails"] = Ds.Tables[0];
             // Paging logic
-            DataTable dtFull = ds.Tables[0];
+            DataTable dtFull = Ds.Tables[0];
             int startRow = CurrentPage * PageSize;
             int endRow = Math.Min(startRow + PageSize, dtFull.Rows.Count);
             DataTable dtPage = dtFull.Clone();
-
             for (int i = startRow; i < endRow; i++)
             {
                 dtPage.ImportRow(dtFull.Rows[i]);
@@ -130,17 +115,64 @@ public partial class PinReceivedDetails : System.Web.UI.Page
             int totalPages = (int)Math.Ceiling((double)dtFull.Rows.Count / PageSize);
             lblPageInfo.Text = "Page " + (CurrentPage + 1) + " of " + totalPages;
 
-            // Optionally: PopulatePager(recordCount, pageIndex);
+            //RptDirects.DataSource = dt;
+            //RptDirects.DataBind();
         }
         catch (Exception ex)
         {
-            string path = HttpContext.Current.Request.Url.AbsoluteUri;
-            string text = path + ":  " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss:fff ") + Environment.NewLine;
-            ObjDal.WriteToFile(text + ex.Message);
-            Response.Write("Try later.");
-            Response.Write(ex.Message);
-            Response.End();
+            throw new Exception(ex.Message);
         }
+        //try
+        //{
+        //    SqlParameter[] prms = new SqlParameter[5];
+        //    prms[0] = new SqlParameter("@IDNo", Convert.ToString(Session["IdNo"]).ToLower());
+        //    prms[1] = new SqlParameter("@KitId", CmbKit.SelectedValue);
+        //    prms[2] = new SqlParameter("@PageIndex", pageIndex);
+        //    prms[3] = new SqlParameter("@PageSize", 1000000);
+        //    prms[4] = new SqlParameter("@RecordCount", SqlDbType.Int)
+        //    {
+        //        Direction = ParameterDirection.Output
+        //    };
+
+        //    // Execute stored procedure
+        //    DataSet ds = SqlHelper.ExecuteDataset(constr1, "sp_GetEpinReceivedDetail", prms);
+
+        //    // Store full dataset in session
+        //    Session["pindetails"] = ds.Tables[0];
+
+        //    // Get total record count from second table
+        //    int recordCount = Convert.ToInt32(ds.Tables[1].Rows[0]["RecordCount"]);
+        //    lbltotal.Text = recordCount.ToString();
+
+        //    // Paging logic
+        //    DataTable dtFull = ds.Tables[0];
+        //    int startRow = CurrentPage * PageSize;
+        //    int endRow = Math.Min(startRow + PageSize, dtFull.Rows.Count);
+        //    DataTable dtPage = dtFull.Clone();
+
+        //    for (int i = startRow; i < endRow; i++)
+        //    {
+        //        dtPage.ImportRow(dtFull.Rows[i]);
+        //    }
+
+        //    // Bind paged data
+        //    RptDirects.DataSource = dtPage;
+        //    RptDirects.DataBind();
+
+        //    int totalPages = (int)Math.Ceiling((double)dtFull.Rows.Count / PageSize);
+        //    lblPageInfo.Text = "Page " + (CurrentPage + 1) + " of " + totalPages;
+
+        //    // Optionally: PopulatePager(recordCount, pageIndex);
+        //}
+        //catch (Exception ex)
+        //{
+        //    string path = HttpContext.Current.Request.Url.AbsoluteUri;
+        //    string text = path + ":  " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss:fff ") + Environment.NewLine;
+        //    ObjDal.WriteToFile(text + ex.Message);
+        //    Response.Write("Try later.");
+        //    Response.Write(ex.Message);
+        //    Response.End();
+        //}
     }
     protected void btnPrevious_Click(object sender, EventArgs e)
     {

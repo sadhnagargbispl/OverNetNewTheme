@@ -52,6 +52,67 @@
 
                                 </div>
                                 <div id="DivSideA" runat="server">
+                                    <asp:Label ID="Label1" runat="server" Text="Total Records" Visible="false"></asp:Label>
+                                    <asp:Label ID="lbltotal" runat="server"></asp:Label>
+                                    <div style="overflow: scroll;">
+                                        <table id="customers2" class="table table-bordered table-striped table-actions">
+                                            <thead>
+                                                <tr>
+                                                    <th>SNo
+                                                    </th>
+                                                    <th>Transfer From IE
+                                                    </th>
+                                                    <th>Transfer From Entrepreneur
+                                                    </th>
+                                                    <th>Package Name
+                                                    </th>
+                                                    <th>Total Pin
+                                                    </th>
+                                                    <th>Date
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <asp:Repeater ID="RptDirects" runat="server">
+                                                    <ItemTemplate>
+                                                        <tr>
+                                                            <td>
+                                                                <asp:Label ID="lblRowNumber" Text='<%# Container.ItemIndex + 1 %>' runat="server" />
+                                                            </td>
+                                                            <td>
+                                                                <%#Eval("FRomIdno")%>
+                                                            </td>
+                                                            <td>
+                                                                <%#Eval("FromMemname")%>
+                                                            </td>
+                                                            <td>
+                                                                <%#Eval("KitName")%>
+                                                            </td>
+                                                            <td>
+                                                                <a href='<%# "ViewPinReceivedDetail.aspx?TransNo=" + Eval("TransNo") %>'
+                                                                    onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: 620, height: 300, marginTop: 10 });"
+                                                                    style="color: Blue">
+                                                                    <asp:Label ID="Label1" runat="server" ForeColor="Blue" Text='<%# Eval("TotalPin") %>'></asp:Label>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <%#Eval("ToDate")%>
+                                                            </td>
+
+                                                        </tr>
+                                                    </ItemTemplate>
+                                                </asp:Repeater>
+                                            </tbody>
+                                        </table>
+                                        <div style="margin-top: 10px; text-align: center;">
+                                            <asp:Button ID="btnPrevious" runat="server" Text="Previous" OnClick="btnPrevious_Click" CssClass="btn" />
+                                            <asp:Label ID="lblPageInfo" runat="server" Text=""></asp:Label>
+                                            <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="btn" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <%-- <div id="DivSideA" runat="server">
                                     <asp:Label ID="Label1" runat="server" Text="Total Records"></asp:Label>
                                     <asp:Label ID="lbltotal" runat="server"></asp:Label>
                                     <div style="overflow: scroll;">
@@ -121,7 +182,7 @@
                                         </div>
                                     </div>
 
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                     </div>

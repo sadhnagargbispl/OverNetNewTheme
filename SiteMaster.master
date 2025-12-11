@@ -123,6 +123,8 @@
                                     <li><a href="AppPinTransferDetails.aspx">Send Pin Detail</a> </li>
                                     <li><a href="AppPinReceivedDetails.aspx">Received Pin Detail</a> </li>
                                     <li><a href="AppProductrequestDetail.aspx">Shopping</a> </li>
+                                    <li><a href="AppPinGenerate.aspx">Pin Generate</a> </li>
+                                    <li><a href="AppPingenerateDetail.aspx">Pin Generate Detail</a> </li>
                                 </ul>
                             </li>
                             <li class="has-sub" role="none">

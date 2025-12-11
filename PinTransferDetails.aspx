@@ -65,7 +65,7 @@
 
                                         </div>
                                         <div id="DivSideA" runat="server">
-                                            <asp:Label ID="Label1" runat="server" Text="Total Records"></asp:Label>
+                                            <asp:Label ID="Label1" runat="server" Text="Total Records" Visible="false"></asp:Label>
                                             <asp:Label ID="lbltotal" runat="server"></asp:Label>
                                             <div style="overflow: scroll;">
                                                 <table id="customers2" class="table table-bordered table-striped table-actions">
@@ -79,14 +79,10 @@
                                                             </th>
                                                             <th>Package Name
                                                             </th>
-                                                            <th>Pin No
+                                                            <th>Total Pin
                                                             </th>
                                                             <th>Date
                                                             </th>
-
-                                                            <th>Status
-                                                            </th>
-                                                            <th>Remark </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -106,15 +102,16 @@
                                                                         <%#Eval("KitName")%>
                                                                     </td>
                                                                     <td>
-                                                                        <%#Eval("ScratchNo")%>
+                                                                        <a href='<%# "ViewPinTransferDetail.aspx?TransNo=" + Eval("TransNo") %>'
+                                                                            onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: 620, height: 300, marginTop: 10 });"
+                                                                            style="color: Blue">
+                                                                            <asp:Label ID="Label1" runat="server" ForeColor="Blue" Text='<%# Eval("TotalPin") %>'></asp:Label>
+                                                                        </a>
+                                                                        <%--<%#Eval("TotalPin")%>--%>
                                                                     </td>
                                                                     <td>
-                                                                        <%#Eval("PinDate")%>
+                                                                        <%#Eval("Date")%>
                                                                     </td>
-                                                                    <td>
-                                                                        <%#Eval("PinStatus")%>
-                                                                    </td>
-                                                                    <td><%#Eval("Remark")%></td>
                                                                 </tr>
                                                             </ItemTemplate>
                                                         </asp:Repeater>

@@ -270,3 +270,33 @@ Thread was being aborted.
 http://localhost:51126/AppDownline.aspx:  09-Dec-2025 04:14:56:128 
 Thread was being aborted.
 --------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=592923&scratch=50181:  09-Dec-2025 05:55:05:499 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=592923&scratch=50181:  09-Dec-2025 06:01:13:559 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=592923&scratch=50181:  09-Dec-2025 06:01:56:652 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=592923&scratch=50181:  09-Dec-2025 06:17:22:729 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=631015&scratch=F4DAF:  10-Dec-2025 04:50:43:115 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=631015&scratch=F4DAF:  10-Dec-2025 04:51:39:343
+Object reference not set to an instance of an object.
+--------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=631015&scratch=F4DAF:  10-Dec-2025 04:54:30:336 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=631014&scratch=1117477:  10-Dec-2025 04:57:41:491 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=631013&scratch=32935:  10-Dec-2025 05:01:38:223 
+The method or operation is not implemented.
+--------------------------------------------------------
+http://localhost:51126/NewJoiningBackup.aspx?pin=631018&scratch=0F146:  11-Dec-2025 11:55:18:666 
+The method or operation is not implemented.
+--------------------------------------------------------

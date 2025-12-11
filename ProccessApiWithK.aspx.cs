@@ -2490,7 +2490,16 @@ public partial class ProccessApiWithK : System.Web.UI.Page
                         DataTable dt = new DataTable();
                         string OrderNo;
                         DAL obj = new DAL();
-                        _UpLnFormNo = "0";
+                        string query = ObjDAL.Isostart + "EXEC dbo.GetExtreme_SP @RefFormNo, @LegNo;" + ObjDAL.IsoEnd;
+                        using (SqlCommand cmd = new SqlCommand(query, selectConn))
+                        {
+                            cmd.Parameters.AddWithValue("@RefFormNo", _RefFormNo);
+                            cmd.Parameters.AddWithValue("@LegNo", dict["side"]);
+                            object result = cmd.ExecuteScalar();
+                            string Uplnformno = (result == null || result == DBNull.Value) ? _RefFormNo : result.ToString();
+                            _UpLnFormNo = Uplnformno;
+                        }
+                        //_UpLnFormNo = "0";
                         strQry = "INSERT INTO m_memberMaster (" +
  "SessId,IdNo,CardNo,FormNo,KitId," +
  "UpLnFormNo,RefId,LegNo,RefLegNo,RefFormNo," +
