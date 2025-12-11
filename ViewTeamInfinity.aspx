@@ -23,7 +23,7 @@
         </div>
         <div style="margin-bottom: 10px; padding-right: 20px; padding-left: 20px; padding-top: 20px">
             <asp:GridView ID="GvData" runat="server" AutoGenerateColumns="false"
-                GridLines="Both" AllowPaging="true" CssClass="table table-bordered" HeaderStyle-BackColor="#000000" HeaderStyle-ForeColor="White" HeaderStyle-HorizontalAlign="Left"
+                GridLines="Both" AllowPaging="true" CssClass="table table-bordered" HeaderStyle-BackColor="#5c1515" HeaderStyle-ForeColor="White" HeaderStyle-HorizontalAlign="Left"
                 ShowHeader="true" PageSize="50" EmptyDataText="No data to display." Width="100%" OnPageIndexChanging="RptDirects_PageIndexChanging">
                 <Columns>
                     <asp:TemplateField HeaderText="S.No.">

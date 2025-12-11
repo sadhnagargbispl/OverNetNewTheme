@@ -26,6 +26,7 @@ public partial class MonthlyStatement : System.Web.UI.Page
         {
             Session["Formno"] = Request["id"];
         }
+        LoadTeam();
         using (SqlConnection conn = new SqlConnection(constr1))
         {
             conn.Open();
@@ -80,5 +81,31 @@ public partial class MonthlyStatement : System.Web.UI.Page
             }
             
         }
+    }
+    private void LoadTeam()
+    {
+        try
+        {
+            DataSet Ds = new DataSet();
+            string strquery = string.Empty;
+            strquery = Objdal.Isostart  + " Exec sp_LoadTeamNewUpdateUpdate '" + Session["FormNo"].ToString() + "' " + Objdal.IsoEnd;
+            Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strquery);
+            Session["LoadTeam"] = Ds;
+            if (Ds.Tables[7].Rows.Count > 0)
+            {
+                LeftPV.InnerText = Ds.Tables[7].Rows[0]["PVSL"].ToString();
+                RightPV.InnerText = Ds.Tables[7].Rows[0]["PVSR"].ToString();
+                TotalPVV.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSR"])).ToString();
+
+            }
+        }
+        catch (Exception ex)
+        {
+            string path = HttpContext.Current.Request.Url.AbsoluteUri;
+            string text = path + ":  " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss:fff") + Environment.NewLine;
+            Objdal.WriteToFile(text + ex.Message);
+            Response.Write("Try later.");
+        }
+
     }
 }

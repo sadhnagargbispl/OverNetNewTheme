@@ -2,6 +2,7 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
     <div class="row-fluid panelpart">
 
 
@@ -95,7 +96,7 @@
                                                                     <asp:Label ID="Label1" runat="server" ForeColor="Blue" Text='<%# Eval("TotalPin") %>'></asp:Label>
                                                                 </a>
                                                             </td>
-                                                            <td>
+                                                            <td onclick="openPhotoModal()">
                                                                 <%#Eval("ToDate")%>
                                                             </td>
 

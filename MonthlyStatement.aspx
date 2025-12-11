@@ -432,6 +432,37 @@
                                     </table>
                                 </td>
                             </tr>
+                            <tr>
+                                <td colspan="2" class="td_heading">Monthly Business
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table width="100%" border="1" cellpadding="5" cellspacing="1">
+                                        <tr>
+                                            <td width="20%" align="center" style="color: Black" class="rounded_colhead">
+                                                <strong>LEFT PV</strong>
+                                            </td>
+                                            <td width="10%" align="center" style="color: Black" class="rounded_colhead">
+                                                <strong id="LeftPV" runat="server">0</strong>
+                                            </td>
+                                            <td width="20%" align="center" style="color: Black" class="rounded_colhead">
+                                                <strong>RIGHT PV</strong>
+                                            </td>
+                                            <td width="10%" align="center" style="color: Black" class="rounded_colhead">
+                                                <strong id="RightPV" runat="server">0</strong>
+                                            </td>
+                                            <td width="20%" align="center" style="color: Black" class="rounded_colhead">
+                                                <strong>TOTAL PV</strong>
+                                            </td>
+                                            <td width="10%" align="center" style="color: Black" class="rounded_colhead">
+                                                <strong id="TotalPVV" runat="server">0</strong>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                            </tr>
                         </table>
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>

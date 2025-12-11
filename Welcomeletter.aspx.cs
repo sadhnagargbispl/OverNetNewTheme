@@ -42,13 +42,7 @@ public partial class Welcomeletter : System.Web.UI.Page
                     else if (Session["Status"] != null && Session["Status"].ToString() == "OK")
                     {
                         strcondition = " and mMst.FormNo=''" + Convert.ToInt32(Session["Formno"]) + "''";
-                    }
-                    else
-                    {
-                        Response.Redirect("Default.aspx");
-                        Response.End();
-                        return;
-                    }
+                    }  
                 }
 
                 str = ObjDal.Isostart + "exec sp_MemDtl '" + strcondition + "'" + ObjDal.IsoEnd;

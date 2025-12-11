@@ -2302,57 +2302,57 @@ public partial class ProccessApiWithK : System.Web.UI.Page
             Dread.Close();
             Comm.Cancel();
 
-            if (_IsGetExtreme == "N")
-            {
-                // Checking If Entered Sponsor Id Exists Or Not
-                Comm = new SqlCommand(IsoStart + "Select FormNo, MemFirstName + ' ' + MemLastName as MemName from "
-                                      + ObjDAL.dBName + "..M_MemberMaster where Idno='" + Sponsor + "'" + IsoEnd, selectConn);
-                Dread = Comm.ExecuteReader();
-                if (!Dread.Read())
-                {
-                    Dread.Close();
-                    return "Invalid Sponsor ID.";
-                }
-                _UpLnFormNo = Dread["FormNo"].ToString();
-                Dread.Close();
-                Comm.Cancel();
+            //if (_IsGetExtreme == "N")
+            //{
+            //    // Checking If Entered Sponsor Id Exists Or Not
+            //    Comm = new SqlCommand(IsoStart + "Select FormNo, MemFirstName + ' ' + MemLastName as MemName from "
+            //                          + ObjDAL.dBName + "..M_MemberMaster where Idno='" + Sponsor + "'" + IsoEnd, selectConn);
+            //    Dread = Comm.ExecuteReader();
+            //    if (!Dread.Read())
+            //    {
+            //        Dread.Close();
+            //        return "Invalid Sponsor ID.";
+            //    }
+            //    _UpLnFormNo = Dread["FormNo"].ToString();
+            //    Dread.Close();
+            //    Comm.Cancel();
 
-                // Checking If Entered Side Valid Or Not
-                Comm = new SqlCommand(IsoStart + "SELECT COUNT(*) AS CNT From " + ObjDAL.dBName + "..M_MemberMaster " +
-                                      "WHERE UpLnFormNo in (Select FormNo From " + ObjDAL.dBName + "..M_MemberMaster " +
-                                      "Where IDNo='" + Sponsor + "') And Legno = " + Side + IsoEnd, selectConn);
-                Dread = Comm.ExecuteReader();
-                if (!Dread.Read())
-                {
-                    Dread.Close();
-                    return "Selected Side Not Available.";
-                }
-                else
-                {
-                    if (Convert.ToInt32(Dread["CNT"]) >= 1)
-                    {
-                        Dread.Close();
-                        return "Selected Side Not Available.";
-                    }
-                }
-                Dread.Close();
-                Comm.Cancel();
+            //    // Checking If Entered Side Valid Or Not
+            //    Comm = new SqlCommand(IsoStart + "SELECT COUNT(*) AS CNT From " + ObjDAL.dBName + "..M_MemberMaster " +
+            //                          "WHERE UpLnFormNo in (Select FormNo From " + ObjDAL.dBName + "..M_MemberMaster " +
+            //                          "Where IDNo='" + Sponsor + "') And Legno = " + Side + IsoEnd, selectConn);
+            //    Dread = Comm.ExecuteReader();
+            //    if (!Dread.Read())
+            //    {
+            //        Dread.Close();
+            //        return "Selected Side Not Available.";
+            //    }
+            //    else
+            //    {
+            //        if (Convert.ToInt32(Dread["CNT"]) >= 1)
+            //        {
+            //            Dread.Close();
+            //            return "Selected Side Not Available.";
+            //        }
+            //    }
+            //    Dread.Close();
+            //    Comm.Cancel();
 
-                // Checking If Entered Sponsor ID Exists In Referral Downline Or Not
-                if (_RefFormNo != _UpLnFormNo)
-                {
-                    Comm = new SqlCommand(IsoStart + "Select * from " + ObjDAL.dBName + "..M_MemTreeRelation " +
-                                          "where FormNo=" + _RefFormNo + " And FormNoDwn=" + _UpLnFormNo + IsoEnd, selectConn);
-                    Dread = Comm.ExecuteReader();
-                    if (!Dread.Read())
-                    {
-                        Dread.Close();
-                        return "Sponsor does not exist in referral downline.";
-                    }
-                    Dread.Close();
-                    Comm.Cancel();
-                }
-            }
+            //    // Checking If Entered Sponsor ID Exists In Referral Downline Or Not
+            //    if (_RefFormNo != _UpLnFormNo)
+            //    {
+            //        Comm = new SqlCommand(IsoStart + "Select * from " + ObjDAL.dBName + "..M_MemTreeRelation " +
+            //                              "where FormNo=" + _RefFormNo + " And FormNoDwn=" + _UpLnFormNo + IsoEnd, selectConn);
+            //        Dread = Comm.ExecuteReader();
+            //        if (!Dread.Read())
+            //        {
+            //            Dread.Close();
+            //            return "Sponsor does not exist in referral downline.";
+            //        }
+            //        Dread.Close();
+            //        Comm.Cancel();
+            //    }
+            //}
         }
 
         return "OK";

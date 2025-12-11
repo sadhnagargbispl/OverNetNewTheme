@@ -245,12 +245,7 @@
                                     <asp:DropDownList ID="ddlcurrency" runat="server" CssClass="input-xxlarge">
                                     </asp:DropDownList>
                                 </div>
-                                <div class="control-group " id="Div1" runat="server" style="display: none;">
-                                    <label class="control-label">
-                                        Package</label>
-                                    <asp:DropDownList ID="CmbKit" CssClass="input-xxlarge" runat="server" AutoPostBack="true">
-                                    </asp:DropDownList>
-                                </div>
+                                
                                 <div class="control-group " runat="server">
                                     <label class="control-label">
                                         Amount <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
