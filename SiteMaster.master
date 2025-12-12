@@ -86,6 +86,7 @@
                                 <a href="#" class="menu-link submenu-toggle" role="menuitem" aria-expanded="false">My Team <span class="arrow">▾</span>
                                 </a>
                                 <ul class="submenu">
+                                    <li><a href="AppMydirect.aspx">My Direct Report</a></li>
                                     <li><a href="AppMydirects.aspx">Level Wise Report</a></li>
                                     <li><a href="ApprefTree.aspx">My Direct Tree </a></li>
                                     <li><a href="AppTree.aspx">Geneology</a></li>

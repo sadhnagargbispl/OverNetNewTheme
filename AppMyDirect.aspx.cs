@@ -1,3 +1,4 @@
+﻿using DocumentFormat.OpenXml.Drawing;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,7 +10,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class MyDirects : System.Web.UI.Page
+public partial class AppMyDirect : System.Web.UI.Page
 {
     DataSet Ds;
     DataTable dt;
@@ -44,19 +45,16 @@ public partial class MyDirects : System.Web.UI.Page
     {
         try
         {
-            if (Session["Status"] != null)
+            if (!Page.IsPostBack)
             {
-                if (!Page.IsPostBack)
+                if (Session["Status"] != null && Session["Status"].ToString() == "OK")
                 {
                     FillLevel();
                     DdlLevel.SelectedValue = "0";
                     LevelDetail();
                     FillData();
                 }
-            }
-            else
-            {
-                Response.Redirect("logout.aspx");
+
             }
         }
         catch (Exception ex)
@@ -68,8 +66,8 @@ public partial class MyDirects : System.Web.UI.Page
     {
         try
         {
-            //string sql = IsoStart + "Exec sp_GetLevel '" + Session["FormNo"] + "','N'" + IsoEnd;
-            string sql = ObjDAL.Isostart + "Exec sp_GetLevel '" + Session["FormNo"] + "','N'" + ObjDAL.IsoEnd;
+            //string sql = IsoStart + "Exec sp_GetLevel '" + Session["formno"] + "','N'" + IsoEnd;
+            string sql = ObjDAL.Isostart + "Exec sp_GetLevel '" + Session["formno"] + "','N'" + ObjDAL.IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql);
 
             DdlLevel.DataSource = Ds.Tables[0];
@@ -95,7 +93,7 @@ public partial class MyDirects : System.Web.UI.Page
             if (rbtnsearch.SelectedValue == "L")
             {
                 legno = "0";
-                level = DdlLevel.SelectedValue;
+                level = "1";
             }
             else
             {
@@ -103,7 +101,7 @@ public partial class MyDirects : System.Web.UI.Page
                 level = "1";
             }
 
-            string StrQuery = ObjDAL.Isostart + "Exec sp_GetLevelDetail '" + level + "','" + legno + "','" + DDlSearchby.SelectedValue + "','" + Session["FormNo"] + "'" + ObjDAL.IsoEnd;
+            string StrQuery = ObjDAL.Isostart + "Exec sp_GetLevelDetail '" + level + "','" + legno + "','" + DDlSearchby.SelectedValue + "','" + Session["formno"] + "'" + ObjDAL.IsoEnd;
             DataSet ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, StrQuery);
 
             int recordCount = Convert.ToInt32(ds.Tables[1].Rows[0]["RecordCount"]);
@@ -141,7 +139,7 @@ public partial class MyDirects : System.Web.UI.Page
         {
             DataTable dt = new DataTable();
             DataSet Ds = new DataSet();
-            string strSql = ObjDAL.Isostart + " Select * from " + ObjDAL.dBName + "..V#ReferalDownlineinfo where Formno=" + Session["FormNo"] + " " + ObjDAL.IsoEnd;
+            string strSql = ObjDAL.Isostart + " Select * from " + ObjDAL.dBName + "..V#ReferalDownlineinfo where Formno=" + Session["formno"] + " " + ObjDAL.IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = Ds.Tables[0];
 

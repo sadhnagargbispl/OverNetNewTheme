@@ -101,7 +101,7 @@ public partial class AppMyDirects : System.Web.UI.Page
                 level = "1";
             }
 
-            string StrQuery = ObjDAL.Isostart + "Exec sp_GetLevelDetailUpdate '" + level + "','" + legno + "','" + DDlSearchby.SelectedValue + "','" + Session["formno"] + "'" + ObjDAL.IsoEnd;
+            string StrQuery = ObjDAL.Isostart + "Exec sp_GetLevelDetail '" + level + "','" + legno + "','" + DDlSearchby.SelectedValue + "','" + Session["formno"] + "'" + ObjDAL.IsoEnd;
             DataSet ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, StrQuery);
 
             int recordCount = Convert.ToInt32(ds.Tables[1].Rows[0]["RecordCount"]);

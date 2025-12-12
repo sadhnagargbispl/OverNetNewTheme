@@ -1,3 +1,4 @@
+﻿using DocumentFormat.OpenXml.Drawing;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,7 +10,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class MyDirects : System.Web.UI.Page
+public partial class MyDirect : System.Web.UI.Page
 {
     DataSet Ds;
     DataTable dt;
@@ -95,7 +96,7 @@ public partial class MyDirects : System.Web.UI.Page
             if (rbtnsearch.SelectedValue == "L")
             {
                 legno = "0";
-                level = DdlLevel.SelectedValue;
+                level = "1";
             }
             else
             {
