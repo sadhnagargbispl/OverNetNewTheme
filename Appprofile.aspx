@@ -70,7 +70,7 @@
                                         <asp:TextBox ID="txtReferalId" CssClass="input-xxlarge" runat="server" AutoPostBack="True"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="control-group">
+                                <div class="control-group" runat="server" visible="false">
                                     <label class="control-label ">
                                         Registration As</label>
                                     <div class="custom-radio">
@@ -99,7 +99,7 @@
                                         Placement Name<span class="red">*</span></label>
                                     <asp:TextBox ID="TxtUplinerName" class="input-xxlarge" runat="server" Enabled="False"></asp:TextBox>
                                 </div>
-                                <div class="control-group greybt" style="display: none">
+                                <div class="control-group greybt" style="display: none" runat="server" visible="false">
                                     <label class="control-label">
                                         Position<span class="red">*</span></label>
                                     <asp:TextBox ID="lblPosition" class="input-xxlarge" runat="server" Enabled="false"></asp:TextBox>
@@ -115,7 +115,7 @@
                                             runat="server" ValidationGroup="eInformation"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="control-group " style="display: none;">
+                                <div class="control-group " style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         Spouse Name <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
                                     <div class="controls">
@@ -123,7 +123,7 @@
                                             runat="server" ValidationGroup="eInformation"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="control-group" id="Div11" runat="server" style="display: none;">
+                                <div class="control-group" id="Div11" runat="server" visible="false" style="display: none;">
                                     <label class="control-label ">
                                         Gender <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span>
                                     </label>
@@ -168,7 +168,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="control-group " style="display: none;">
+                                <div class="control-group " style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         Mother's Name</label>
 
@@ -186,29 +186,29 @@
                                     </div>
                                 </div>
 
-                                <div class="control-group " style="display: none;">
+                                <div class="control-group " style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         Door No. <span class="red">*</span></label>
                                     <asp:TextBox ID="txtDoorNo" onkeypress="return isNumberKey(event);" CssClass="input-xxlarge "
                                         runat="server"></asp:TextBox>
                                 </div>
-                                <div class="control-group " style="display: none;">
+                                <div class="control-group " style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         Street Name. <span class="red">*</span></label>
                                     <asp:TextBox ID="txtStreetName" CssClass="input-xxlarge validate[required]" runat="server"></asp:TextBox>
                                 </div>
-                                <div class="control-group " style="display: none;">
+                                <div class="control-group " style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         Area Name <span class="red">*</span></label>
                                     <asp:TextBox ID="txtAreaName" CssClass="input-xxlarge validate[required]" runat="server"></asp:TextBox>
                                 </div>
-                                <div class="control-group " style="display: none;">
+                                <div class="control-group " style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         Post Office <span class="red">*</span></label>
                                     <asp:TextBox ID="txtLandmark" CssClass="input-xxlarge validate[required]" runat="server"></asp:TextBox>
                                 </div>
 
-                                <div class="control-group " style="display: none;">
+                                <div class="control-group " style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         Country <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
                                     <div class="controls">
@@ -216,7 +216,7 @@
                                         </asp:DropDownList>
                                     </div>
                                 </div>
-                                <div class="control-group " style="display: none;">
+                                <div class="control-group " style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         Pin Code <span class="red">*</span></label>
                                     <div class="controls">
@@ -224,7 +224,7 @@
                                             runat="server" MaxLength="6" ValidationGroup="eInformation"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="control-group " style="display: none;">
+                                <div class="control-group " style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         State<span class="red">*</span></label>
                                     <div class="controls">
@@ -232,14 +232,14 @@
                                         </asp:DropDownList>
                                     </div>
                                 </div>
-                                <div class="control-group " style="display: none;">
+                                <div class="control-group " style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         District <span class="red">*</span></label>
                                     <div class="controls">
                                         <asp:TextBox ID="txtDistrict" CssClass="input-xxlarge" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="control-group " style="display: none;">
+                                <div class="control-group " style="display: none;" runat="server" visible="false">
                                     <label class="control-label ">
                                         City</label>
                                     <div class="controls">
@@ -266,7 +266,7 @@
                                     </div>
                                 </div>
 
-                                <div class="control-group" style="display: none;">
+                                <div class="control-group" style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         Mobile No2.</label>
                                     <asp:TextBox ID="txtPhNo" onkeypress="return isNumberKey(event);" CssClass="input-xxlarge"
@@ -279,7 +279,7 @@
                                         <asp:TextBox ID="txtEMailId" CssClass="input-xxlarge validate[custom[email]]" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="control-group  greybt" style="display: none;">
+                                <div class="control-group  greybt" style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         Date of Birth</label>
                                     <div class="controls">
@@ -288,7 +288,7 @@
                                             Format="dd-MM-yyyy"></ajaxToolkit:CalendarExtender>
                                     </div>
                                 </div>
-                                <div class="control-group  greybt" style="display: none;">
+                                <div class="control-group  greybt" style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         Date of Marriage</label>
                                     <div class="controls">
@@ -399,7 +399,7 @@
                                         </div>
                                     </div>
                                     <%-- <h4>Bank Detail</h4>--%>
-                                    <div class="control-group" style="display: none;">
+                                    <div class="control-group" style="display: none;" runat="server" visible="false">
                                         <label class="control-label ">
                                             Account No.</label>
                                         <div class="controls">
@@ -407,7 +407,7 @@
                                                 runat="server" MaxLength="16" autocomplete="off"></asp:TextBox>
                                         </div>
                                     </div>
-                                    <div class="control-group " style="display: none;">
+                                    <div class="control-group " style="display: none;" runat="server" visible="false">
                                         <label class="control-label ">
                                             Account Type</label>
                                         <div class="controls">
@@ -418,7 +418,7 @@
                                             </asp:DropDownList>
                                         </div>
                                     </div>
-                                    <div class="control-group" style="display: none;">
+                                    <div class="control-group" style="display: none;" runat="server" visible="false">
                                         <label class="control-label ">
                                             Bank</label>
                                         <div class="controls">
@@ -427,21 +427,21 @@
                                             </asp:DropDownList>
                                         </div>
                                     </div>
-                                    <div class="control-group" id="divBank" style="display: none">
+                                    <div class="control-group" id="divBank" style="display: none" runat="server" visible="false">
                                         <label class="control-label ">
                                             Bank Name</label>
                                         <div class="controls">
                                             <asp:TextBox ID="TxtBank" CssClass="input-xxlarge" runat="server" autocomplete="off"></asp:TextBox>
                                         </div>
                                     </div>
-                                    <div class="control-group" style="display: none;">
+                                    <div class="control-group" style="display: none;" runat="server" visible="false">
                                         <label class="control-label ">
                                             Branch Name</label>
                                         <div class="controls">
                                             <asp:TextBox ID="TxtBranchName" CssClass="input-xxlarge" runat="server" autocomplete="off"></asp:TextBox>
                                         </div>
                                     </div>
-                                    <div class="control-group" style="display: none;">
+                                    <div class="control-group" style="display: none;" runat="server" visible="false">
                                         <label class="control-label ">
                                             IFSC Code
                                         </label>
@@ -481,7 +481,7 @@
                                             ValidationGroup="eInformation"></asp:RegularExpressionValidator>
                                     </div>
                                 </div>
-                                <div class="control-group greybt " style="display: none;">
+                                <div class="control-group greybt " style="display: none;" runat="server" visible="false">
                                     <label class="control-label">
                                         Wallet Address
                                     </label>

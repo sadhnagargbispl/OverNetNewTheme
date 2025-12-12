@@ -129,14 +129,14 @@
                                                 <asp:TextBox ID="Txtcity" runat="server" CssClass="input-xxlarge validate[required]"></asp:TextBox>
                                                 <asp:HiddenField ID="HCityCode" runat="server" />
                                             </div>
-                                            <div class="form-group " style="display: none;">
+                                            <div class="form-group " style="display: none;" runat="server" visible="false">
                                                 <label for="inputdefault">
                                                     Area</label>
                                                 <asp:DropDownList ID="DDlVillage" CssClass="input-xxlarge" runat="server" ValidationGroup="eInformation"
                                                     autocomplete="off" onchange="FnVillageChange(this.value);">
                                                 </asp:DropDownList>
                                             </div>
-                                            <div class="form-group" id="divVillage" style="display: none">
+                                            <div class="form-group" id="divVillage" style="display: none" runat="server" visible="false">
                                                 <label for="inputdefault">
                                                     Area Name</label>
                                                 <asp:TextBox ID="TxtVillage" CssClass="input-xxlarge" runat="server" autocomplete="off"></asp:TextBox>

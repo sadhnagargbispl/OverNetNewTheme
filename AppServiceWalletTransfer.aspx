@@ -231,7 +231,7 @@
                                         <asp:HiddenField ID="HdnCheckTrnns" runat="server" />
                                     </div>
                                 </div>
-                                <div class="form-group" style="display: none">
+                                <div class="form-group" style="display: none" runat="server" visible="false">
                                     <label for="inputdefault">
                                         Payment Type</label>
                                     <asp:DropDownList ID="DDLPaymode" runat="server" class="input-xxlarge" AutoPostBack="true">

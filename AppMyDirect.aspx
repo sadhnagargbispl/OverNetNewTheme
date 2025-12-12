@@ -28,7 +28,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="span3"  style="display: none">
+                                    <div class="span3"  style="display: none" runat="server" visible="false">
 
                                         <div class="control-group">
                                             <label class="control-label">
@@ -43,7 +43,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="span3" style="display: none">
+                                    <div class="span3" style="display: none" runat="server" visible="false">
 
                                         <div class="control-group " id="lbllevel" runat="server">
                                             <label class="control-label">

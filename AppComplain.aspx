@@ -58,7 +58,7 @@
                                             ValidationGroup="Save"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-sm-12" style="display: none;">
+                                <div class="col-sm-12" style="display: none;" runat="server" visible="false">
                                     <div class="col-sm-6">
                                         Email ID : *
                                     </div>
@@ -76,7 +76,7 @@
                                         </asp:DropDownList>
                                     </div>
                                 </div>
-                                <div class="col-sm-12" style="display: none;">
+                                <div class="col-sm-12" style="display: none;" runat="server" visible="false">
                                     <div class="col-sm-6">
                                         Subject : *
                                     </div>

@@ -565,7 +565,7 @@
                                     <td id="crntmonthtotalactive" runat="server">0
                                     </td>
                                 </tr>
-                                <tr style="display: none;">
+                                <tr style="display: none;" runat="server" visible="false">
                                     <td>Current Month Retopup
                                     </td>
                                     <td id="curntmothretopupleft" runat="server">0
@@ -605,7 +605,7 @@
                                     <td id="TdTotalDirectActive" runat="server">0
                                     </td>
                                 </tr>
-                                <tr style="display: none;">
+                                <tr style="display: none;" runat="server" visible="false">
                                     <td>Total Retopup
                                     </td>
                                     <td id="TdLeftTopup" runat="server">0
