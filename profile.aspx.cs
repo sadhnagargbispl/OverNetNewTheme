@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Configuration;
@@ -136,10 +136,26 @@ public partial class profile : System.Web.UI.Page
                 txtFNm.Enabled = string.IsNullOrEmpty(txtFNm.Text);
                 //txtMobileNo.Enabled = txtMobileNo.Text;
                 txtPhNo.Enabled = txtPhNo.Text.Length < 10;
+                txtMobileNo.Enabled = txtMobileNo.Text.Length < 10;
                 txtEMailId.Enabled = string.IsNullOrEmpty(txtEMailId.Text);
                 txtNominee.Enabled = string.IsNullOrEmpty(txtNominee.Text);
                 txtRelation.Enabled = string.IsNullOrEmpty(txtRelation.Text);
+                SetReadOnly(txtFNm);
+                SetReadOnly(txtMobileNo);
+                SetReadOnly(txtPhNo);
+                SetReadOnly(txtEMailId);
+                SetReadOnly(txtNominee);
+                SetReadOnly(txtRelation);
+                // ================= UPDATE BUTTON LOGIC =================
+                bool allFilled =
+                    !string.IsNullOrWhiteSpace(txtFNm.Text) &&
+                    !string.IsNullOrWhiteSpace(txtMobileNo.Text) &&
+                    !string.IsNullOrWhiteSpace(txtPhNo.Text) &&
+                    !string.IsNullOrWhiteSpace(txtEMailId.Text) &&
+                    !string.IsNullOrWhiteSpace(txtNominee.Text) &&
+                    !string.IsNullOrWhiteSpace(txtRelation.Text);
 
+                BtnSubmit.Visible = !allFilled;   // ❌ hide if all filled
                 /*
                 if (idverified == "Y")
                 {
@@ -171,6 +187,11 @@ public partial class profile : System.Web.UI.Page
         }
 
     }
+    private void SetReadOnly(TextBox txt)
+    {
+        txt.ReadOnly = !string.IsNullOrWhiteSpace(txt.Text);
+    }
+
     protected void ddlCountryName_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
@@ -554,7 +575,7 @@ public partial class profile : System.Web.UI.Page
                         Remark += " Relation,";
                     }
 
-                    
+
                     if (ClearInject(dt1.Rows[0]["Acno"].ToString()) != ClearInject(TxtAccountNo.Text))
                     {
                         Remark += " Account No,";

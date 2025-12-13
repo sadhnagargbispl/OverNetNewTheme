@@ -2,7 +2,7 @@
 
 
 <asp:Content ID="content2" ContentPlaceHolderID="head" runat="server">
-        <style type="text/css">
+    <style type="text/css">
         input {
             text-transform: uppercase;
         }
@@ -46,7 +46,7 @@
         <!-- BEGIN PAGE HEADER-->
         <div class="row-fluid">
             <div class="span12">
-              <%--  <h3 class="page-title">Profile </h3>--%>
+                <%--  <h3 class="page-title">Profile </h3>--%>
                 <ul class="breadcrumb">
                     <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
                     <li><a href="#">Profile</a><span class="divider-last">&nbsp;</span></li>
@@ -70,9 +70,9 @@
                                         <a href="javascript:;" class="icon-chevron-down"></a>
                                     </span>
                                 </div>
-                                <div class="widget-body" >
+                                <div class="widget-body">
                                     <div class="form-horizontal">
-                                        
+
                                         <div style="margin-bottom: 30px;">
                                             <span id="ctl00_ContentPlaceHolder1_lblMsg" style="color: #C00000;"></span>
                                         </div>
@@ -84,7 +84,7 @@
                                                 <asp:TextBox ID="txtReferalId" CssClass="input-xxlarge" runat="server" AutoPostBack="True"></asp:TextBox>
                                             </div>
                                         </div>
-                                        <div class="control-group">
+                                        <div class="control-group" style="display: none;">
                                             <label class="control-label ">
                                                 Registration As</label>
                                             <div class="controls">
@@ -126,17 +126,17 @@
                                             <div class="controls">
                                                 <asp:HiddenField ID="hdnidno" runat="server"></asp:HiddenField>
                                                 <asp:TextBox ID="txtFrstNm" CssClass="input-xxlarge validate[custom[onlyLetterNumberChar]]"
-                                                    runat="server" ValidationGroup="eInformation"></asp:TextBox>
+                                                    runat="server" ValidationGroup="eInformation" Enabled="false"></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="control-group " style="display: none;">
-    <label class="control-label">
-        Spouse Name <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
-    <div class="controls">
-        <asp:TextBox ID="txtSpousename" CssClass="input-xxlarge validate[custom[onlyLetterNumberChar]]"
-            runat="server" ValidationGroup="eInformation"></asp:TextBox>
-    </div>
-</div>
+                                            <label class="control-label">
+                                                Spouse Name <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
+                                            <div class="controls">
+                                                <asp:TextBox ID="txtSpousename" CssClass="input-xxlarge validate[custom[onlyLetterNumberChar]]"
+                                                    runat="server" ValidationGroup="eInformation"></asp:TextBox>
+                                            </div>
+                                        </div>
                                         <div class="control-group" id="Div11" runat="server" style="display: none;">
                                             <label class="control-label ">
                                                 Gender <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span>
@@ -171,7 +171,7 @@
 
                                             <div class="controls">
                                                 <div class="span1">
-                                                    <asp:DropDownList CssClass="input-xxlarge" ID="CmbType" runat="server" >
+                                                    <asp:DropDownList CssClass="input-xxlarge" ID="CmbType" runat="server">
                                                         <asp:ListItem Value="S/O" Text="S/O"></asp:ListItem>
                                                         <asp:ListItem Value="W/O" Text="W/O"></asp:ListItem>
                                                         <asp:ListItem Value="C/O" Text="C/O"></asp:ListItem>
@@ -183,22 +183,22 @@
                                             </div>
                                         </div>
                                         <div class="control-group " style="display: none;">
-    <label class="control-label">
-        Mother's Name</label>
+                                            <label class="control-label">
+                                                Mother's Name</label>
 
-    <div class="controls">
-        <%--<div class="span1">
+                                            <div class="controls">
+                                                <%--<div class="span1">
             <asp:DropDownList CssClass="input-xxlarge" ID="DropDownList1" runat="server">
                 <asp:ListItem Value="S/O" Text="S/O"></asp:ListItem>
                 <asp:ListItem Value="W/O" Text="W/O"></asp:ListItem>
                 <asp:ListItem Value="C/O" Text="C/O"></asp:ListItem>
             </asp:DropDownList>
         </div>--%>
-        <asp:TextBox ID="TxtMnm" runat="server" CssClass="input-xxlarge"></asp:TextBox>
-        <div class="col-sm-10" style="padding-left: 0px;">
-        </div>
-    </div>
-</div>
+                                                <asp:TextBox ID="TxtMnm" runat="server" CssClass="input-xxlarge"></asp:TextBox>
+                                                <div class="col-sm-10" style="padding-left: 0px;">
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <div class="control-group " style="display: none;">
                                             <label class="control-label">
@@ -302,7 +302,7 @@
                                                     Format="dd-MM-yyyy"></ajaxToolkit:CalendarExtender>
                                             </div>
                                         </div>
-                                         <div class="control-group  greybt" style="display: none;">
+                                        <div class="control-group  greybt" style="display: none;">
                                             <label class="control-label">
                                                 Date of Marriage</label>
                                             <div class="controls">
@@ -312,7 +312,7 @@
                                             </div>
                                         </div>
                                         <div id="divBankDetail" runat="server">
-                                             <h4>Nominee Detail</h4>
+                                            <h4>Nominee Detail</h4>
                                             <div id="childdiv" runat="server" visible="false" style="display: none;">
                                                 <div class="control-group ">
                                                     <label class="control-label">
@@ -394,7 +394,7 @@
                                                         </asp:RadioButtonList>
                                                     </div>
                                                 </div>
-                                             
+
                                             </div>
                                             <div class="control-group ">
                                                 <label class="control-label">
@@ -412,8 +412,8 @@
                                                         runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
-                                           <%-- <h4>Bank Detail</h4>--%>
-                                            <div class="control-group" style="display:none;">
+                                            <%-- <h4>Bank Detail</h4>--%>
+                                            <div class="control-group" style="display: none;">
                                                 <label class="control-label ">
                                                     Account No.</label>
                                                 <div class="controls">
@@ -421,7 +421,7 @@
                                                         runat="server" MaxLength="16" autocomplete="off"></asp:TextBox>
                                                 </div>
                                             </div>
-                                            <div class="control-group " style="display:none;">
+                                            <div class="control-group " style="display: none;">
                                                 <label class="control-label ">
                                                     Account Type</label>
                                                 <div class="controls">
@@ -432,7 +432,7 @@
                                                     </asp:DropDownList>
                                                 </div>
                                             </div>
-                                            <div class="control-group" style="display:none;">
+                                            <div class="control-group" style="display: none;">
                                                 <label class="control-label ">
                                                     Bank</label>
                                                 <div class="controls">
@@ -448,14 +448,14 @@
                                                     <asp:TextBox ID="TxtBank" CssClass="input-xxlarge" runat="server" autocomplete="off"></asp:TextBox>
                                                 </div>
                                             </div>
-                                            <div class="control-group" style="display:none;">
+                                            <div class="control-group" style="display: none;">
                                                 <label class="control-label ">
                                                     Branch Name</label>
                                                 <div class="controls">
                                                     <asp:TextBox ID="TxtBranchName" CssClass="input-xxlarge" runat="server" autocomplete="off"></asp:TextBox>
                                                 </div>
                                             </div>
-                                            <div class="control-group" style="display:none;">
+                                            <div class="control-group" style="display: none;">
                                                 <label class="control-label ">
                                                     IFSC Code
                                                 </label>
@@ -483,7 +483,7 @@
                                                     autocomplete="off"></asp:TextBox>
                                             </div>
                                         </div>
-                                        <div id="Div22" class="control-group " runat="server" visible="false" >
+                                        <div id="Div22" class="control-group " runat="server" visible="false">
                                             <label class="control-label ">
                                                 PAN No.<span style="color: Red; font-weight: bold; font-size: 1.4em">*</span>
                                             </label>
@@ -502,7 +502,7 @@
                                             <asp:TextBox ID="TxtWalletAddress" CssClass="input-xxlarge validate[required]" runat="server"></asp:TextBox>
                                         </div>
 
-                                        
+
                                         <div class="control-group " runat="server" id="divSendOtp">
                                             <asp:Button ID="BtnSubmit" runat="server" Text="Update" CssClass="btn btn-primary"
                                                 ValidationGroup="eInformation" OnClick="BtnSubmit_Click" />

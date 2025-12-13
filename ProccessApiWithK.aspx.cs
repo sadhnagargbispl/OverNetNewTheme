@@ -4349,15 +4349,16 @@ public partial class ProccessApiWithK : System.Web.UI.Page
     public string EpinDetail(string userid, string passwd, int PkgID, string PType, string FromNo, string ToNo)
     {
         string _Output = "";
+
         try
         {
             bool Bool = UserExists(userid, passwd);
+
             if (Bool == true)
             {
-                DataTable DtCountry = new DataTable();
-                string RecordCount = "0";
                 string col = "";
                 string WhereCondition = "";
+
                 if (PType == "U")
                     WhereCondition = " AND [Status]='Used'";
                 else if (PType == "N")
@@ -4368,43 +4369,45 @@ public partial class ProccessApiWithK : System.Web.UI.Page
 
                 _Output = "{\"epindetail\":[";
 
-                string strQry = "";
-                //_Output += "{\"pinno\":\"" + dr["CardNo"] + "\",\"scratchno\":\"" + dr["ScratchNo"] + "\",\"productname\":\"" + dr["ProductName"] + "\"," +
-                //    "\"issuedate\":\"" + dr["IssuedDate"] + "\",\"epinstatus\":\"" + dr["Status"] + "\",\"usedby\":\"" + dr["UsedBy"] + "\"," +
-                //    "\"mname\":\"" + dr["MemName"] + "\",\"useddate\":\"" + dr["UsedDate"] + "\"},";
-                strQry = "SELECT ROW_NUMBER() OVER(ORDER BY Cardno DESC) AS SNo,CardNo as [Pin No],scratchno as [Scratch No]," +
-                    "productname as [Product Name],IssuedDate as [Issue Date],Status as [Epin Status],UsedBy as [Used By]," +
-                    "MemName as Name,UsedDate as [Used Date] FROM " + ObjDAL.dBName + "..V#EpinStatus WHERE ReqFormNo='" + userid + "'" + WhereCondition;
-                strQry = IsoStart + "SELECT * FROM (" + strQry + ") AS b WHERE SNo >= " + FromNo + " AND SNo <= " + ToNo + IsoEnd;
+                string strQry = "SELECT ROW_NUMBER() OVER(ORDER BY Cardno DESC) AS SNo," +
+                                "CardNo as [Pin No], scratchno as [Scratch No]," +
+                                "productname as [Product Name], IssuedDate as [Issue Date]," +
+                                "Status as [Epin Status], UsedBy as [Used By]," +
+                                "MemName as Name, UsedDate as [Used Date] " +
+                                "FROM " + ObjDAL.dBName + "..V#EpinStatus " +
+                                "WHERE ReqFormNo='" + userid + "'" + WhereCondition;
+
+                strQry = IsoStart + "SELECT * FROM (" + strQry + ") AS b " +
+                         "WHERE SNo >= " + FromNo + " AND SNo <= " + ToNo + IsoEnd;
+
                 DataSet ds1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQry);
                 DataTable dt = new DataTable();
-                if (ds1.Tables[0].Rows.Count > 0)
-                {
+
+                if (ds1.Tables.Count > 0)
                     dt = ds1.Tables[0];
-                }
+
                 foreach (DataRow Dr in dt.Rows)
                 {
                     col = "{";
 
                     foreach (DataColumn column in dt.Columns)
                     {
-                        string value = "";
-
-                        if (Dr[column] == DBNull.Value)
-                            value = "0";
-                        else
-                            value = Dr[column].ToString();
-
+                        string value = Dr[column] == DBNull.Value ? "" : Dr[column].ToString();
                         col += "\"" + column.ColumnName + "\":\"" + value + "\",";
                     }
 
-                    col = col.Remove(col.Length - 1, 1);
+                    col = col.Remove(col.Length - 1, 1); // remove inner comma
                     col += "},";
 
                     _Output += col;
                 }
 
-                _Output = _Output.Remove(_Output.Length - 1, 1);
+                // 🔴 FIX: remove comma ONLY if records exist
+                if (dt.Rows.Count > 0)
+                {
+                    _Output = _Output.Remove(_Output.Length - 1, 1);
+                }
+
                 _Output += "],\"response\":\"OK\",\"msg\":\"Success\"}";
             }
             else
@@ -4414,68 +4417,142 @@ public partial class ProccessApiWithK : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            _Output = "{\"response\":\"FAILED\",\"msg\":\"" + ex.Message + "\"}";
+            _Output = "{\"response\":\"FAILED\",\"msg\":\"" + ex.Message.Replace("\"", "") + "\"}";
         }
 
         return _Output;
-        //string _Output = "";
-        //try
-        //{
-        //    bool Bool = UserExists(userid, passwd);
-        //    string FormNo = GetFormNo(ClearInject(userid));
-
-        //    if (Bool && FormNo != "0")
-        //    {
-        //        string WhereCondition = "";
-
-        //        if (PType == "U")
-        //            WhereCondition = " AND [Status]='Used'";
-        //        else if (PType == "N")
-        //            WhereCondition = " AND [Status]='UnUsed'";
-
-        //        if (PkgID > 0)
-        //            WhereCondition += " AND KitID=" + PkgID;
-
-        //        DataTable dt = new DataTable();
-        //        _Output = "{\"epindetail\": [";
-
-        //        string strQry = IsoStart + "SELECT COUNT(*) FROM " + ObjDAL.dBName + "..V#EpinStatus WHERE ReqFormNo='" + userid + "'" + WhereCondition + IsoEnd;
-        //        Comm = new SqlCommand(strQry, selectConn);
-        //        string RecordCount = Comm.ExecuteScalar().ToString();
-
-        //        strQry = "SELECT ROW_NUMBER() OVER(ORDER BY Cardno DESC) AS SNo, * FROM " + ObjDAL.dBName + "..V#EpinStatus WHERE ReqFormNo='" + userid + "'" + WhereCondition;
-        //        strQry = IsoStart + "SELECT * FROM (" + strQry + ") AS b WHERE SNo >= " + FromNo + " AND SNo <= " + ToNo + IsoEnd;
-
-        //        SqlDataAdapter adp = new SqlDataAdapter(strQry, selectConn);
-        //        adp.Fill(dt);
-
-        //        if (dt.Rows.Count > 0)
-        //        {
-        //            foreach (DataRow dr in dt.Rows)
-        //            {
-        //                _Output += "{\"pinno\":\"" + dr["CardNo"] + "\",\"scratchno\":\"" + dr["ScratchNo"] + "\",\"productname\":\"" + dr["ProductName"] + "\",\"issuedate\":\"" + dr["IssuedDate"] + "\",\"epinstatus\":\"" + dr["Status"] + "\",\"usedby\":\"" + dr["UsedBy"] + "\",\"mname\":\"" + dr["MemName"] + "\",\"useddate\":\"" + dr["UsedDate"] + "\"},";
-        //            }
-        //            // Remove trailing comma
-        //            _Output = _Output.Remove(_Output.Length - 1, 1);
-        //        }
-
-        //        _Output += "],\"recordcount\":\"" + Convert.ToString(RecordCount) + "\",\"response\":\"OK\"}";
-        //        if (Comm != null) Comm.Cancel();
-        //    }
-        //    else
-        //    {
-        //        _Output = "{\"response\":\"FAILED\",\"msg\":\"Invalid Login Details.\"}";
-        //    }
-
-        //    if (Comm != null) Comm.Cancel();
-        //}
-        //catch (Exception ex)
-        //{
-        //    _Output = "{\"response\":\"FAILED\"}";
-        //}
-
-        //return _Output;
     }
+
+    //public string EpinDetail(string userid, string passwd, int PkgID, string PType, string FromNo, string ToNo)
+    //{
+    //    string _Output = "";
+    //    try
+    //    {
+    //        bool Bool = UserExists(userid, passwd);
+    //        if (Bool == true)
+    //        {
+    //            DataTable DtCountry = new DataTable();
+    //            string RecordCount = "0";
+    //            string col = "";
+    //            string WhereCondition = "";
+    //            if (PType == "U")
+    //                WhereCondition = " AND [Status]='Used'";
+    //            else if (PType == "N")
+    //                WhereCondition = " AND [Status]='UnUsed'";
+
+    //            if (PkgID > 0)
+    //                WhereCondition += " AND KitID=" + PkgID;
+
+    //            _Output = "{\"epindetail\":[";
+
+    //            string strQry = "";
+    //            //_Output += "{\"pinno\":\"" + dr["CardNo"] + "\",\"scratchno\":\"" + dr["ScratchNo"] + "\",\"productname\":\"" + dr["ProductName"] + "\"," +
+    //            //    "\"issuedate\":\"" + dr["IssuedDate"] + "\",\"epinstatus\":\"" + dr["Status"] + "\",\"usedby\":\"" + dr["UsedBy"] + "\"," +
+    //            //    "\"mname\":\"" + dr["MemName"] + "\",\"useddate\":\"" + dr["UsedDate"] + "\"},";
+    //            strQry = "SELECT ROW_NUMBER() OVER(ORDER BY Cardno DESC) AS SNo,CardNo as [Pin No],scratchno as [Scratch No]," +
+    //                "productname as [Product Name],IssuedDate as [Issue Date],Status as [Epin Status],UsedBy as [Used By]," +
+    //                "MemName as Name,UsedDate as [Used Date] FROM " + ObjDAL.dBName + "..V#EpinStatus WHERE ReqFormNo='" + userid + "'" + WhereCondition;
+    //            strQry = IsoStart + "SELECT * FROM (" + strQry + ") AS b WHERE SNo >= " + FromNo + " AND SNo <= " + ToNo + IsoEnd;
+    //            DataSet ds1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQry);
+    //            DataTable dt = new DataTable();
+    //            if (ds1.Tables[0].Rows.Count > 0)
+    //            {
+    //                dt = ds1.Tables[0];
+    //            }
+    //            foreach (DataRow Dr in dt.Rows)
+    //            {
+    //                col = "{";
+
+    //                foreach (DataColumn column in dt.Columns)
+    //                {
+    //                    string value = "";
+
+    //                    if (Dr[column] == DBNull.Value)
+    //                        value = "0";
+    //                    else
+    //                        value = Dr[column].ToString();
+
+    //                    col += "\"" + column.ColumnName + "\":\"" + value + "\",";
+    //                }
+
+    //                col = col.Remove(col.Length - 1, 1);
+    //                col += "},";
+
+    //                _Output += col;
+    //            }
+
+    //            _Output = _Output.Remove(_Output.Length - 1, 1);
+    //            _Output += "],\"response\":\"OK\",\"msg\":\"Success\"}";
+    //        }
+    //        else
+    //        {
+    //            _Output = "{\"response\":\"FAILED\",\"msg\":\"Invalid Login Details.\"}";
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        _Output = "{\"response\":\"FAILED\",\"msg\":\"" + ex.Message + "\"}";
+    //    }
+
+    //    return _Output;
+    //    //string _Output = "";
+    //    //try
+    //    //{
+    //    //    bool Bool = UserExists(userid, passwd);
+    //    //    string FormNo = GetFormNo(ClearInject(userid));
+
+    //    //    if (Bool && FormNo != "0")
+    //    //    {
+    //    //        string WhereCondition = "";
+
+    //    //        if (PType == "U")
+    //    //            WhereCondition = " AND [Status]='Used'";
+    //    //        else if (PType == "N")
+    //    //            WhereCondition = " AND [Status]='UnUsed'";
+
+    //    //        if (PkgID > 0)
+    //    //            WhereCondition += " AND KitID=" + PkgID;
+
+    //    //        DataTable dt = new DataTable();
+    //    //        _Output = "{\"epindetail\": [";
+
+    //    //        string strQry = IsoStart + "SELECT COUNT(*) FROM " + ObjDAL.dBName + "..V#EpinStatus WHERE ReqFormNo='" + userid + "'" + WhereCondition + IsoEnd;
+    //    //        Comm = new SqlCommand(strQry, selectConn);
+    //    //        string RecordCount = Comm.ExecuteScalar().ToString();
+
+    //    //        strQry = "SELECT ROW_NUMBER() OVER(ORDER BY Cardno DESC) AS SNo, * FROM " + ObjDAL.dBName + "..V#EpinStatus WHERE ReqFormNo='" + userid + "'" + WhereCondition;
+    //    //        strQry = IsoStart + "SELECT * FROM (" + strQry + ") AS b WHERE SNo >= " + FromNo + " AND SNo <= " + ToNo + IsoEnd;
+
+    //    //        SqlDataAdapter adp = new SqlDataAdapter(strQry, selectConn);
+    //    //        adp.Fill(dt);
+
+    //    //        if (dt.Rows.Count > 0)
+    //    //        {
+    //    //            foreach (DataRow dr in dt.Rows)
+    //    //            {
+    //    //                _Output += "{\"pinno\":\"" + dr["CardNo"] + "\",\"scratchno\":\"" + dr["ScratchNo"] + "\",\"productname\":\"" + dr["ProductName"] + "\",\"issuedate\":\"" + dr["IssuedDate"] + "\",\"epinstatus\":\"" + dr["Status"] + "\",\"usedby\":\"" + dr["UsedBy"] + "\",\"mname\":\"" + dr["MemName"] + "\",\"useddate\":\"" + dr["UsedDate"] + "\"},";
+    //    //            }
+    //    //            // Remove trailing comma
+    //    //            _Output = _Output.Remove(_Output.Length - 1, 1);
+    //    //        }
+
+    //    //        _Output += "],\"recordcount\":\"" + Convert.ToString(RecordCount) + "\",\"response\":\"OK\"}";
+    //    //        if (Comm != null) Comm.Cancel();
+    //    //    }
+    //    //    else
+    //    //    {
+    //    //        _Output = "{\"response\":\"FAILED\",\"msg\":\"Invalid Login Details.\"}";
+    //    //    }
+
+    //    //    if (Comm != null) Comm.Cancel();
+    //    //}
+    //    //catch (Exception ex)
+    //    //{
+    //    //    _Output = "{\"response\":\"FAILED\"}";
+    //    //}
+
+    //    //return _Output;
+    //}
     public string Packagelist(string userid, string passwd)
     {
         string _Output = "";
@@ -5822,8 +5899,8 @@ public partial class ProccessApiWithK : System.Web.UI.Page
     {
         try
         {
-            string query = IsoStart + "Select * from " + ObjDAL.dBName + "..M_AppUser " +
-                           "where UserId='" + userId + "' And Otp='" + passwd + "' and ActiveStatus='Y'" + IsoEnd;
+            string query = IsoStart + "Select * from " + ObjDAL.dBName + "..m_membermaster " +
+                           "where idno = '" + userId + "' And passw = '" + passwd + "' " + IsoEnd;
 
             using (SqlCommand comm = new SqlCommand(query, selectConn))
             using (SqlDataReader dr = comm.ExecuteReader())

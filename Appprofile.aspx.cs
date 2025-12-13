@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Configuration;
@@ -58,7 +58,7 @@ public partial class Appprofile : System.Web.UI.Page
                 }
             }
 
-           
+
         }
         catch (Exception ex)
         {
@@ -139,27 +139,23 @@ public partial class Appprofile : System.Web.UI.Page
                 txtEMailId.Enabled = string.IsNullOrEmpty(txtEMailId.Text);
                 txtNominee.Enabled = string.IsNullOrEmpty(txtNominee.Text);
                 txtRelation.Enabled = string.IsNullOrEmpty(txtRelation.Text);
+                SetReadOnly(txtFNm);
+                SetReadOnly(txtMobileNo);
+                SetReadOnly(txtPhNo);
+                SetReadOnly(txtEMailId);
+                SetReadOnly(txtNominee);
+                SetReadOnly(txtRelation);
+                // ================= UPDATE BUTTON LOGIC =================
+                bool allFilled =
+                    !string.IsNullOrWhiteSpace(txtFNm.Text) &&
+                    !string.IsNullOrWhiteSpace(txtMobileNo.Text) &&
+                    !string.IsNullOrWhiteSpace(txtPhNo.Text) &&
+                    !string.IsNullOrWhiteSpace(txtEMailId.Text) &&
+                    !string.IsNullOrWhiteSpace(txtNominee.Text) &&
+                    !string.IsNullOrWhiteSpace(txtRelation.Text);
 
-                /*
-                if (idverified == "Y")
-                {
-                    TxtBank.Enabled = false;
-                    TxtBranchName.Enabled = false;
-                    TxtAccountNo.Enabled = false;
-                    DDLAccountType.Enabled = false;
-                    CmbBank.Enabled = false;
-                    txtIfsCode.Enabled = false;
-                }
-                else
-                {
-                    TxtBank.Enabled = true;
-                    TxtBranchName.Enabled = true;
-                    TxtAccountNo.Enabled = true;
-                    DDLAccountType.Enabled = true;
-                    CmbBank.Enabled = true;
-                    txtIfsCode.Enabled = true;
-                }
-                */
+                BtnSubmit.Visible = !allFilled;   // ❌ hide if all filled
+
             }
         }
         catch (Exception ex)
@@ -171,6 +167,11 @@ public partial class Appprofile : System.Web.UI.Page
         }
 
     }
+    private void SetReadOnly(TextBox txt)
+    {
+        txt.ReadOnly = !string.IsNullOrWhiteSpace(txt.Text);
+    }
+
     protected void ddlCountryName_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
@@ -554,7 +555,7 @@ public partial class Appprofile : System.Web.UI.Page
                         Remark += " Relation,";
                     }
 
-                    
+
                     if (ClearInject(dt1.Rows[0]["Acno"].ToString()) != ClearInject(TxtAccountNo.Text))
                     {
                         Remark += " Account No,";
@@ -602,7 +603,7 @@ public partial class Appprofile : System.Web.UI.Page
                 Qry += sqlUpdate;
                 int i = Obj.SaveData(Qry);
                 string message = (i != 0) ? "Profile Successfully Updated.!" : "Try Again Later.!";
-                string url = "Profile.aspx";
+                string url = "Appprofile.aspx";
                 string script = "window.onload = function(){ alert('" + message + "'); window.location = '" + url + "'; }";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", script, true);
 

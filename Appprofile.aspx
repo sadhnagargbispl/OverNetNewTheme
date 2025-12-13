@@ -112,7 +112,7 @@
                                     <div class="controls">
                                         <asp:HiddenField ID="hdnidno" runat="server"></asp:HiddenField>
                                         <asp:TextBox ID="txtFrstNm" CssClass="input-xxlarge validate[custom[onlyLetterNumberChar]]"
-                                            runat="server" ValidationGroup="eInformation"></asp:TextBox>
+                                            runat="server" ValidationGroup="eInformation" Enabled="false"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="control-group " style="display: none;" runat="server" visible="false">
@@ -127,7 +127,7 @@
                                     <label class="control-label ">
                                         Gender <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span>
                                     </label>
-                                   <div class="custom-radio">
+                                    <div class="custom-radio">
                                         <asp:RadioButtonList ID="RBTtype" runat="server" RepeatColumns="4" RepeatDirection="Horizontal"
                                             autocomplete="off" TabIndex="3">
                                             <asp:ListItem Text="Male" Value="M" Selected="True"></asp:ListItem>
