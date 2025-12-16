@@ -104,8 +104,8 @@ public partial class Appprofile : System.Web.UI.Page
                 txtFrstNm.Text = dt.Rows[0]["MemName"].ToString();
                 lblPosition.Text = Convert.ToInt32(dt.Rows[0]["LegNo"]) == 1 ? "Left" : "Right";
                 txtFNm.Text = dt.Rows[0]["MemFname"].ToString();
-
-                // DOB
+                TxtAccountNo.Text = dt.Rows[0]["acno"].ToString();
+                TxtAadharNo.Text = dt.Rows[0]["IdProofNo"].ToString();
                 TxtDobDate.Text = Convert.ToDateTime(dt.Rows[0]["MemDob"]).ToString("dd-MMM-yyyy");
                 if (TxtDobDate.Text == "01-Jan-1940")
                 {
@@ -131,30 +131,35 @@ public partial class Appprofile : System.Web.UI.Page
 
                 txtNominee.Text = dt.Rows[0]["NomineeName"].ToString();
                 txtRelation.Text = dt.Rows[0]["Relation"].ToString();
-
-                // Enable/Disable controls based on values
-                txtFNm.Enabled = string.IsNullOrEmpty(txtFNm.Text);
-                //txtMobileNo.Enabled = txtMobileNo.Text;
-                txtPhNo.Enabled = txtPhNo.Text.Length < 10;
-                txtEMailId.Enabled = string.IsNullOrEmpty(txtEMailId.Text);
-                txtNominee.Enabled = string.IsNullOrEmpty(txtNominee.Text);
-                txtRelation.Enabled = string.IsNullOrEmpty(txtRelation.Text);
-                SetReadOnly(txtFNm);
+                txtMobileNo.Enabled = txtMobileNo.Text.Length < 10;
+                TxtAadharNo.Enabled = string.IsNullOrEmpty(TxtAadharNo.Text);
+                TxtAccountNo.Enabled = string.IsNullOrEmpty(TxtAccountNo.Text);
                 SetReadOnly(txtMobileNo);
-                SetReadOnly(txtPhNo);
-                SetReadOnly(txtEMailId);
-                SetReadOnly(txtNominee);
-                SetReadOnly(txtRelation);
-                // ================= UPDATE BUTTON LOGIC =================
-                bool allFilled =
-                    !string.IsNullOrWhiteSpace(txtFNm.Text) &&
-                    !string.IsNullOrWhiteSpace(txtMobileNo.Text) &&
-                    !string.IsNullOrWhiteSpace(txtPhNo.Text) &&
-                    !string.IsNullOrWhiteSpace(txtEMailId.Text) &&
-                    !string.IsNullOrWhiteSpace(txtNominee.Text) &&
-                    !string.IsNullOrWhiteSpace(txtRelation.Text);
+                SetReadOnly(TxtAccountNo);
+                SetReadOnly(TxtAadharNo);
+                //// Enable/Disable controls based on values
+                //txtFNm.Enabled = string.IsNullOrEmpty(txtFNm.Text);
+                ////txtMobileNo.Enabled = txtMobileNo.Text;
+                //txtPhNo.Enabled = txtPhNo.Text.Length < 10;
+                //txtEMailId.Enabled = string.IsNullOrEmpty(txtEMailId.Text);
+                //txtNominee.Enabled = string.IsNullOrEmpty(txtNominee.Text);
+                //txtRelation.Enabled = string.IsNullOrEmpty(txtRelation.Text);
+                //SetReadOnly(txtFNm);
+                //SetReadOnly(txtMobileNo);
+                //SetReadOnly(txtPhNo);
+                //SetReadOnly(txtEMailId);
+                //SetReadOnly(txtNominee);
+                //SetReadOnly(txtRelation);
+                //// ================= UPDATE BUTTON LOGIC =================
+                //bool allFilled =
+                //    !string.IsNullOrWhiteSpace(txtFNm.Text) &&
+                //    !string.IsNullOrWhiteSpace(txtMobileNo.Text) &&
+                //    !string.IsNullOrWhiteSpace(txtPhNo.Text) &&
+                //    !string.IsNullOrWhiteSpace(txtEMailId.Text) &&
+                //    !string.IsNullOrWhiteSpace(txtNominee.Text) &&
+                //    !string.IsNullOrWhiteSpace(txtRelation.Text);
 
-                BtnSubmit.Visible = !allFilled;   // ❌ hide if all filled
+                //BtnSubmit.Visible = !allFilled;   // ❌ hide if all filled
 
             }
         }
@@ -582,15 +587,19 @@ public partial class Appprofile : System.Web.UI.Page
                     Remark += " Changed";
                 }
                 string sqlUpdate = "UPDATE M_MemberMaster SET " +
-                                   "MemFirstName = '" + ClearInject(txtFrstNm.Text.ToUpper()) + "', " +
-                                   "MemFName = '" + ClearInject(txtFNm.Text.ToUpper()) + "', " +
-                                   "MemDOB = '" + Convert.ToDateTime(strDOB).ToString("dd-MMM-yyyy") + "', " +
-                                   "PhN1 = '" + ClearInject(txtPhNo.Text) + "', " +
-                                   "Mobl = '" + ClearInject(txtMobileNo.Text) + "', " +
-                                   "EMail = '" + ClearInject(txtEMailId.Text) + "', " +
-                                   "NomineeName = '" + ClearInject(txtNominee.Text.ToUpper()) + "', " +
-                                   "Relation = '" + ClearInject(txtRelation.Text.ToUpper()) + "' " +
-                                   "WHERE FormNo = " + Session["formno"];
+                                  "MemFirstName = '" + ClearInject(txtFrstNm.Text.ToUpper()) + "', " +
+                                  "MemFName = '" + ClearInject(txtFNm.Text.ToUpper()) + "', " +
+                                  "MemDOB = '" + Convert.ToDateTime(strDOB).ToString("dd-MMM-yyyy") + "', " +
+                                  "PhN1 = '" + ClearInject(txtPhNo.Text) + "', " +
+                                  "Mobl = '" + ClearInject(txtMobileNo.Text) + "', " +
+                                  "EMail = '" + ClearInject(txtEMailId.Text) + "', " +
+                                  "NomineeName = '" + ClearInject(txtNominee.Text.ToUpper()) + "', " +
+                                  "Relation = '" + ClearInject(txtRelation.Text.ToUpper()) + "', " +
+                                  "Acno = '" + ClearInject(TxtAccountNo.Text) + "' " +
+                                  "WHERE FormNo = " + Session["FormNo"];
+                sqlUpdate += ";UPDATE kycverify SET " +
+                                  "IdProofNo = '" + ClearInject(TxtAadharNo.Text.ToUpper()) + "' " +
+                                  "WHERE FormNo = " + Session["FormNo"];
                 // Backup and history insert
                 string Qry = "INSERT INTO TempMemberMaster " +
                              "SELECT *, 'Update Profile - " + Context.Request.UserHostAddress.ToString() + "', GETDATE(), 'U' " +

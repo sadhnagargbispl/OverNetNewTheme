@@ -156,7 +156,7 @@
                                         Father's Name</label>
 
                                     <div class="controls">
-                                        <div class="span1">
+                                        <div class="span1" runat="server" visible="false">
                                             <asp:DropDownList CssClass="input-xxlarge" ID="CmbType" runat="server">
                                                 <asp:ListItem Value="S/O" Text="S/O"></asp:ListItem>
                                                 <asp:ListItem Value="W/O" Text="W/O"></asp:ListItem>
@@ -254,7 +254,7 @@
                                         Mobile No. <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
                                     <div class="controls">
 
-                                        <div class="span1">
+                                        <div class="span1" runat="server" visible="false">
 
                                             <asp:TextBox ID="ddlCountry" CssClass="input-xxlarge"
                                                 runat="server" MaxLength="10" ReadOnly="true"></asp:TextBox>
@@ -277,6 +277,22 @@
                                         E-Mail ID <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
                                     <div class="controls">
                                         <asp:TextBox ID="txtEMailId" CssClass="input-xxlarge validate[custom[email]]" runat="server"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label ">
+                                        Account No.<span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
+                                    <div class="controls">
+                                        <asp:TextBox ID="TxtAccountNo" onkeypress="return isNumberKey(event);" CssClass="input-xxlarge"
+                                            runat="server" MaxLength="16" autocomplete="off"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label ">
+                                        Aadhar No.<span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
+                                    <div class="controls">
+                                        <asp:TextBox ID="TxtAadharNo" onkeypress="return isNumberKey(event);" CssClass="input-xxlarge"
+                                            runat="server" MaxLength="16" autocomplete="off"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="control-group  greybt" style="display: none;" runat="server" visible="false">
@@ -399,14 +415,7 @@
                                         </div>
                                     </div>
                                     <%-- <h4>Bank Detail</h4>--%>
-                                    <div class="control-group" style="display: none;" runat="server" visible="false">
-                                        <label class="control-label ">
-                                            Account No.</label>
-                                        <div class="controls">
-                                            <asp:TextBox ID="TxtAccountNo" onkeypress="return isNumberKey(event);" CssClass="input-xxlarge"
-                                                runat="server" MaxLength="16" autocomplete="off"></asp:TextBox>
-                                        </div>
-                                    </div>
+
                                     <div class="control-group " style="display: none;" runat="server" visible="false">
                                         <label class="control-label ">
                                             Account Type</label>

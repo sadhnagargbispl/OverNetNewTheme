@@ -42,7 +42,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="span3" style="display: none">
+                                            <div class="span3">
 
                                                 <div class="control-group">
                                                     <label class="control-label">

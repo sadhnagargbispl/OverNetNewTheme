@@ -170,7 +170,7 @@
                                                 Father's Name</label>
 
                                             <div class="controls">
-                                                <div class="span1">
+                                                <div class="span1" style="display: none;">
                                                     <asp:DropDownList CssClass="input-xxlarge" ID="CmbType" runat="server">
                                                         <asp:ListItem Value="S/O" Text="S/O"></asp:ListItem>
                                                         <asp:ListItem Value="W/O" Text="W/O"></asp:ListItem>
@@ -187,13 +187,7 @@
                                                 Mother's Name</label>
 
                                             <div class="controls">
-                                                <%--<div class="span1">
-            <asp:DropDownList CssClass="input-xxlarge" ID="DropDownList1" runat="server">
-                <asp:ListItem Value="S/O" Text="S/O"></asp:ListItem>
-                <asp:ListItem Value="W/O" Text="W/O"></asp:ListItem>
-                <asp:ListItem Value="C/O" Text="C/O"></asp:ListItem>
-            </asp:DropDownList>
-        </div>--%>
+                                               
                                                 <asp:TextBox ID="TxtMnm" runat="server" CssClass="input-xxlarge"></asp:TextBox>
                                                 <div class="col-sm-10" style="padding-left: 0px;">
                                                 </div>
@@ -268,7 +262,7 @@
                                                 Mobile No. <span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
                                             <div class="controls">
 
-                                                <div class="span1">
+                                                <div class="span1" style="display: none;">
 
                                                     <asp:TextBox ID="ddlCountry" CssClass="input-xxlarge"
                                                         runat="server" MaxLength="10" ReadOnly="true"></asp:TextBox>
@@ -309,6 +303,22 @@
                                                 <asp:TextBox ID="txtdmarriage" CssClass="input-xxlarge" runat="server"></asp:TextBox>
                                                 <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtdmarriage"
                                                     Format="dd-MM-yyyy"></ajaxToolkit:CalendarExtender>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label ">
+                                                Account No.<span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
+                                            <div class="controls">
+                                                <asp:TextBox ID="TxtAccountNo" onkeypress="return isNumberKey(event);" CssClass="input-xxlarge"
+                                                    runat="server" MaxLength="16" autocomplete="off"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label ">
+                                                Aadhar No.<span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
+                                            <div class="controls">
+                                                <asp:TextBox ID="TxtAadharNo" onkeypress="return isNumberKey(event);" CssClass="input-xxlarge"
+                                                    runat="server" MaxLength="16" autocomplete="off"></asp:TextBox>
                                             </div>
                                         </div>
                                         <div id="divBankDetail" runat="server">
@@ -413,14 +423,7 @@
                                                 </div>
                                             </div>
                                             <%-- <h4>Bank Detail</h4>--%>
-                                            <div class="control-group" style="display: none;">
-                                                <label class="control-label ">
-                                                    Account No.</label>
-                                                <div class="controls">
-                                                    <asp:TextBox ID="TxtAccountNo" onkeypress="return isNumberKey(event);" CssClass="input-xxlarge"
-                                                        runat="server" MaxLength="16" autocomplete="off"></asp:TextBox>
-                                                </div>
-                                            </div>
+
                                             <div class="control-group " style="display: none;">
                                                 <label class="control-label ">
                                                     Account Type</label>

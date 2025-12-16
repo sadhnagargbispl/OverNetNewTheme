@@ -88,15 +88,17 @@ public partial class MonthlyStatement : System.Web.UI.Page
         {
             DataSet Ds = new DataSet();
             string strquery = string.Empty;
-            strquery = Objdal.Isostart  + " Exec sp_LoadTeamNewUpdateUpdate '" + Session["FormNo"].ToString() + "' " + Objdal.IsoEnd;
+            strquery = Objdal.Isostart  + " Exec sp_MyDownlineInfo1 '" + Session["FormNo"].ToString() + "','" + Convert.ToInt32(Request["PayoutNo"]) + "' " + Objdal.IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strquery);
             Session["LoadTeam"] = Ds;
-            if (Ds.Tables[7].Rows.Count > 0)
+            if (Ds.Tables[0].Rows.Count > 0)
             {
-                LeftPV.InnerText = Ds.Tables[7].Rows[0]["PVSL"].ToString();
-                RightPV.InnerText = Ds.Tables[7].Rows[0]["PVSR"].ToString();
-                TotalPVV.InnerText = (Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSL"]) + Convert.ToDecimal(Ds.Tables[7].Rows[0]["PVSR"])).ToString();
-
+                LeftPV.InnerText = Ds.Tables[0].Rows[0]["PVSL"].ToString();
+                RightPV.InnerText = Ds.Tables[0].Rows[0]["PVSR"].ToString();
+                TotalPVV.InnerText = (Convert.ToDecimal(Ds.Tables[0].Rows[0]["PVSL"]) + Convert.ToDecimal(Ds.Tables[0].Rows[0]["PVSR"])).ToString();
+                LeftJoin.InnerText = Ds.Tables[0].Rows[0]["CrntmonthLeftjoin"].ToString();
+                RightJoin.InnerText = Ds.Tables[0].Rows[0]["CrntmonthRightjoin"].ToString();
+                TotalJoin.InnerText = (Convert.ToDecimal(Ds.Tables[0].Rows[0]["CrntmonthLeftjoin"]) + Convert.ToDecimal(Ds.Tables[0].Rows[0]["CrntmonthRightjoin"])).ToString();
             }
         }
         catch (Exception ex)

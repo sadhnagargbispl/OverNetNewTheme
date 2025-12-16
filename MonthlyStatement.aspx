@@ -433,7 +433,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="td_heading">Monthly Business
+                                <td colspan="2" class="td_heading">Monthly Detail
                                 </td>
                             </tr>
                             <tr>
@@ -459,7 +459,26 @@
                                                 <strong id="TotalPVV" runat="server">0</strong>
                                             </td>
                                         </tr>
-
+                                        <tr>
+                                            <td width="20%" align="center" style="color: Black" class="rounded_colhead">
+                                                <strong>LEFT Registration</strong>
+                                            </td>
+                                            <td width="10%" align="center" style="color: Black" class="rounded_colhead">
+                                                <strong id="LeftJoin" runat="server">0</strong>
+                                            </td>
+                                            <td width="20%" align="center" style="color: Black" class="rounded_colhead">
+                                                <strong>RIGHT Registration</strong>
+                                            </td>
+                                            <td width="10%" align="center" style="color: Black" class="rounded_colhead">
+                                                <strong id="RightJoin" runat="server">0</strong>
+                                            </td>
+                                            <td width="20%" align="center" style="color: Black" class="rounded_colhead">
+                                                <strong>TOTAL Registration</strong>
+                                            </td>
+                                            <td width="10%" align="center" style="color: Black" class="rounded_colhead">
+                                                <strong id="TotalJoin" runat="server">0</strong>
+                                            </td>
+                                        </tr>
                                     </table>
                                 </td>
                             </tr>

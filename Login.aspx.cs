@@ -23,21 +23,11 @@ public partial class Login : System.Web.UI.Page
     DAL ObjDal = new DAL();
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
-
     {
         //Session["Status"] = "";
         try
         {
-            if (Application["WebStatus"] != null)
-            {
-                if ((string)Application["WebStatus"] == "N")
-                {
-                    Session.Abandon();
-                    Response.Write("<big><b>" + Application["WebMessage"] + "</b></big>");
-                    Response.End();
-                    return;
-                }
-            }
+
             getData();
             string strURL = HttpContext.Current.Request.Url.AbsoluteUri;
             string url = "";
@@ -288,8 +278,10 @@ public partial class Login : System.Web.UI.Page
                 dt = ds.Tables[0];
                 if (dt.Rows.Count == 0)
                 {
-                    scrname = "<script language='javascript'>alert('Please Enter valid UserName or Password.');</script>";
-                    ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "Login Error", scrname, false);
+                    string message = "Please Logout And Login Again To Continue.!";
+                    string url = "Applogout.aspx";
+                    string script = "window.onload = function(){ alert('" + message + "'); window.location = '" + url + "'; }";
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "Redirect", script, true);
                 }
                 else
                 {

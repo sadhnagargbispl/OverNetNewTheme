@@ -117,7 +117,7 @@ public partial class AppTree : System.Web.UI.Page
     {
         try
         {
-            Response.Redirect("Index.aspx");
+            Response.Redirect("AppDashboard.aspx");
         }
         catch (Exception ex)
         {
@@ -155,7 +155,7 @@ public partial class AppTree : System.Web.UI.Page
                 {
                     //Response.Write("Please Check DownLine Member ID");
                     //Response.End();
-                    scrname = "<SCRIPT language='javascript'>alert('Please Check DownLine Member ID');location.replace('index.aspx');</SCRIPT>";
+                    scrname = "<SCRIPT language='javascript'>alert('Please Check DownLine Member ID');location.replace('AppDashboard.aspx');</SCRIPT>";
                     ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "Login Error", scrname, false);
                     return;
                 }
@@ -176,7 +176,7 @@ public partial class AppTree : System.Web.UI.Page
                 // BtnStepAbove.Enabled = False
                 //Response.Write("Sorry!! You can't see your upliner tree.");
                 //Response.End();
-                scrname = "<SCRIPT language='javascript'>alert('Sorry!! You can't see your upliner tree.');location.replace('index.aspx');</SCRIPT>";
+                scrname = "<SCRIPT language='javascript'>alert('Sorry!! You can't see your upliner tree.');location.replace('AppDashboard.aspx');</SCRIPT>";
                 ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "Login Error", scrname, false);
                 return;
             }
