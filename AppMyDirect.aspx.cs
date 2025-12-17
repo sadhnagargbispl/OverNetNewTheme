@@ -139,7 +139,7 @@ public partial class AppMyDirect : System.Web.UI.Page
         {
             DataTable dt = new DataTable();
             DataSet Ds = new DataSet();
-            string strSql = ObjDAL.Isostart + " Select * from " + ObjDAL.dBName + "..V#ReferalDownlineinfo where Formno=" + Session["formno"] + " " + ObjDAL.IsoEnd;
+            string strSql = ObjDAL.Isostart + " Select * from " + ObjDAL.dBName + "..V#ReferalDownlineInfoUpdate where Formno=" + Session["formno"] + " " + ObjDAL.IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = Ds.Tables[0];
 

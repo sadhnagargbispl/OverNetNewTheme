@@ -80,19 +80,19 @@
                                 <br />
                                 <br />
                                 <div class="wallet-table-wrapper">
-                                    <table id="table" class="table table-bordered table-striped">
+                                    <table id="table" class="table table-bordered">
                                         <tbody>
                                             <tr>
-                                                <th></th>
-                                                <th style="text-align: center;">Direct
+                                                <th style="text-align: center"></th>
+                                                <th style="text-align: center">Left
                                                 </th>
-                                                <th style="text-align: center">Indirect
+                                                <th style="text-align: center">Right
                                                 </th>
                                                 <th style="text-align: center">Total
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <td>Joining
+                                                <td style="text-align: center">Total Direct
                                                 </td>
                                                 <td id="tdDirectleft" runat="server" style="text-align: center">0
                                                 </td>
@@ -101,9 +101,9 @@
                                                 <td id="TotalDirect" runat="server" style="text-align: center">0
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>Active
-                                                </td>
+                                            <tr runat="server" visible="false">
+                                                <th>Active Direct
+                                                </th>
                                                 <td id="tddirectActive" runat="server" style="text-align: center">0
                                                 </td>
                                                 <td id="tdindirectActive" runat="server" style="text-align: center">0
@@ -111,9 +111,10 @@
                                                 <td id="TotalActive" runat="server" style="text-align: center">0
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>Total Business
-                                                </td>
+                                            <tr runat="server" visible="false">
+                                                <th>Direct BV
+                   
+                                                </th>
                                                 <td id="Directunit" runat="server" style="text-align: center">0
                                                 </td>
                                                 <td id="indirectunit" runat="server" style="text-align: center">0
